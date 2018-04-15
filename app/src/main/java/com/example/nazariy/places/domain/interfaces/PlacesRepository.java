@@ -8,8 +8,6 @@ import io.reactivex.Observable;
 
 public interface PlacesRepository {
 
-    Observable<PlaceResult> getPlaces();
-
     Observable<PlaceResult> getPlaces(int radius, int minPrice, int maxPrice, boolean isOpened);
 
     Observable<PlaceResult> sortBy(@SortType String sortType);

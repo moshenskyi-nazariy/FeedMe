@@ -1,6 +1,7 @@
 package com.example.nazariy.places.domain.usecases;
 
 
+import com.example.nazariy.places.domain.entities.SortType;
 import com.example.nazariy.places.domain.entities.place_result.PlaceResult;
 import com.example.nazariy.places.domain.interfaces.PlacesRepository;
 
@@ -12,23 +13,26 @@ public class GetPlaces extends UseCase<PlaceResult> {
     private int minPrice;
     private int maxPrice;
     private boolean isOpened;
+    @SortType
+    private String sortType;
 
     public GetPlaces(PlacesRepository placesRepository) {
         this.placesRepository = placesRepository;
     }
 
     private GetPlaces(PlacesRepository placesRepository, int radius, int minPrice, int maxPrice,
-                     boolean isOpened) {
+                     boolean isOpened, @SortType String sortType) {
         this.placesRepository = placesRepository;
         this.radius = radius;
         this.minPrice = minPrice;
         this.maxPrice = maxPrice;
         this.isOpened = isOpened;
+        this.sortType = sortType;
     }
 
     @Override
     public Observable<PlaceResult> createObservable() {
-        return placesRepository.getPlaces(radius, minPrice, maxPrice, isOpened);
+        return placesRepository.getPlaces(radius, minPrice, maxPrice, isOpened, sortType);
     }
 
     public PlacesRepository getPlacesRepository() {
@@ -71,41 +75,46 @@ public class GetPlaces extends UseCase<PlaceResult> {
         isOpened = opened;
     }
 
+    public void setSortType(@SortType String sortType) {
+        this.sortType = sortType;
+    }
+
     public static class PlaceBuilder {
         private PlacesRepository placesRepository;
         private int radius;
         private int minPrice;
         private int maxPrice;
         private boolean isOpened;
+        @SortType
+        private String sortType;
 
         public GetPlaces createUseCase() {
-            return new GetPlaces(placesRepository, radius, minPrice, maxPrice, isOpened);
+            return new GetPlaces(placesRepository, radius, minPrice, maxPrice, isOpened, sortType);
         }
 
-        public PlaceBuilder setPlacesRepository(PlacesRepository placesRepository) {
+        public void setPlacesRepository(PlacesRepository placesRepository) {
             this.placesRepository = placesRepository;
-            return this;
         }
 
 
-        public PlaceBuilder setRadius(int radius) {
+        public void setRadius(int radius) {
             this.radius = radius;
-            return this;
         }
 
-        public PlaceBuilder setMinPrice(int minPrice) {
+        public void setMinPrice(int minPrice) {
             this.minPrice = minPrice;
-            return this;
         }
 
-        public PlaceBuilder setMaxPrice(int maxPrice) {
+        public void setMaxPrice(int maxPrice) {
             this.maxPrice = maxPrice;
-            return this;
         }
 
-        public PlaceBuilder setOpened(boolean opened) {
+        public void setOpened(boolean opened) {
             isOpened = opened;
-            return this;
+        }
+
+        public void setSortType(@SortType String sortType) {
+            this.sortType = sortType;
         }
     }
 }

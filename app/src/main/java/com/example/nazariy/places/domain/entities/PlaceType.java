@@ -6,4 +6,5 @@ public @interface PlaceType {
     String CAFE = "cafe";
     String BAR = "bar";
     String STORE = "store";
+    String RESTAURANT = "restaurant";
 }

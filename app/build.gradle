@@ -16,6 +16,8 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField("String", "KEY", "\"AIzaSyDPNwOjiZwiOvLpenlX-8QTcf2Vc5TTVD8\"")
+            buildConfigField("String", "BASE_URL", "\"https://maps.googleapis.com/maps/api/place/nearbysearch/\"")
+            buildConfigField("String", "DETAILS_URL", "\"https://maps.googleapis.com/maps/api/place/details/\"")
         }
 
         release {

@@ -4,6 +4,7 @@ package com.example.nazariy.places.domain.interfaces;
 import com.example.nazariy.places.domain.entities.place_result.PlaceResult;
 
 import io.reactivex.Observable;
+import retrofit2.Call;
 
 public interface PlacesRepository {
 
@@ -16,15 +17,14 @@ public interface PlacesRepository {
      * @param maxPrice - maximum price in cafe or restaurant
      * @return an Observable of places
      */
-    Observable<PlaceResult> getPlaces(String location, int radius, int minPrice,
-                                      int maxPrice,
-                                      String key);
+    Call<Observable<PlaceResult>> getPlaces(String location, int radius, int minPrice,
+                                           int maxPrice, boolean isOpened);
 
     /**
      *
      * @param reference - reference to concrete place
      * @return an Observable with place description
      */
-    Observable<PlaceResult> getPlace(String reference, String key);
+    Call<Observable<PlaceResult>> getPlace(String reference);
 
 }

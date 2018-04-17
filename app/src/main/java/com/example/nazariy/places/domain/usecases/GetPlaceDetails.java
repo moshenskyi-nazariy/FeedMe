@@ -5,7 +5,6 @@ import com.example.nazariy.places.domain.entities.place_result.PlaceResult;
 import com.example.nazariy.places.domain.interfaces.PlacesRepository;
 
 import io.reactivex.Observable;
-import retrofit2.Call;
 
 public class GetPlaceDetails extends UseCase<PlaceResult> {
     private PlacesRepository placesRepository;
@@ -17,7 +16,7 @@ public class GetPlaceDetails extends UseCase<PlaceResult> {
     }
 
     @Override
-    public Call<Observable<PlaceResult>> createObservable() {
+    public Observable<PlaceResult> createObservable() {
         return placesRepository.getPlace(reference);
     }
 }

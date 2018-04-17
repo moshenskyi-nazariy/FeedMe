@@ -1,29 +1,41 @@
 package com.example.nazariy.places.data.repository;
 
+import com.example.nazariy.places.BuildConfig;
 import com.example.nazariy.places.data.api.Api;
 import com.example.nazariy.places.data.datasource.remote.RemoteDataSource;
 import com.example.nazariy.places.domain.entities.place_result.PlaceResult;
 import com.example.nazariy.places.domain.interfaces.PlacesRepository;
 
 import io.reactivex.Observable;
-import retrofit2.Call;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Retrofit;
 
 public class PlacesRepositoryImpl implements PlacesRepository {
     private RemoteDataSource remoteDataSource;
+    private String key;
 
-    public PlacesRepositoryImpl(Api api, String key) {
+    public PlacesRepositoryImpl() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BuildConfig.BASE_URL)
+                .build();
+
+        Api api = retrofit.create(Api.class);
+        key = BuildConfig.KEY;
+
         remoteDataSource = new RemoteDataSource(api, key);
     }
 
     @Override
-    public Call<Observable<PlaceResult>> getPlaces(String location, int radius, int minPrice, int maxPrice, boolean isOpened) {
+    public Observable<PlaceResult> getPlaces(String location, int radius, int minPrice, int maxPrice, boolean isOpened) {
         // check if cache empty
         // doOnNext -> saveToCache
-        return remoteDataSource.getPlaces(location, radius, minPrice, maxPrice, isOpened);
+        return remoteDataSource.getPlaces(location, radius, minPrice, maxPrice, isOpened)
+                .subscribeOn(Schedulers.io());
     }
 
     @Override
-    public Call<Observable<PlaceResult>> getPlace(String reference) {
-        return remoteDataSource.getPlace(reference);
+    public Observable<PlaceResult> getPlace(String reference) {
+        return remoteDataSource.getPlace(reference)
+                .subscribeOn(Schedulers.io());
     }
 }

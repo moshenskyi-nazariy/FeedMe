@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.reactivex.Observable;
-import retrofit2.Call;
 
 public class RemoteDataSource implements DataSource {
     private Api api;
@@ -22,7 +21,7 @@ public class RemoteDataSource implements DataSource {
     }
 
     @Override
-    public Call<Observable<PlaceResult>> getPlaces(String location, int radius, int minPrice,
+    public Observable<PlaceResult> getPlaces(String location, int radius, int minPrice,
                                                    int maxPrice,
                                                    boolean isOpened) {
         Map<String, String> data = new HashMap<>();
@@ -37,7 +36,7 @@ public class RemoteDataSource implements DataSource {
     }
 
     @Override
-    public Call<Observable<PlaceResult>> getPlace(String reference) {
+    public Observable<PlaceResult> getPlace(String reference) {
         return api.getPlace(reference, key);
     }
 }

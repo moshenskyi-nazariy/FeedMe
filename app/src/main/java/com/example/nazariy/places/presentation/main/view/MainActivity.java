@@ -9,15 +9,13 @@ import android.widget.ProgressBar;
 import com.example.nazariy.places.R;
 import com.example.nazariy.places.data.repository.PlacesRepositoryImpl;
 import com.example.nazariy.places.domain.entities.place_result.PlaceResult;
-import com.example.nazariy.places.domain.interfaces.PlacesRepository;
+import com.example.nazariy.places.domain.usecases.GetPlaces;
 import com.example.nazariy.places.presentation.main.presenter.PlaceListMvpPresenter;
 import com.example.nazariy.places.presentation.main.presenter.PlaceListPresenter;
 import com.hannesdorfmann.mosby3.mvp.MvpActivity;
 
 public class MainActivity extends MvpActivity<PlacesListMvpView, PlaceListMvpPresenter>
                                                         implements PlacesListMvpView {
-
-    private PlacesRepository repository;
     private ProgressBar loadingIndicator;
     private RecyclerView placeList;
 
@@ -26,8 +24,6 @@ public class MainActivity extends MvpActivity<PlacesListMvpView, PlaceListMvpPre
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        repository = new PlacesRepositoryImpl();
-
         loadingIndicator = findViewById(R.id.main__loading_indicator);
         placeList = findViewById(R.id.main__place_list);
     }
@@ -35,7 +31,7 @@ public class MainActivity extends MvpActivity<PlacesListMvpView, PlaceListMvpPre
     @NonNull
     @Override
     public PlaceListMvpPresenter createPresenter() {
-        return new PlaceListPresenter(repository);
+        return new PlaceListPresenter(new GetPlaces(new PlacesRepositoryImpl()));
     }
 
     @Override

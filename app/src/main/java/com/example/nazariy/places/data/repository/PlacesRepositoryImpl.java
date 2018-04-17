@@ -12,7 +12,6 @@ import retrofit2.Retrofit;
 
 public class PlacesRepositoryImpl implements PlacesRepository {
     private RemoteDataSource remoteDataSource;
-    private String key;
 
     public PlacesRepositoryImpl() {
         Retrofit retrofit = new Retrofit.Builder()
@@ -20,9 +19,7 @@ public class PlacesRepositoryImpl implements PlacesRepository {
                 .build();
 
         Api api = retrofit.create(Api.class);
-        key = BuildConfig.KEY;
-
-        remoteDataSource = new RemoteDataSource(api, key);
+        remoteDataSource = new RemoteDataSource(api, BuildConfig.KEY);
     }
 
     @Override

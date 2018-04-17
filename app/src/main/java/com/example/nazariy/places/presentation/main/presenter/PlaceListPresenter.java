@@ -3,7 +3,7 @@ package com.example.nazariy.places.presentation.main.presenter;
 
 import android.support.annotation.NonNull;
 
-import com.example.nazariy.places.domain.interfaces.PlacesRepository;
+import com.example.nazariy.places.domain.usecases.GetPlaces;
 import com.example.nazariy.places.presentation.main.view.PlacesListMvpView;
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 
@@ -12,10 +12,11 @@ import io.reactivex.disposables.CompositeDisposable;
 
 public class PlaceListPresenter extends MvpBasePresenter<PlacesListMvpView> implements PlaceListMvpPresenter {
     private CompositeDisposable compositeDisposable;
-    private PlacesRepository repository;
+    private GetPlaces getPlacesUseCase;
 
-    public PlaceListPresenter(PlacesRepository repository) {
-        this.repository = repository;
+    public PlaceListPresenter(GetPlaces getPlacesUseCase) {
+        // make Singleton to substitute usecases
+        this.getPlacesUseCase = getPlacesUseCase;
     }
 
     @Override
@@ -31,11 +32,14 @@ public class PlaceListPresenter extends MvpBasePresenter<PlacesListMvpView> impl
     }
 
     @Override
-    public void getPlaces(String location, int radius, int minPrice, int maxPrice, boolean isOpened) {
-        compositeDisposable.add(repository.getPlaces(location, radius, minPrice, maxPrice, isOpened)
+    public void getPlaces(String location,
+                          int radius,
+                          int minPrice,
+                          int maxPrice,
+                          boolean isOpened) {
+        compositeDisposable.add(getPlacesUseCase.createObservable(location, radius, minPrice, maxPrice, isOpened)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    placeResult -> ifViewAttached(view -> {
+                .subscribe(placeResult -> ifViewAttached(view -> {
                         view.showProgressBar();
                         view.obtainResults(placeResult);
                     }), error-> {

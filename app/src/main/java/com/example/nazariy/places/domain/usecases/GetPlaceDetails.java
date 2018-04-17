@@ -6,17 +6,14 @@ import com.example.nazariy.places.domain.interfaces.PlacesRepository;
 
 import io.reactivex.Observable;
 
-public class GetPlaceDetails extends UseCase<PlaceResult> {
+public class GetPlaceDetails {
     private PlacesRepository placesRepository;
-    private String reference;
 
-    public GetPlaceDetails(PlacesRepository placesRepository, String reference, String key) {
+    public GetPlaceDetails(PlacesRepository placesRepository) {
         this.placesRepository = placesRepository;
-        this.reference = reference;
     }
 
-    @Override
-    public Observable<PlaceResult> createObservable() {
+    public Observable<PlaceResult> createObservable(String reference) {
         return placesRepository.getPlace(reference);
     }
 }

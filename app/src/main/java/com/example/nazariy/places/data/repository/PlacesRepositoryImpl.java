@@ -9,6 +9,8 @@ import com.example.nazariy.places.domain.interfaces.PlacesRepository;
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PlacesRepositoryImpl implements PlacesRepository {
     private RemoteDataSource remoteDataSource;
@@ -16,6 +18,8 @@ public class PlacesRepositoryImpl implements PlacesRepository {
     public PlacesRepositoryImpl() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BuildConfig.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
 
         Api api = retrofit.create(Api.class);

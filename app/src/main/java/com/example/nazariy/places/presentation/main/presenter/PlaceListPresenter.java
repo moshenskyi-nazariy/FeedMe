@@ -2,6 +2,7 @@ package com.example.nazariy.places.presentation.main.presenter;
 
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.example.nazariy.places.domain.usecases.GetPlaces;
 import com.example.nazariy.places.presentation.main.view.PlacesListMvpView;
@@ -13,6 +14,7 @@ import io.reactivex.disposables.CompositeDisposable;
 public class PlaceListPresenter extends MvpBasePresenter<PlacesListMvpView> implements PlaceListMvpPresenter {
     private CompositeDisposable compositeDisposable;
     private GetPlaces getPlacesUseCase;
+    private static final String TAG = "PlaceListPresenter";
 
     public PlaceListPresenter(GetPlaces getPlacesUseCase) {
         // make Singleton to substitute usecases
@@ -42,9 +44,9 @@ public class PlaceListPresenter extends MvpBasePresenter<PlacesListMvpView> impl
                 .subscribe(placeResult -> ifViewAttached(view -> {
                         view.showProgressBar();
                         view.obtainResults(placeResult);
-                    }), error-> {
-
-                    }, () -> ifViewAttached(PlacesListMvpView::hideProgressBar))
+                    }),
+                    error-> Log.d(TAG, "getPlaces: " + error.getMessage()),
+                    () -> ifViewAttached(PlacesListMvpView::hideProgressBar))
                 );
     }
 }

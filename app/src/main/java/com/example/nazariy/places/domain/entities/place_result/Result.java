@@ -1,7 +1,6 @@
 
 package com.example.nazariy.places.domain.entities.place_result;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -13,15 +12,13 @@ public class Result {
     private String id;
     private String name;
     @SerializedName("opening_hours")
-    @Expose
     private OpeningHours openingHours;
     private List<Photo> photos;
     @SerializedName("place_id")
-    @Expose
     private String placeId;
+    private Double rating;
     private String scope;
     @SerializedName("alt_ids")
-    @Expose
     private List<AltId> altIds;
     private String reference;
     private List<String> types ;
@@ -123,4 +120,11 @@ public class Result {
         this.vicinity = vicinity;
     }
 
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
 }

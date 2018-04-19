@@ -2,6 +2,7 @@ package com.example.nazariy.places.presentation.main.view;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -17,7 +18,7 @@ import com.hannesdorfmann.mosby3.mvp.MvpActivity;
 public class MainActivity extends MvpActivity<PlacesListMvpView, PlaceListMvpPresenter>
                                                         implements PlacesListMvpView {
     private ProgressBar loadingIndicator;
-    private RecyclerView placeList;
+    private PlacesAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +26,18 @@ public class MainActivity extends MvpActivity<PlacesListMvpView, PlaceListMvpPre
         setContentView(R.layout.activity_main);
 
         loadingIndicator = findViewById(R.id.main__loading_indicator);
-        placeList = findViewById(R.id.main__place_list);
+        setupRecycler();
+
+        getPresenter().getPlaces("-33.8670522,151.1957362", 500, 0, 10000, true);
+    }
+
+    private void setupRecycler() {
+        adapter = new PlacesAdapter();
+        RecyclerView placeList = findViewById(R.id.main__place_list);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+
+        placeList.setAdapter(adapter);
+        placeList.setLayoutManager(layoutManager);
     }
 
     @NonNull
@@ -46,6 +58,6 @@ public class MainActivity extends MvpActivity<PlacesListMvpView, PlaceListMvpPre
 
     @Override
     public void obtainResults(PlaceResult placeResult) {
-
+        adapter.update(placeResult.getResults());
     }
 }

@@ -46,7 +46,7 @@ public class PlaceListPresenter extends MvpBasePresenter<PlacesListMvpView> impl
                         view.obtainResults(placeResult);
                     }),
                     error-> Log.d(TAG, "getPlaces: " + error.getMessage()),
-                    () -> ifViewAttached(PlacesListMvpView::hideProgressBar))
-                );
+                    () -> ifViewAttached(PlacesListMvpView::hideProgressBar)
+                ));
     }
 }

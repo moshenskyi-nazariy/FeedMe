@@ -13,6 +13,8 @@ import com.example.nazariy.places.domain.entities.place_result.PlaceResult;
 import com.example.nazariy.places.domain.usecases.GetPlaces;
 import com.example.nazariy.places.presentation.main.presenter.PlaceListMvpPresenter;
 import com.example.nazariy.places.presentation.main.presenter.PlaceListPresenter;
+import com.example.nazariy.places.presentation.main.view.recyclerview.PlacesAdapter;
+import com.example.nazariy.places.presentation.main.view.recyclerview.SpaceItemDecoration;
 import com.hannesdorfmann.mosby3.mvp.MvpActivity;
 
 public class MainActivity extends MvpActivity<PlacesListMvpView, PlaceListMvpPresenter>
@@ -28,7 +30,7 @@ public class MainActivity extends MvpActivity<PlacesListMvpView, PlaceListMvpPre
         loadingIndicator = findViewById(R.id.main__loading_indicator);
         setupRecycler();
 
-        getPresenter().getPlaces("-33.8670522,151.1957362", 500, 0, 10000, true);
+        getPresenter().getPlaces("-33.8670522,151.1957362", 5000, 0, 10000, true);
     }
 
     private void setupRecycler() {
@@ -38,6 +40,7 @@ public class MainActivity extends MvpActivity<PlacesListMvpView, PlaceListMvpPre
 
         placeList.setAdapter(adapter);
         placeList.setLayoutManager(layoutManager);
+        placeList.addItemDecoration(new SpaceItemDecoration(8));
     }
 
     @NonNull

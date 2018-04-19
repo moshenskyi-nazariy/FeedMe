@@ -18,6 +18,9 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/main__place_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingTop="@dimen/text_padding"
+        android:paddingBottom="@dimen/text_padding"/>
 
 </LinearLayout>

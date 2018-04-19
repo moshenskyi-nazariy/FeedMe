@@ -8,4 +8,26 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="ratingIndicator" parent="Base.Widget.AppCompat.RatingBar.Indicator">
+        <item name="android:focusableInTouchMode">false</item>
+        <item name="android:numStars">5</item>
+        <item name="android:focusable">false</item>
+        <item name="android:clickable">false</item>
+    </style>
+
+    <style name="InfoTextView">
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:paddingStart">@dimen/text_padding</item>
+        <item name="android:paddingEnd">@dimen/text_padding</item>
+    </style>
+
+    <style name="TitleTextView" parent="InfoTextView">
+        <item name="android:textSize">@dimen/title_text_size</item>
+    </style>
+
+    <style name="BodyTextView" parent="InfoTextView">
+        <item name="android:textSize">@dimen/body_text_size</item>
+    </style>
+
 </resources>

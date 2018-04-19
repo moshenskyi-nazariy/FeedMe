@@ -1,4 +1,4 @@
-package com.example.nazariy.places.presentation.main.view;
+package com.example.nazariy.places.presentation.main.view.recyclerview;
 
 
 import android.support.annotation.NonNull;
@@ -18,9 +18,10 @@ import java.util.List;
 public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlaceViewHolder> {
     private List<Result> results;
 
-    void update(List<Result> results) {
+    public void update(List<Result> results) {
         if (results != null) {
             this.results = results;
+            notifyDataSetChanged();
         }
     }
 

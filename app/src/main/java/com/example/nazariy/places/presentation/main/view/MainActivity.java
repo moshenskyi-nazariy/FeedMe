@@ -9,13 +9,15 @@ import android.widget.ProgressBar;
 
 import com.example.nazariy.places.R;
 import com.example.nazariy.places.data.repository.PlacesRepositoryImpl;
-import com.example.nazariy.places.domain.entities.place_result.PlaceResult;
+import com.example.nazariy.places.domain.entities.place_result.Result;
 import com.example.nazariy.places.domain.usecases.GetPlaces;
 import com.example.nazariy.places.presentation.main.presenter.PlaceListMvpPresenter;
 import com.example.nazariy.places.presentation.main.presenter.PlaceListPresenter;
 import com.example.nazariy.places.presentation.main.view.recyclerview.PlacesAdapter;
 import com.example.nazariy.places.presentation.main.view.recyclerview.SpaceItemDecoration;
 import com.hannesdorfmann.mosby3.mvp.MvpActivity;
+
+import java.util.List;
 
 public class MainActivity extends MvpActivity<PlacesListMvpView, PlaceListMvpPresenter>
                                                         implements PlacesListMvpView {
@@ -60,7 +62,7 @@ public class MainActivity extends MvpActivity<PlacesListMvpView, PlaceListMvpPre
     }
 
     @Override
-    public void obtainResults(PlaceResult placeResult) {
-        adapter.update(placeResult.getResults());
+    public void obtainResults(List<Result> placeResult) {
+        adapter.update(placeResult);
     }
 }

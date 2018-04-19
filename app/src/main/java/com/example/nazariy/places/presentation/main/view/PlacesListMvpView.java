@@ -1,8 +1,10 @@
 package com.example.nazariy.places.presentation.main.view;
 
 
-import com.example.nazariy.places.domain.entities.place_result.PlaceResult;
+import com.example.nazariy.places.domain.entities.place_result.Result;
 import com.hannesdorfmann.mosby3.mvp.MvpView;
+
+import java.util.List;
 
 public interface PlacesListMvpView extends MvpView {
 
@@ -10,6 +12,6 @@ public interface PlacesListMvpView extends MvpView {
 
     void hideProgressBar();
 
-    void obtainResults(PlaceResult placeResult);
+    void obtainResults(List<Result> placeResult);
 
 }

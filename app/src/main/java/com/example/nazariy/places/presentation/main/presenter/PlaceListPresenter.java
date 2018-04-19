@@ -8,6 +8,9 @@ import com.example.nazariy.places.domain.usecases.GetPlaces;
 import com.example.nazariy.places.presentation.main.view.PlacesListMvpView;
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -40,6 +43,8 @@ public class PlaceListPresenter extends MvpBasePresenter<PlacesListMvpView> impl
                           int maxPrice,
                           boolean isOpened) {
         compositeDisposable.add(getPlacesUseCase.createObservable(location, radius, minPrice, maxPrice, isOpened)
+                .flatMap(placeResult -> Observable.fromIterable(placeResult.getResults()))
+                .buffer(1, TimeUnit.NANOSECONDS, 3)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(placeResult -> ifViewAttached(view -> {
                         view.showProgressBar();

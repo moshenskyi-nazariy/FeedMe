@@ -12,15 +12,20 @@ import android.widget.TextView;
 import com.example.nazariy.places.R;
 import com.example.nazariy.places.domain.entities.place_result.Result;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlaceViewHolder> {
     private List<Result> results;
 
+    public PlacesAdapter() {
+        results = new ArrayList<>();
+    }
+
     public void update(List<Result> results) {
         if (results != null) {
-            this.results = results;
+            this.results.addAll(results);
             notifyDataSetChanged();
         }
     }
@@ -53,7 +58,7 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlaceViewH
 
     @Override
     public int getItemCount() {
-        return results != null? results.size() : 0;
+        return results != null ? results.size() : 0;
     }
 
     static class PlaceViewHolder extends RecyclerView.ViewHolder {

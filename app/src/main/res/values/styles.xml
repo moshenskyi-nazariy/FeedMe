@@ -28,6 +28,7 @@
 
     <style name="BodyTextView" parent="InfoTextView">
         <item name="android:textSize">@dimen/body_text_size</item>
+        <item name="android:textColor">@color/colorLink</item>
     </style>
 
 </resources>

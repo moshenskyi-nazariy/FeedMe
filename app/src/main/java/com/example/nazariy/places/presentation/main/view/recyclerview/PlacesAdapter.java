@@ -3,6 +3,8 @@ package com.example.nazariy.places.presentation.main.view.recyclerview;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +49,9 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlaceViewH
 
         String placeAddress = results.get(position).getVicinity();
         if (placeAddress != null) {
-            holder.address.setText(placeAddress);
+            SpannableString address = new SpannableString(placeAddress);
+            address.setSpan(new UnderlineSpan(), 0, address.length(), 0);
+            holder.address.setText(address);
         }
 
         Double rating = results.get(position).getRating();

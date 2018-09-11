@@ -14,4 +14,6 @@ public interface PlacesListMvpView extends MvpView {
 
     void obtainResults(List<Result> placeResult);
 
+    void showMessage(String message);
+
 }

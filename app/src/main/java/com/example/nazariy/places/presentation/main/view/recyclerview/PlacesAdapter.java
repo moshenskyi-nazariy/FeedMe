@@ -27,8 +27,9 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlaceViewH
 
     public void update(List<Result> results) {
         if (results != null) {
+            int startPosition = this.results.size();
             this.results.addAll(results);
-            notifyDataSetChanged();
+            notifyItemRangeInserted(startPosition, this.results.size() - 1);
         }
     }
 

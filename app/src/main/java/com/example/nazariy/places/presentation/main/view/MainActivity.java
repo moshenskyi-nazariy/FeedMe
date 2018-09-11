@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.nazariy.places.R;
 import com.example.nazariy.places.data.repository.PlacesRepositoryImpl;
@@ -64,5 +65,10 @@ public class MainActivity extends MvpActivity<PlacesListMvpView, PlaceListMvpPre
     @Override
     public void obtainResults(List<Result> placeResult) {
         adapter.update(placeResult);
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

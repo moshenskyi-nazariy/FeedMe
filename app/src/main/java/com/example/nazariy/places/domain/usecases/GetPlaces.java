@@ -1,7 +1,7 @@
 package com.example.nazariy.places.domain.usecases;
 
 
-import com.example.nazariy.places.domain.entities.place_result.PlaceResult;
+import com.example.nazariy.places.domain.entities.PlaceResult;
 import com.example.nazariy.places.domain.interfaces.PlacesRepository;
 
 import io.reactivex.Observable;
@@ -18,7 +18,7 @@ public class GetPlaces {
                                                     int minPrice,
                                                     int maxPrice,
                                                     boolean isOpened) {
-        return placesRepository.getPlaces(location, radius, minPrice, maxPrice, isOpened);
+        return placesRepository.getPlaces(location, radius);
     }
 
 }

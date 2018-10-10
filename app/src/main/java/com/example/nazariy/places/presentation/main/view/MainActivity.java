@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import com.example.nazariy.places.R;
 import com.example.nazariy.places.data.repository.PlacesRepositoryImpl;
-import com.example.nazariy.places.domain.entities.place_result.Result;
+import com.example.nazariy.places.domain.entities.Venue;
 import com.example.nazariy.places.domain.usecases.GetPlaces;
 import com.example.nazariy.places.presentation.main.presenter.PlaceListMvpPresenter;
 import com.example.nazariy.places.presentation.main.presenter.PlaceListPresenter;
@@ -63,7 +63,7 @@ public class MainActivity extends MvpActivity<PlacesListMvpView, PlaceListMvpPre
     }
 
     @Override
-    public void obtainResults(List<Result> placeResult) {
+    public void obtainResults(List<Venue> placeResult) {
         adapter.update(placeResult);
     }
 

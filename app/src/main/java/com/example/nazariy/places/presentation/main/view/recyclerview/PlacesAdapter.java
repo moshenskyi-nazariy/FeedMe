@@ -12,20 +12,20 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.nazariy.places.R;
-import com.example.nazariy.places.domain.entities.place_result.Result;
+import com.example.nazariy.places.domain.entities.Venue;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlaceViewHolder> {
-    private List<Result> results;
+    private List<Venue> results;
 
     public PlacesAdapter() {
         results = new ArrayList<>();
     }
 
-    public void update(List<Result> results) {
+    public void update(List<Venue> results) {
         if (results != null) {
             int startPosition = this.results.size();
             this.results.addAll(results);
@@ -48,17 +48,17 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlaceViewH
             holder.name.setText(placeName);
         }
 
-        String placeAddress = results.get(position).getVicinity();
+        String placeAddress = results.get(position).getLocation().getAddress();
         if (placeAddress != null) {
             SpannableString address = new SpannableString(placeAddress);
             address.setSpan(new UnderlineSpan(), 0, address.length(), 0);
             holder.address.setText(address);
         }
 
-        Double rating = results.get(position).getRating();
+        /*Double rating = results.get(position).getRating();
         if (rating != null) {
             holder.rating.setRating((rating.floatValue()));
-        }
+        }*/
     }
 
     @Override

@@ -16,8 +16,11 @@ android {
         debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "CLIENT_ID", "\"3VYN4YUQEIY0IPWDGPKILEYGE43BX2B3TZX2M3BWTRXSFI3M\"")
+            buildConfigField("String", "CLIENT_SECRET", "\"OR2QMECTGS1MMUHA2TPIVULVJBXQS2DY21H32NYJLYDGO4QU\"")
+            buildConfigField("String", "BASE_URL", "\"https://api.foursquare.com/v2/\"")
+
             buildConfigField("String", "KEY", "\"AIzaSyDvzypuP9WyG0eyR9VYSbGUQwV-AvyfYDA\"")
-            buildConfigField("String", "BASE_URL", "\"https://maps.googleapis.com/maps/api/place/nearbysearch/\"")
             buildConfigField("String", "DETAILS_URL", "\"https://maps.googleapis.com/maps/api/place/details/\"")
             buildConfigField("String", "PHOTO_URL", "\"https://maps.googleapis.com/maps/api/place/photo/\"")
         }

@@ -5,6 +5,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Venue {
 
@@ -64,4 +65,21 @@ public class Venue {
         this.venuePage = venuePage;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Venue)) return false;
+        Venue venue = (Venue) o;
+        return Objects.equals(id, venue.id) &&
+                Objects.equals(name, venue.name) &&
+                Objects.equals(location, venue.location) &&
+                Objects.equals(categories, venue.categories) &&
+                Objects.equals(venuePage, venue.venuePage);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, name, location, categories, venuePage);
+    }
 }

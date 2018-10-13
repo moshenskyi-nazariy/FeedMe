@@ -4,6 +4,8 @@ package com.example.nazariy.places.domain.entities;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Objects;
+
 public class LabeledLatLng {
 
     @SerializedName("label")
@@ -40,4 +42,19 @@ public class LabeledLatLng {
         this.lng = lng;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof LabeledLatLng)) return false;
+        LabeledLatLng that = (LabeledLatLng) o;
+        return Double.compare(that.lat, lat) == 0 &&
+                Double.compare(that.lng, lng) == 0 &&
+                Objects.equals(label, that.label);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(label, lat, lng);
+    }
 }

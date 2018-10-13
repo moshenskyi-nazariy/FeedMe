@@ -4,6 +4,8 @@ package com.example.nazariy.places.domain.entities;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Objects;
+
 public class Category {
 
     @SerializedName("id")
@@ -73,4 +75,22 @@ public class Category {
         this.primary = primary;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Category)) return false;
+        Category category = (Category) o;
+        return primary == category.primary &&
+                Objects.equals(id, category.id) &&
+                Objects.equals(name, category.name) &&
+                Objects.equals(pluralName, category.pluralName) &&
+                Objects.equals(shortName, category.shortName) &&
+                Objects.equals(icon, category.icon);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, name, pluralName, shortName, icon, primary);
+    }
 }

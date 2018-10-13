@@ -2,6 +2,8 @@
 package com.example.nazariy.places.domain.entities;
 
 import java.util.List;
+import java.util.Objects;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -140,4 +142,27 @@ public class Location {
         this.formattedAddress = formattedAddress;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Location)) return false;
+        Location location = (Location) o;
+        return Double.compare(location.lat, lat) == 0 &&
+                Double.compare(location.lng, lng) == 0 &&
+                distance == location.distance &&
+                Objects.equals(address, location.address) &&
+                Objects.equals(crossStreet, location.crossStreet) &&
+                Objects.equals(labeledLatLngs, location.labeledLatLngs) &&
+                Objects.equals(postalCode, location.postalCode) &&
+                Objects.equals(cc, location.cc) &&
+                Objects.equals(city, location.city) &&
+                Objects.equals(state, location.state) &&
+                Objects.equals(country, location.country) &&
+                Objects.equals(formattedAddress, location.formattedAddress);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(address, crossStreet, lat, lng, labeledLatLngs, distance, postalCode, cc, city, state, country, formattedAddress);
+    }
 }

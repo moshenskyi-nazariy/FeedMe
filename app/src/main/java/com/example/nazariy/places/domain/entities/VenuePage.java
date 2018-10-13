@@ -4,6 +4,8 @@ package com.example.nazariy.places.domain.entities;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Objects;
+
 public class VenuePage {
 
     @SerializedName("id")
@@ -18,4 +20,17 @@ public class VenuePage {
         this.id = id;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof VenuePage)) return false;
+        VenuePage venuePage = (VenuePage) o;
+        return Objects.equals(id, venuePage.id);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id);
+    }
 }

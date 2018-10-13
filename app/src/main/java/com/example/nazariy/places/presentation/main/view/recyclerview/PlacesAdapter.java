@@ -1,35 +1,42 @@
 package com.example.nazariy.places.presentation.main.view.recyclerview;
 
 
+import android.content.res.Resources;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.nazariy.places.R;
 import com.example.nazariy.places.domain.entities.Venue;
+import com.example.nazariy.places.presentation.main.model.ViewResponse;
+import com.example.nazariy.places.presentation.main.model.ViewVenue;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlaceViewHolder> {
-    private List<Venue> results;
+
+    private final List<ViewVenue> results;
 
     public PlacesAdapter() {
         results = new ArrayList<>();
     }
 
-    public void update(List<Venue> results) {
+    public void update(List<ViewVenue> results) {
         if (results != null) {
-            int startPosition = this.results.size();
+            DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(
+                    new VenueListDiffCallback(this.results, results));
+            diffResult.dispatchUpdatesTo(this);
+            this.results.clear();
             this.results.addAll(results);
-            notifyItemRangeInserted(startPosition, this.results.size() - 1);
         }
     }
 
@@ -43,39 +50,70 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlaceViewH
 
     @Override
     public void onBindViewHolder(@NonNull PlaceViewHolder holder, int position) {
-        String placeName = results.get(position).getName();
+        ViewVenue venue = results.get(position);
+        String placeName = venue.getName();
         if (placeName != null) {
             holder.name.setText(placeName);
         }
 
-        String placeAddress = results.get(position).getLocation().getAddress();
+        SpannableString placeAddress = venue.getLocation().getAddress();
         if (placeAddress != null) {
-            SpannableString address = new SpannableString(placeAddress);
-            address.setSpan(new UnderlineSpan(), 0, address.length(), 0);
-            holder.address.setText(address);
+            holder.address.setText(placeAddress);
         }
+    }
 
-        /*Double rating = results.get(position).getRating();
-        if (rating != null) {
-            holder.rating.setRating((rating.floatValue()));
-        }*/
+    @Override
+    public void onBindViewHolder(@NonNull PlaceViewHolder holder, int position, @NonNull List<Object> payloads) {
+        if (payloads.isEmpty()) {
+            super.onBindViewHolder(holder, position, payloads);
+        } else {
+            Bundle bundle = (Bundle) payloads.get(0);
+            for (String key : bundle.keySet()) {
+                if (key.equals(VenueListDiffCallback.KEY_NAME)) {
+                    holder.name.setText(bundle.getString(key));
+                }
+                if (key.equals(VenueListDiffCallback.KEY_DISTANCE)) {
+                    holder.setDistance(bundle.getInt(key));
+                }
+                if (key.equals(VenueListDiffCallback.KEY_LOCATION)) {
+                    holder.address.setText(bundle.getString(key));
+                }
+            }
+        }
     }
 
     @Override
     public int getItemCount() {
-        return results != null ? results.size() : 0;
+        return results.size();
     }
 
-    static class PlaceViewHolder extends RecyclerView.ViewHolder {
+    class PlaceViewHolder extends RecyclerView.ViewHolder {
         private TextView name;
         private TextView address;
-        private RatingBar rating;
+        private TextView distance;
 
         PlaceViewHolder(View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.main__list_name);
             address = itemView.findViewById(R.id.main__list_address);
-            rating = itemView.findViewById(R.id.main__list_rating);
+            distance = itemView.findViewById(R.id.main__place_distance);
+
+            int adapterPosition = getAdapterPosition();
+            setDistance(itemView, adapterPosition);
+        }
+
+        void setDistance(int distance) {
+            Resources resources = itemView.getResources();
+            this.distance.setText(resources.getString(R.string.distance_placeholder, distance));
+        }
+
+        private void setDistance(View itemView, int adapterPosition) {
+            if (adapterPosition > 0) {
+                ViewVenue venue = results.get(adapterPosition);
+                int distanceInMeters = venue.getLocation().getDistance();
+                Resources resources = itemView.getResources();
+                distance.setText(resources.getString(R.string.distance_placeholder, distanceInMeters));
+            }
         }
     }
 }

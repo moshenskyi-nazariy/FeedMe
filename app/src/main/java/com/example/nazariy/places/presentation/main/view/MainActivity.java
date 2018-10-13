@@ -10,8 +10,8 @@ import android.widget.Toast;
 
 import com.example.nazariy.places.R;
 import com.example.nazariy.places.data.repository.PlacesRepositoryImpl;
-import com.example.nazariy.places.domain.entities.Venue;
 import com.example.nazariy.places.domain.usecases.GetPlaces;
+import com.example.nazariy.places.presentation.main.model.ViewVenue;
 import com.example.nazariy.places.presentation.main.presenter.PlaceListMvpPresenter;
 import com.example.nazariy.places.presentation.main.presenter.PlaceListPresenter;
 import com.example.nazariy.places.presentation.main.view.recyclerview.PlacesAdapter;
@@ -21,7 +21,7 @@ import com.hannesdorfmann.mosby3.mvp.MvpActivity;
 import java.util.List;
 
 public class MainActivity extends MvpActivity<PlacesListMvpView, PlaceListMvpPresenter>
-                                                        implements PlacesListMvpView {
+        implements PlacesListMvpView {
     private ProgressBar loadingIndicator;
     private PlacesAdapter adapter;
 
@@ -63,7 +63,7 @@ public class MainActivity extends MvpActivity<PlacesListMvpView, PlaceListMvpPre
     }
 
     @Override
-    public void obtainResults(List<Venue> placeResult) {
+    public void obtainResults(List<ViewVenue> placeResult) {
         adapter.update(placeResult);
     }
 

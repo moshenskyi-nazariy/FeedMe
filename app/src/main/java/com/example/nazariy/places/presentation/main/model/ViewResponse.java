@@ -1,16 +1,11 @@
+package com.example.nazariy.places.presentation.main.model;
 
-package com.example.nazariy.places.domain.entities;
-
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.example.nazariy.places.domain.entities.Venue;
 
 import java.util.List;
 import java.util.Objects;
 
-public class Response {
-
-    @SerializedName("venues")
-    @Expose
+public class ViewResponse {
     private List<Venue> venues = null;
 
     public List<Venue> getVenues() {
@@ -24,9 +19,9 @@ public class Response {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Response)) return false;
-        Response response = (Response) o;
-        return Objects.equals(venues, response.venues);
+        if (!(o instanceof ViewResponse)) return false;
+        ViewResponse that = (ViewResponse) o;
+        return Objects.equals(venues, that.venues);
     }
 
     @Override

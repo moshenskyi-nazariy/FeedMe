@@ -1,18 +1,12 @@
+package com.example.nazariy.places.presentation.main.model;
 
-package com.example.nazariy.places.domain.entities;
-
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.example.nazariy.places.domain.entities.Meta;
+import com.example.nazariy.places.domain.entities.Response;
 
 import java.util.Objects;
 
-public class PlaceResult {
-
-    @SerializedName("meta")
-    @Expose
+public class ViewPlaceResult {
     private Meta meta;
-    @SerializedName("response")
-    @Expose
     private Response response;
 
     public Meta getMeta() {
@@ -34,15 +28,14 @@ public class PlaceResult {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof PlaceResult)) return false;
-        PlaceResult that = (PlaceResult) o;
+        if (!(o instanceof ViewPlaceResult)) return false;
+        ViewPlaceResult that = (ViewPlaceResult) o;
         return Objects.equals(meta, that.meta) &&
                 Objects.equals(response, that.response);
     }
 
     @Override
     public int hashCode() {
-
         return Objects.hash(meta, response);
     }
 }

@@ -1,6 +1,6 @@
 package com.example.nazariy.places.presentation.main.model;
 
-import com.example.nazariy.places.domain.entities.Venue;
+import com.example.nazariy.places.domain.entities.places.Venue;
 
 import java.util.List;
 import java.util.Objects;

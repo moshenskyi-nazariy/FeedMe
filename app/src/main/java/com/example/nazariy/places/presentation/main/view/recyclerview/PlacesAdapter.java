@@ -1,25 +1,20 @@
 package com.example.nazariy.places.presentation.main.view.recyclerview;
 
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
-import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.nazariy.places.R;
-import com.example.nazariy.places.domain.entities.Venue;
-import com.example.nazariy.places.presentation.main.model.ViewResponse;
+import com.example.nazariy.places.presentation.details.view.DetailsActivity;
 import com.example.nazariy.places.presentation.main.model.ViewVenue;
 
 import java.util.ArrayList;
@@ -68,6 +63,11 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlaceViewH
         int distanceInMeters = venue.getLocation().getDistance();
         Resources resources = holder.itemView.getResources();
         holder.distance.setText(resources.getString(R.string.distance_placeholder, distanceInMeters));
+
+        holder.itemView.setOnClickListener(v -> {
+            Context context = v.getContext();
+            DetailsActivity.start(context, venue.getId());
+        });
 
         /*Glide.
                 with(holder.itemView)

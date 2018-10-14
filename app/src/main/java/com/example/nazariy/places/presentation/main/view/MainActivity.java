@@ -37,7 +37,7 @@ public class MainActivity extends MvpActivity<PlacesListMvpView, PlaceListMvpPre
         loadingIndicator = findViewById(R.id.main__loading_indicator);
         setupRecycler();
 
-        getPresenter().getPlaces("-33.8670522,151.1957362", 5000, 0, 10000, true);
+        getPresenter().getPlaces("-33.8670522,151.1957362", 5000);
     }
 
     private void setupRecycler() {

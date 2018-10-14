@@ -1,11 +1,10 @@
-
-package com.example.nazariy.places.domain.entities;
-
-import java.util.List;
-import java.util.Objects;
+package com.example.nazariy.places.domain.entities.places;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+import java.util.Objects;
 
 public class Location {
 

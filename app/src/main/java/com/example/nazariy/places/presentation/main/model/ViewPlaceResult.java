@@ -1,7 +1,7 @@
 package com.example.nazariy.places.presentation.main.model;
 
-import com.example.nazariy.places.domain.entities.Meta;
-import com.example.nazariy.places.domain.entities.Response;
+import com.example.nazariy.places.domain.entities.places.Meta;
+import com.example.nazariy.places.domain.entities.places.Response;
 
 import java.util.Objects;
 

@@ -3,8 +3,6 @@ package com.example.nazariy.places.presentation.main.model;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 
-import com.example.nazariy.places.domain.entities.LabeledLatLng;
-
 import java.util.List;
 import java.util.Objects;
 

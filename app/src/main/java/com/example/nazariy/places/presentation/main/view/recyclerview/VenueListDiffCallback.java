@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.util.DiffUtil;
 
-import com.example.nazariy.places.domain.entities.Venue;
 import com.example.nazariy.places.presentation.main.model.ViewVenue;
 
 import java.util.List;
@@ -23,6 +22,7 @@ public class VenueListDiffCallback extends DiffUtil.Callback {
         this.mOldList = oldList;
         this.mNewList = newList;
     }
+
     @Override
     public int getOldListSize() {
         return mOldList != null ? mOldList.size() : 0;
@@ -42,6 +42,7 @@ public class VenueListDiffCallback extends DiffUtil.Callback {
     public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
         return mNewList.get(newItemPosition).equals(mOldList.get(oldItemPosition));
     }
+
     @Nullable
     @Override
     public Object getChangePayload(int oldItemPosition, int newItemPosition) {

@@ -1,8 +1,7 @@
 package com.example.nazariy.places.presentation.main.model;
 
-import com.example.nazariy.places.domain.entities.Category;
-import com.example.nazariy.places.domain.entities.Location;
-import com.example.nazariy.places.domain.entities.VenuePage;
+import com.example.nazariy.places.domain.entities.places.Category;
+import com.example.nazariy.places.domain.entities.places.VenuePage;
 
 import java.util.List;
 

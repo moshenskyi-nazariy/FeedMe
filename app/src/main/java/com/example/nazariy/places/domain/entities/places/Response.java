@@ -1,5 +1,4 @@
-
-package com.example.nazariy.places.domain.entities;
+package com.example.nazariy.places.domain.entities.places;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

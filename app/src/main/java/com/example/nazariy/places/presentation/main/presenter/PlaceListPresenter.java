@@ -4,8 +4,8 @@ package com.example.nazariy.places.presentation.main.presenter;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.example.nazariy.places.domain.entities.Location;
-import com.example.nazariy.places.domain.entities.Venue;
+import com.example.nazariy.places.domain.entities.places.Location;
+import com.example.nazariy.places.domain.entities.places.Venue;
 import com.example.nazariy.places.domain.usecases.GetPlaces;
 import com.example.nazariy.places.presentation.main.model.ViewLocation;
 import com.example.nazariy.places.presentation.main.model.ViewVenue;
@@ -41,12 +41,8 @@ public class PlaceListPresenter extends MvpBasePresenter<PlacesListMvpView> impl
     }
 
     @Override
-    public void getPlaces(String location,
-                          int radius,
-                          int minPrice,
-                          int maxPrice,
-                          boolean isOpened) {
-        compositeDisposable.add(getPlacesUseCase.createObservable(location, radius, minPrice, maxPrice, isOpened)
+    public void getPlaces(String location, int radius) {
+        compositeDisposable.add(getPlacesUseCase.createObservable(location, radius)
                 .observeOn(AndroidSchedulers.mainThread())
                 .filter(placeResult -> placeResult.getMeta().getCode() < 400)
                 .map(placeResult -> placeResult.getResponse().getVenues())

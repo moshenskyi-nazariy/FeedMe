@@ -3,7 +3,8 @@ package com.example.nazariy.places.data.repository;
 import com.example.nazariy.places.BuildConfig;
 import com.example.nazariy.places.data.api.Api;
 import com.example.nazariy.places.data.datasource.remote.RemoteDataSource;
-import com.example.nazariy.places.domain.entities.PlaceResult;
+import com.example.nazariy.places.domain.entities.details.PlaceDetailsResult;
+import com.example.nazariy.places.domain.entities.places.PlaceResult;
 import com.example.nazariy.places.domain.interfaces.PlacesRepository;
 
 import io.reactivex.Observable;
@@ -31,6 +32,12 @@ public class PlacesRepositoryImpl implements PlacesRepository {
         // check if cache empty
         // doOnNext -> saveToCache
         return remoteDataSource.getPlaces(location, radius)
+                .subscribeOn(Schedulers.io());
+    }
+
+    @Override
+    public Observable<PlaceDetailsResult> getPlaceDetails(String id) {
+        return remoteDataSource.getPlaceDetails(id)
                 .subscribeOn(Schedulers.io());
     }
 

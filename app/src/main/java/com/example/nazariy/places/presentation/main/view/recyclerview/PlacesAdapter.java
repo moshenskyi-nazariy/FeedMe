@@ -11,8 +11,12 @@ import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.nazariy.places.R;
 import com.example.nazariy.places.domain.entities.Venue;
 import com.example.nazariy.places.presentation.main.model.ViewResponse;
@@ -64,6 +68,12 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlaceViewH
         int distanceInMeters = venue.getLocation().getDistance();
         Resources resources = holder.itemView.getResources();
         holder.distance.setText(resources.getString(R.string.distance_placeholder, distanceInMeters));
+
+        /*Glide.
+                with(holder.itemView)
+                .load(venue.getCategories())
+                .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL))
+                .into(holder.mainPhoto);*/
     }
 
     @Override
@@ -95,12 +105,14 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlaceViewH
         private TextView name;
         private TextView address;
         private TextView distance;
+//        private ImageView mainPhoto;
 
         PlaceViewHolder(View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.main__list_name);
             address = itemView.findViewById(R.id.main__list_address);
             distance = itemView.findViewById(R.id.main__place_distance);
+//            mainPhoto = itemView.findViewById(R.id.main__list_place_photo);
         }
 
         void setDistance(int distance) {

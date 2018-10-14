@@ -60,6 +60,10 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlaceViewH
         if (placeAddress != null) {
             holder.address.setText(placeAddress);
         }
+
+        int distanceInMeters = venue.getLocation().getDistance();
+        Resources resources = holder.itemView.getResources();
+        holder.distance.setText(resources.getString(R.string.distance_placeholder, distanceInMeters));
     }
 
     @Override
@@ -97,23 +101,11 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlaceViewH
             name = itemView.findViewById(R.id.main__list_name);
             address = itemView.findViewById(R.id.main__list_address);
             distance = itemView.findViewById(R.id.main__place_distance);
-
-            int adapterPosition = getAdapterPosition();
-            setDistance(itemView, adapterPosition);
         }
 
         void setDistance(int distance) {
             Resources resources = itemView.getResources();
             this.distance.setText(resources.getString(R.string.distance_placeholder, distance));
-        }
-
-        private void setDistance(View itemView, int adapterPosition) {
-            if (adapterPosition > 0) {
-                ViewVenue venue = results.get(adapterPosition);
-                int distanceInMeters = venue.getLocation().getDistance();
-                Resources resources = itemView.getResources();
-                distance.setText(resources.getString(R.string.distance_placeholder, distanceInMeters));
-            }
         }
     }
 }

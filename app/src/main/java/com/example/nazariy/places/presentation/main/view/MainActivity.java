@@ -1,10 +1,13 @@
 package com.example.nazariy.places.presentation.main.view;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -24,6 +27,7 @@ public class MainActivity extends MvpActivity<PlacesListMvpView, PlaceListMvpPre
         implements PlacesListMvpView {
     private ProgressBar loadingIndicator;
     private PlacesAdapter adapter;
+    private RecyclerView placeList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +42,7 @@ public class MainActivity extends MvpActivity<PlacesListMvpView, PlaceListMvpPre
 
     private void setupRecycler() {
         adapter = new PlacesAdapter();
-        RecyclerView placeList = findViewById(R.id.main__place_list);
+        placeList = findViewById(R.id.main__place_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
         placeList.setAdapter(adapter);
@@ -64,7 +68,13 @@ public class MainActivity extends MvpActivity<PlacesListMvpView, PlaceListMvpPre
 
     @Override
     public void obtainResults(List<ViewVenue> placeResult) {
+        final Context context = placeList.getContext();
+        final LayoutAnimationController controller =
+                AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_left_slide);
+
+        placeList.setLayoutAnimation(controller);
         adapter.update(placeResult);
+        placeList.scheduleLayoutAnimation();
     }
 
     @Override

@@ -3,9 +3,9 @@ package com.example.nazariy.places.presentation.details.presenter;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.example.nazariy.places.domain.entities.details.Response;
 import com.example.nazariy.places.domain.usecases.GetPlaceDetails;
 import com.example.nazariy.places.presentation.details.view.DetailsMvpView;
-import com.example.nazariy.places.presentation.main.view.PlacesListMvpView;
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -27,9 +27,10 @@ public class DetailsPresenter extends MvpBasePresenter<DetailsMvpView> implement
                 .filter(placeDetailsResult -> placeDetailsResult.getMeta().getCode() < 400)
                 .subscribe(placeDetailsResult -> ifViewAttached(view -> {
                             view.showProgressBar();
-                            view.obtainResult(placeDetailsResult);
+                            Response response = placeDetailsResult.getResponse();
+                            view.obtainResult(response.getVenue());
                         }),
-                        error -> Log.d(TAG, "getPlaces: " + error.getMessage()),
+                        error -> Log.d(TAG, "getPlaceDetails: " + error.getMessage()),
                         () -> ifViewAttached(DetailsMvpView::hideProgressBar)
                 ));
     }

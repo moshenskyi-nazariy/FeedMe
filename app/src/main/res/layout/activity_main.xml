@@ -7,7 +7,7 @@
     tools:context="com.example.nazariy.places.presentation.main.view.MainActivity">
 
     <ProgressBar
-        android:id="@+id/main__loading_indicator"
+        android:id="@+id/details__loading_indicator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:indeterminate="true"

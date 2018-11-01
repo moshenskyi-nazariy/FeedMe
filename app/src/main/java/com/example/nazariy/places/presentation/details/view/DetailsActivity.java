@@ -3,7 +3,7 @@ package com.example.nazariy.places.presentation.details.view;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
@@ -11,22 +11,20 @@ import android.widget.TextView;
 
 import com.example.nazariy.places.R;
 import com.example.nazariy.places.data.repository.PlacesRepositoryImpl;
-import com.example.nazariy.places.domain.entities.details.Hours;
 import com.example.nazariy.places.domain.entities.details.Stats;
 import com.example.nazariy.places.domain.entities.details.Venue;
 import com.example.nazariy.places.domain.usecases.GetPlaceDetails;
 import com.example.nazariy.places.presentation.details.presenter.DetailsMvpPresenter;
 import com.example.nazariy.places.presentation.details.presenter.DetailsPresenter;
+import com.hannesdorfmann.mosby3.mvp.MvpActivity;
 
-public class DetailsActivity extends AppCompatActivity implements DetailsMvpView {
+public class DetailsActivity extends MvpActivity<DetailsMvpView, DetailsMvpPresenter> implements DetailsMvpView {
     private static final String VENUE_ID = "venue id";
 
-    private DetailsMvpPresenter presenter;
     private String venueId;
 
     private ProgressBar loadingIndicator;
     private RatingBar venueRatingBar;
-    private TextView openingHours;
     private TextView checkinCount;
     private TextView detailsFromOwner;
     private TextView popularHours;
@@ -46,15 +44,18 @@ public class DetailsActivity extends AppCompatActivity implements DetailsMvpView
 
         initViews();
 
-        presenter = new DetailsPresenter(new GetPlaceDetails(new PlacesRepositoryImpl()));
-        presenter.attachView(this);
-        presenter.getPlaceDetails(venueId);
+        getPresenter().getPlaceDetails(venueId);
+    }
+
+    @NonNull
+    @Override
+    public DetailsMvpPresenter createPresenter() {
+        return new DetailsPresenter(new GetPlaceDetails(new PlacesRepositoryImpl()));
     }
 
     private void initViews() {
         loadingIndicator = findViewById(R.id.details__loading_indicator);
         venueRatingBar = findViewById(R.id.details__ratingBar);
-        openingHours = findViewById(R.id.details__opening_hours);
         checkinCount = findViewById(R.id.details__checkin_count);
         detailsFromOwner = findViewById(R.id.details__detail_from_owner);
         popularHours = findViewById(R.id.details__popular_hours);
@@ -75,10 +76,7 @@ public class DetailsActivity extends AppCompatActivity implements DetailsMvpView
         if (placeDetails != null) {
             addRating(placeDetails);
 
-            Hours hours = placeDetails.getHours();
-            // add opening hours
-
-            addOpeningHours(placeDetails);
+            addCheckins(placeDetails);
 
             addDescription(placeDetails);
 
@@ -106,7 +104,7 @@ public class DetailsActivity extends AppCompatActivity implements DetailsMvpView
             detailsFromOwner.setText(description);
     }
 
-    private void addOpeningHours(Venue placeDetails) {
+    private void addCheckins(Venue placeDetails) {
         Stats stats = placeDetails.getStats();
         if (stats != null) {
             int checkinsCount = stats.getCheckinsCount();

@@ -35,7 +35,7 @@ public class Venue {
     private Inbox inbox;
     private List<Object> venueChains;
     private Attributes attributes;
-    private BestPhoto bestPhoto;
+    private FoursquarePhoto bestPhoto;
 
     public String getId() {
         return id;
@@ -285,11 +285,11 @@ public class Venue {
         this.attributes = attributes;
     }
 
-    public BestPhoto getBestPhoto() {
+    public FoursquarePhoto getBestPhoto() {
         return bestPhoto;
     }
 
-    public void setBestPhoto(BestPhoto bestPhoto) {
+    public void setBestPhoto(FoursquarePhoto bestPhoto) {
         this.bestPhoto = bestPhoto;
     }
 

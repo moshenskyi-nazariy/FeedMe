@@ -4,6 +4,7 @@ package com.example.nazariy.places.data.datasource.remote;
 import com.example.nazariy.places.BuildConfig;
 import com.example.nazariy.places.data.api.Api;
 import com.example.nazariy.places.domain.entities.details.PlaceDetailsResult;
+import com.example.nazariy.places.domain.entities.details.photos.PhotoResult;
 import com.example.nazariy.places.domain.entities.places.PlaceResult;
 import com.example.nazariy.places.domain.interfaces.DataSource;
 
@@ -13,11 +14,9 @@ import io.reactivex.Observable;
 
 public class RemoteDataSource implements DataSource {
     private Api api;
-    private String key;
 
-    public RemoteDataSource(Api api, String key) {
+    public RemoteDataSource(Api api) {
         this.api = api;
-        this.key = key;
     }
 
     @Override
@@ -31,8 +30,12 @@ public class RemoteDataSource implements DataSource {
 
     @Override
     public Observable<PlaceDetailsResult> getPlaceDetails(String id) {
-        HashMap<String, String> options = getClientOptions();
-        return api.getPlaceDetails(id, options);
+        return api.getPlaceDetails(id, getClientOptions());
+    }
+
+    @Override
+    public Observable<PhotoResult> getPhotos(String id) {
+        return api.getPhotos(id, getClientOptions());
     }
 
     private HashMap<String, String> getClientOptions() {

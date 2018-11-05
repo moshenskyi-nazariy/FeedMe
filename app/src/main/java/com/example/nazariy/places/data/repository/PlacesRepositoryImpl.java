@@ -4,6 +4,7 @@ import com.example.nazariy.places.BuildConfig;
 import com.example.nazariy.places.data.api.Api;
 import com.example.nazariy.places.data.datasource.remote.RemoteDataSource;
 import com.example.nazariy.places.domain.entities.details.PlaceDetailsResult;
+import com.example.nazariy.places.domain.entities.details.photos.PhotoResult;
 import com.example.nazariy.places.domain.entities.places.PlaceResult;
 import com.example.nazariy.places.domain.interfaces.PlacesRepository;
 
@@ -24,7 +25,7 @@ public class PlacesRepositoryImpl implements PlacesRepository {
                 .build();
 
         Api api = retrofit.create(Api.class);
-        remoteDataSource = new RemoteDataSource(api, BuildConfig.KEY);
+        remoteDataSource = new RemoteDataSource(api);
     }
 
     @Override
@@ -38,6 +39,12 @@ public class PlacesRepositoryImpl implements PlacesRepository {
     @Override
     public Observable<PlaceDetailsResult> getPlaceDetails(String id) {
         return remoteDataSource.getPlaceDetails(id)
+                .subscribeOn(Schedulers.io());
+    }
+
+    @Override
+    public Observable<PhotoResult> getPhotos(String id) {
+        return remoteDataSource.getPhotos(id)
                 .subscribeOn(Schedulers.io());
     }
 

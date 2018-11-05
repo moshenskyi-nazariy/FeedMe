@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import com.example.nazariy.places.R;
 import com.example.nazariy.places.data.repository.PlacesRepositoryImpl;
-import com.example.nazariy.places.domain.usecases.GetPlaces;
 import com.example.nazariy.places.presentation.main.model.ViewVenue;
 import com.example.nazariy.places.presentation.main.presenter.PlaceListMvpPresenter;
 import com.example.nazariy.places.presentation.main.presenter.PlaceListPresenter;
@@ -53,7 +52,7 @@ public class MainActivity extends MvpActivity<PlacesListMvpView, PlaceListMvpPre
     @NonNull
     @Override
     public PlaceListMvpPresenter createPresenter() {
-        return new PlaceListPresenter(new GetPlaces(new PlacesRepositoryImpl()));
+        return new PlaceListPresenter(new PlacesRepositoryImpl());
     }
 
     @Override

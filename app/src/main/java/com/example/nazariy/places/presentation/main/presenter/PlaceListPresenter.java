@@ -4,9 +4,9 @@ package com.example.nazariy.places.presentation.main.presenter;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.example.nazariy.places.data.repository.PlacesRepositoryImpl;
 import com.example.nazariy.places.domain.entities.places.Location;
 import com.example.nazariy.places.domain.entities.places.Venue;
-import com.example.nazariy.places.domain.usecases.GetPlaces;
 import com.example.nazariy.places.presentation.main.model.ViewLocation;
 import com.example.nazariy.places.presentation.main.model.ViewVenue;
 import com.example.nazariy.places.presentation.main.view.PlacesListMvpView;
@@ -18,14 +18,16 @@ import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 
-public class PlaceListPresenter extends MvpBasePresenter<PlacesListMvpView> implements PlaceListMvpPresenter {
+public class PlaceListPresenter extends MvpBasePresenter<PlacesListMvpView>
+        implements PlaceListMvpPresenter {
     private static final String TAG = "PlaceListPresenter";
-    private CompositeDisposable compositeDisposable;
-    private GetPlaces getPlacesUseCase;
 
-    public PlaceListPresenter(GetPlaces getPlacesUseCase) {
+    private final PlacesRepositoryImpl placesRepository;
+    private CompositeDisposable compositeDisposable;
+
+    public PlaceListPresenter(PlacesRepositoryImpl placesRepository) {
         // make Singleton to substitute usecases
-        this.getPlacesUseCase = getPlacesUseCase;
+        this.placesRepository = placesRepository;
     }
 
     @Override
@@ -42,7 +44,7 @@ public class PlaceListPresenter extends MvpBasePresenter<PlacesListMvpView> impl
 
     @Override
     public void getPlaces(String location, int radius) {
-        compositeDisposable.add(getPlacesUseCase.createObservable(location, radius)
+        compositeDisposable.add(placesRepository.getPlaces(location, radius)
                 .observeOn(AndroidSchedulers.mainThread())
                 .filter(placeResult -> placeResult.getMeta().getCode() < 400)
                 .map(placeResult -> placeResult.getResponse().getVenues())

@@ -1,6 +1,6 @@
 package com.example.nazariy.places.domain.entities.details;
 
-public class BestPhoto {
+public class FoursquarePhoto {
 
     private String id;
     private int createdAt;

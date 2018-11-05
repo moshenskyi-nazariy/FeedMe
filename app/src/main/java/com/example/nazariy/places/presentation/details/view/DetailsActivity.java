@@ -5,29 +5,35 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.nazariy.places.R;
 import com.example.nazariy.places.data.repository.PlacesRepositoryImpl;
 import com.example.nazariy.places.domain.entities.details.Stats;
 import com.example.nazariy.places.domain.entities.details.Venue;
-import com.example.nazariy.places.domain.usecases.GetPlaceDetails;
+import com.example.nazariy.places.domain.entities.details.photos.Item;
+import com.example.nazariy.places.domain.entities.details.photos.Photos;
 import com.example.nazariy.places.presentation.details.presenter.DetailsMvpPresenter;
 import com.example.nazariy.places.presentation.details.presenter.DetailsPresenter;
 import com.hannesdorfmann.mosby3.mvp.MvpActivity;
 
-public class DetailsActivity extends MvpActivity<DetailsMvpView, DetailsMvpPresenter> implements DetailsMvpView {
+public class DetailsActivity extends MvpActivity<DetailsMvpView, DetailsMvpPresenter>
+        implements DetailsMvpView {
     private static final String VENUE_ID = "venue id";
-
-    private String venueId;
 
     private ProgressBar loadingIndicator;
     private RatingBar venueRatingBar;
     private TextView checkinCount;
     private TextView detailsFromOwner;
     private TextView popularHours;
+
+    private ImageView placePhoto;
+    private String venueId;
 
     public static void start(Context context, String venueId) {
         Intent starter = new Intent(context, DetailsActivity.class);
@@ -50,7 +56,7 @@ public class DetailsActivity extends MvpActivity<DetailsMvpView, DetailsMvpPrese
     @NonNull
     @Override
     public DetailsMvpPresenter createPresenter() {
-        return new DetailsPresenter(new GetPlaceDetails(new PlacesRepositoryImpl()));
+        return new DetailsPresenter(new PlacesRepositoryImpl());
     }
 
     private void initViews() {
@@ -59,6 +65,7 @@ public class DetailsActivity extends MvpActivity<DetailsMvpView, DetailsMvpPrese
         checkinCount = findViewById(R.id.details__checkin_count);
         detailsFromOwner = findViewById(R.id.details__detail_from_owner);
         popularHours = findViewById(R.id.details__popular_hours);
+        placePhoto = findViewById(R.id.details__place_photo);
     }
 
     @Override
@@ -72,16 +79,36 @@ public class DetailsActivity extends MvpActivity<DetailsMvpView, DetailsMvpPrese
     }
 
     @Override
-    public void obtainResult(Venue placeDetails) {
+    public void obtainDetails(Venue placeDetails) {
         if (placeDetails != null) {
-            addRating(placeDetails);
-
-            addCheckins(placeDetails);
-
-            addDescription(placeDetails);
-
-            addPopularHours(placeDetails);
+            updateUi(placeDetails);
         }
+    }
+
+    @Override
+    public void obtainPhotos(Photos photos) {
+        Item photo = photos.getItems().get(0);
+        Glide.with(this)
+                .load(photo.getPrefix() + photo.getWidth() + photo.getHeight() + photo.getSuffix())
+                .into(placePhoto);
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void updateUi(Venue placeDetails) {
+
+        getPresenter().getPhotos(venueId);
+
+        addRating(placeDetails);
+
+        addCheckins(placeDetails);
+
+        addDescription(placeDetails);
+
+        addPopularHours(placeDetails);
     }
 
     private void addPopularHours(Venue placeDetails) {

@@ -2,6 +2,7 @@ package com.example.nazariy.places.data.api;
 
 
 import com.example.nazariy.places.domain.entities.details.PlaceDetailsResult;
+import com.example.nazariy.places.domain.entities.details.photos.PhotoResult;
 import com.example.nazariy.places.domain.entities.places.PlaceResult;
 
 import java.util.Map;
@@ -20,4 +21,7 @@ public interface Api {
     Observable<PlaceDetailsResult> getPlaceDetails(@Path("venueId") String venueId,
                                                    @QueryMap Map<String, String> options);
 
+    @GET("venues/{venueId}/photos")
+    Observable<PhotoResult> getPhotos(@Path("venueId") String venueId,
+                                      @QueryMap Map<String, String> options);
 }

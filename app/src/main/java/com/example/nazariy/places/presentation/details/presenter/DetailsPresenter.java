@@ -1,19 +1,15 @@
 package com.example.nazariy.places.presentation.details.presenter;
 
-import android.support.annotation.NonNull;
-
 import com.example.nazariy.places.domain.entities.details.Response;
 import com.example.nazariy.places.domain.entities.details.photos.PhotoResponse;
 import com.example.nazariy.places.domain.interfaces.PlacesRepository;
+import com.example.nazariy.places.presentation.base.BaseRxPresenter;
 import com.example.nazariy.places.presentation.details.view.DetailsMvpView;
-import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
 
-public class DetailsPresenter extends MvpBasePresenter<DetailsMvpView> implements DetailsMvpPresenter {
-    private static final String TAG = "DetailsPresenter";
-    private CompositeDisposable compositeDisposable;
+public class DetailsPresenter extends BaseRxPresenter<DetailsMvpView>
+        implements DetailsMvpPresenter {
 
     private PlacesRepository repository;
 
@@ -51,18 +47,6 @@ public class DetailsPresenter extends MvpBasePresenter<DetailsMvpView> implement
                         error -> ifViewAttached(view -> view.showMessage(error.getMessage())),
                         () -> ifViewAttached(DetailsMvpView::hideProgressBar)
                 ));
-    }
-
-    @Override
-    public void attachView(@NonNull DetailsMvpView view) {
-        super.attachView(view);
-        compositeDisposable = new CompositeDisposable();
-    }
-
-    @Override
-    public void detachView() {
-        super.detachView();
-        compositeDisposable.clear();
     }
 
 }

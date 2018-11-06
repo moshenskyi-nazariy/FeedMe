@@ -1,6 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Places</string>
-    <string name="place_photo">Place photo</string>
     <string name="distance_placeholder">%dm from you</string>
     <string name="checkin_count_placeholder">%d users checked in</string>
     <string name="popular_hours_placeholder">Most popular in time: %s</string>

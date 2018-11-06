@@ -33,6 +33,16 @@ android {
         }
     }
 
+    sourceSets {
+        main {
+            res.srcDirs = [
+                    'src/main/res-main',
+                    'src/main/res-screen/main',
+                    'src/main/res-screen/details'
+            ]
+        }
+    }
+
     compileOptions {
         targetCompatibility 1.8
         sourceCompatibility 1.8

@@ -12,7 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.nazariy.places.R;
-import com.example.nazariy.places.data.repository.DataSourceImpl;
+import com.example.nazariy.places.data.datasource.DataSourceImpl;
 import com.example.nazariy.places.presentation.main.model.ViewVenue;
 import com.example.nazariy.places.presentation.main.presenter.PlaceListMvpPresenter;
 import com.example.nazariy.places.presentation.main.presenter.PlaceListPresenter;

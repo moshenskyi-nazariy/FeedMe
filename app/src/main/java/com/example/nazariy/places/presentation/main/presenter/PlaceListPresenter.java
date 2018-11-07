@@ -3,7 +3,7 @@ package com.example.nazariy.places.presentation.main.presenter;
 
 import android.util.Log;
 
-import com.example.nazariy.places.data.repository.DataSourceImpl;
+import com.example.nazariy.places.data.datasource.DataSourceImpl;
 import com.example.nazariy.places.presentation.base.BaseRxPresenter;
 import com.example.nazariy.places.presentation.main.model.VenueMapper;
 import com.example.nazariy.places.presentation.main.view.PlacesListMvpView;

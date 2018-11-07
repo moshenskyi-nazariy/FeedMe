@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.nazariy.places.R;
-import com.example.nazariy.places.data.repository.DataSourceImpl;
+import com.example.nazariy.places.data.datasource.DataSourceImpl;
 import com.example.nazariy.places.domain.entities.details.Stats;
 import com.example.nazariy.places.domain.entities.details.Venue;
 import com.example.nazariy.places.domain.entities.details.photos.Item;

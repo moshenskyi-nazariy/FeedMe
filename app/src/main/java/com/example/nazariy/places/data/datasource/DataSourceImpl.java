@@ -1,8 +1,8 @@
-package com.example.nazariy.places.data.repository;
+package com.example.nazariy.places.data.datasource;
 
 import com.example.nazariy.places.BuildConfig;
 import com.example.nazariy.places.data.api.Api;
-import com.example.nazariy.places.data.datasource.remote.RemoteRepository;
+import com.example.nazariy.places.data.repository.remote.RemoteRepository;
 import com.example.nazariy.places.domain.entities.details.PlaceDetailsResult;
 import com.example.nazariy.places.domain.entities.details.photos.PhotoResult;
 import com.example.nazariy.places.domain.entities.places.PlaceResult;

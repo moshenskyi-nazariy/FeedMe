@@ -1,4 +1,4 @@
-package com.example.nazariy.places.data.datasource.remote;
+package com.example.nazariy.places.data.repository.remote;
 
 
 import com.example.nazariy.places.BuildConfig;

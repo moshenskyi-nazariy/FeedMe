@@ -3,7 +3,7 @@ package com.example.nazariy.places.presentation.main.presenter;
 
 import android.util.Log;
 
-import com.example.nazariy.places.data.repository.PlacesRepositoryImpl;
+import com.example.nazariy.places.data.repository.DataSourceImpl;
 import com.example.nazariy.places.presentation.base.BaseRxPresenter;
 import com.example.nazariy.places.presentation.main.model.VenueMapper;
 import com.example.nazariy.places.presentation.main.view.PlacesListMvpView;
@@ -14,9 +14,9 @@ public class PlaceListPresenter extends BaseRxPresenter<PlacesListMvpView>
         implements PlaceListMvpPresenter {
     private static final String TAG = "PlaceListPresenter";
 
-    private final PlacesRepositoryImpl placesRepository;
+    private final DataSourceImpl placesRepository;
 
-    public PlaceListPresenter(PlacesRepositoryImpl placesRepository) {
+    public PlaceListPresenter(DataSourceImpl placesRepository) {
         // make Singleton to substitute usecases
         this.placesRepository = placesRepository;
     }

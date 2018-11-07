@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.nazariy.places.R;
-import com.example.nazariy.places.data.repository.PlacesRepositoryImpl;
+import com.example.nazariy.places.data.repository.DataSourceImpl;
 import com.example.nazariy.places.domain.entities.details.Stats;
 import com.example.nazariy.places.domain.entities.details.Venue;
 import com.example.nazariy.places.domain.entities.details.photos.Item;
@@ -56,7 +56,7 @@ public class DetailsActivity extends MvpActivity<DetailsMvpView, DetailsMvpPrese
     @NonNull
     @Override
     public DetailsMvpPresenter createPresenter() {
-        return new DetailsPresenter(new PlacesRepositoryImpl());
+        return new DetailsPresenter(new DataSourceImpl());
     }
 
     private void initViews() {

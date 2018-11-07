@@ -2,7 +2,7 @@ package com.example.nazariy.places.presentation.details.presenter;
 
 import com.example.nazariy.places.domain.entities.details.Response;
 import com.example.nazariy.places.domain.entities.details.photos.PhotoResponse;
-import com.example.nazariy.places.domain.interfaces.PlacesRepository;
+import com.example.nazariy.places.domain.interfaces.DataSource;
 import com.example.nazariy.places.presentation.base.BaseRxPresenter;
 import com.example.nazariy.places.presentation.details.view.DetailsMvpView;
 
@@ -11,9 +11,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 public class DetailsPresenter extends BaseRxPresenter<DetailsMvpView>
         implements DetailsMvpPresenter {
 
-    private PlacesRepository repository;
+    private DataSource repository;
 
-    public DetailsPresenter(PlacesRepository repository) {
+    public DetailsPresenter(DataSource repository) {
         this.repository = repository;
     }
 

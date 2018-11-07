@@ -6,16 +6,16 @@ import com.example.nazariy.places.data.api.Api;
 import com.example.nazariy.places.domain.entities.details.PlaceDetailsResult;
 import com.example.nazariy.places.domain.entities.details.photos.PhotoResult;
 import com.example.nazariy.places.domain.entities.places.PlaceResult;
-import com.example.nazariy.places.domain.interfaces.DataSource;
+import com.example.nazariy.places.domain.interfaces.Repository;
 
 import java.util.HashMap;
 
 import io.reactivex.Observable;
 
-public class RemoteDataSource implements DataSource {
+public class RemoteRepository implements Repository {
     private Api api;
 
-    public RemoteDataSource(Api api) {
+    public RemoteRepository(Api api) {
         this.api = api;
     }
 

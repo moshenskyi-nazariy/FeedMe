@@ -3,4 +3,5 @@ ext {
     daggerVersion = "2.14.1"
     mosbyVersion = "3.1.0"
     glideVersion = "4.8.0"
+    room_version = "1.1.1"
 }

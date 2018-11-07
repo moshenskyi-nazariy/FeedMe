@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.nazariy.places.R;
+import com.example.nazariy.places.presentation.base.BaseAdapter;
 import com.example.nazariy.places.presentation.details.view.DetailsActivity;
 import com.example.nazariy.places.presentation.main.model.ViewVenue;
 
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.PlaceViewHolder> {
+public class PlacesAdapter extends BaseAdapter<PlacesAdapter.PlaceViewHolder, List<ViewVenue>> {
 
     private final List<ViewVenue> results;
 

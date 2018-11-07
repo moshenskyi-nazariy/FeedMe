@@ -1,0 +1,10 @@
+<resources>
+
+    <style name="ratingIndicator" parent="Base.Widget.AppCompat.RatingBar.Indicator">
+        <item name="android:focusableInTouchMode">false</item>
+        <item name="android:numStars">5</item>
+        <item name="android:focusable">false</item>
+        <item name="android:clickable">false</item>
+    </style>
+
+</resources>

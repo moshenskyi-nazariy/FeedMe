@@ -5,9 +5,6 @@ import com.example.nazariy.places.domain.entities.details.photos.Photos;
 import com.hannesdorfmann.mosby3.mvp.MvpView;
 
 public interface DetailsMvpView extends MvpView {
-    void showProgressBar();
-
-    void hideProgressBar();
 
     void obtainDetails(Venue result);
 

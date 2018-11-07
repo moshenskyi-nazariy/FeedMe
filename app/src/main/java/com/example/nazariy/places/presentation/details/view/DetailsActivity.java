@@ -4,9 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,15 +16,14 @@ import com.example.nazariy.places.domain.entities.details.Stats;
 import com.example.nazariy.places.domain.entities.details.Venue;
 import com.example.nazariy.places.domain.entities.details.photos.Item;
 import com.example.nazariy.places.domain.entities.details.photos.Photos;
+import com.example.nazariy.places.presentation.base.BaseLoadingActivity;
 import com.example.nazariy.places.presentation.details.presenter.DetailsMvpPresenter;
 import com.example.nazariy.places.presentation.details.presenter.DetailsPresenter;
-import com.hannesdorfmann.mosby3.mvp.MvpActivity;
 
-public class DetailsActivity extends MvpActivity<DetailsMvpView, DetailsMvpPresenter>
+public class DetailsActivity extends BaseLoadingActivity<DetailsMvpView, DetailsMvpPresenter>
         implements DetailsMvpView {
     private static final String VENUE_ID = "venue id";
 
-    private ProgressBar loadingIndicator;
     private RatingBar venueRatingBar;
     private TextView checkinCount;
     private TextView detailsFromOwner;
@@ -66,16 +63,6 @@ public class DetailsActivity extends MvpActivity<DetailsMvpView, DetailsMvpPrese
         detailsFromOwner = findViewById(R.id.details__detail_from_owner);
         popularHours = findViewById(R.id.details__popular_hours);
         placePhoto = findViewById(R.id.details__place_photo);
-    }
-
-    @Override
-    public void showProgressBar() {
-        loadingIndicator.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideProgressBar() {
-        loadingIndicator.setVisibility(View.GONE);
     }
 
     @Override

@@ -2,23 +2,20 @@ package com.example.nazariy.places.presentation.main.view;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.nazariy.places.R;
 import com.example.nazariy.places.data.datasource.DataSourceImpl;
+import com.example.nazariy.places.presentation.base.BaseLoadingActivity;
 import com.example.nazariy.places.presentation.main.model.ViewVenue;
 import com.example.nazariy.places.presentation.main.presenter.PlaceListMvpPresenter;
 import com.example.nazariy.places.presentation.main.presenter.PlaceListPresenter;
 import com.example.nazariy.places.presentation.main.view.delegate.MainRecyclerDelegate;
-import com.hannesdorfmann.mosby3.mvp.MvpActivity;
 
 import java.util.List;
 
-public class MainActivity extends MvpActivity<PlacesListMvpView, PlaceListMvpPresenter>
+public class MainActivity extends BaseLoadingActivity<PlacesListMvpView, PlaceListMvpPresenter>
         implements PlacesListMvpView {
-    private ProgressBar loadingIndicator;
 
     private MainRecyclerDelegate recyclerDelegate;
 
@@ -48,16 +45,6 @@ public class MainActivity extends MvpActivity<PlacesListMvpView, PlaceListMvpPre
     @Override
     public PlaceListMvpPresenter createPresenter() {
         return new PlaceListPresenter(new DataSourceImpl());
-    }
-
-    @Override
-    public void showProgressBar() {
-        loadingIndicator.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideProgressBar() {
-        loadingIndicator.setVisibility(View.GONE);
     }
 
     @Override

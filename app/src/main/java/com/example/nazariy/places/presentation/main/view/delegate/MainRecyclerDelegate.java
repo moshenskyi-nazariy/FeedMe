@@ -10,15 +10,14 @@ import android.view.animation.LayoutAnimationController;
 import com.example.nazariy.places.R;
 import com.example.nazariy.places.presentation.base.BaseRecyclerDelegate;
 import com.example.nazariy.places.presentation.main.model.ViewVenue;
-import com.example.nazariy.places.presentation.main.presenter.PlaceListMvpPresenter;
-import com.example.nazariy.places.presentation.main.view.PlacesListMvpView;
+import com.example.nazariy.places.presentation.main.view.MainActivity;
 import com.example.nazariy.places.presentation.main.view.recyclerview.PlacesAdapter;
 import com.example.nazariy.places.presentation.main.view.recyclerview.SpaceItemDecoration;
 
 import java.util.List;
 
 public class MainRecyclerDelegate extends
-        BaseRecyclerDelegate<List<ViewVenue>, PlacesListMvpView, PlaceListMvpPresenter> {
+        BaseRecyclerDelegate<List<ViewVenue>, MainActivity> {
     @Override
     public void obtainResults(List<ViewVenue> results) {
         final Context context = recyclerView.getContext();
@@ -44,7 +43,7 @@ public class MainRecyclerDelegate extends
     private LinearLayoutManager getLayoutManager(RecyclerView recyclerView) {
         return new LinearLayoutManager(
                 recyclerView.getContext(),
-                LinearLayoutManager.VERTICAL,
+                RecyclerView.VERTICAL,
                 false);
     }
 }

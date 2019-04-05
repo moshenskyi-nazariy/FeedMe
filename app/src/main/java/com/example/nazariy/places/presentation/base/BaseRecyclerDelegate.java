@@ -2,7 +2,7 @@ package com.example.nazariy.places.presentation.base;
 
 import android.support.v7.widget.RecyclerView;
 
-public abstract class BaseRecyclerDelegate<Result, View, Presenter> {
+public abstract class BaseRecyclerDelegate<Result, View> {
 
     protected View view;
 

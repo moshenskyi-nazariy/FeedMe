@@ -1,9 +1,10 @@
 package com.example.nazariy.places.presentation.details.view;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -17,11 +18,10 @@ import com.example.nazariy.places.domain.entities.details.Venue;
 import com.example.nazariy.places.domain.entities.details.photos.Item;
 import com.example.nazariy.places.domain.entities.details.photos.Photos;
 import com.example.nazariy.places.presentation.base.BaseLoadingActivity;
-import com.example.nazariy.places.presentation.details.presenter.DetailsMvpPresenter;
-import com.example.nazariy.places.presentation.details.presenter.DetailsPresenter;
+import com.example.nazariy.places.presentation.base.ViewModelFactory;
+import com.example.nazariy.places.presentation.details.viewmodel.DetailsViewModel;
 
-public class DetailsActivity extends BaseLoadingActivity<DetailsMvpView, DetailsMvpPresenter>
-        implements DetailsMvpView {
+public class DetailsActivity extends BaseLoadingActivity {
     private static final String VENUE_ID = "venue id";
 
     private RatingBar venueRatingBar;
@@ -31,6 +31,8 @@ public class DetailsActivity extends BaseLoadingActivity<DetailsMvpView, Details
 
     private ImageView placePhoto;
     private String venueId;
+
+    private DetailsViewModel detailsViewModel;
 
     public static void start(Context context, String venueId) {
         Intent starter = new Intent(context, DetailsActivity.class);
@@ -47,13 +49,25 @@ public class DetailsActivity extends BaseLoadingActivity<DetailsMvpView, Details
 
         initViews();
 
-        getPresenter().getPlaceDetails(venueId);
+        setupViewModel();
     }
 
-    @NonNull
-    @Override
-    public DetailsMvpPresenter createPresenter() {
-        return new DetailsPresenter(new DataSourceImpl());
+    private void setupViewModel() {
+        detailsViewModel = ViewModelProviders.of(this, new ViewModelFactory(new DataSourceImpl()))
+                .get(DetailsViewModel.class);
+        detailsViewModel.getPlaceDetails(venueId);
+
+        detailsViewModel.photos.observe(this, this::obtainPhotos);
+        detailsViewModel.errorMessage.observe(this, this::showMessage);
+        detailsViewModel.venue.observe(this, this::obtainDetails);
+
+        detailsViewModel.isLoading.observe(this, isLoading -> {
+            if (isLoading != null && isLoading) {
+                showProgressBar();
+            } else {
+                hideProgressBar();
+            }
+        });
     }
 
     private void initViews() {
@@ -65,14 +79,12 @@ public class DetailsActivity extends BaseLoadingActivity<DetailsMvpView, Details
         placePhoto = findViewById(R.id.details__place_photo);
     }
 
-    @Override
     public void obtainDetails(Venue placeDetails) {
         if (placeDetails != null) {
             updateUi(placeDetails);
         }
     }
 
-    @Override
     public void obtainPhotos(Photos photos) {
         Item photo = photos.getItems().get(0);
         Glide.with(this)
@@ -80,14 +92,13 @@ public class DetailsActivity extends BaseLoadingActivity<DetailsMvpView, Details
                 .into(placePhoto);
     }
 
-    @Override
     public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     private void updateUi(Venue placeDetails) {
 
-        getPresenter().getPhotos(venueId);
+        detailsViewModel.getPhotos(venueId);
 
         addRating(placeDetails);
 

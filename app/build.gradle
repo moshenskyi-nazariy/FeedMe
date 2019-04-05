@@ -90,4 +90,7 @@ dependencies {
 
     // Arch components
     implementation "android.arch.lifecycle:extensions:1.1.1"
+
+    // Fused location provider
+    implementation 'com.google.android.gms:play-services-location:16.0.0'
 }

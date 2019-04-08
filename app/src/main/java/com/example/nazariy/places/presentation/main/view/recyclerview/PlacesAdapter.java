@@ -17,6 +17,7 @@ import com.example.nazariy.places.R;
 import com.example.nazariy.places.presentation.base.BaseAdapter;
 import com.example.nazariy.places.presentation.details.view.DetailsActivity;
 import com.example.nazariy.places.presentation.main.model.ViewVenue;
+import com.example.nazariy.places.presentation.maps.MapsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +68,8 @@ public class PlacesAdapter extends BaseAdapter<PlacesAdapter.PlaceViewHolder, Li
 
         holder.itemView.setOnClickListener(v -> {
             Context context = v.getContext();
-            DetailsActivity.start(context, venue.getId());
+//            DetailsActivity.start(context, venue.getId());
+            MapsActivity.start(holder.itemView.getContext());
         });
 
         /*Glide.

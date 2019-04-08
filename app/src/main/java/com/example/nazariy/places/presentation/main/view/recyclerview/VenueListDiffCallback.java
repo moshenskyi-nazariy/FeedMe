@@ -1,8 +1,8 @@
 package com.example.nazariy.places.presentation.main.view.recyclerview;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.util.DiffUtil;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DiffUtil;
 
 import com.example.nazariy.places.presentation.main.model.ViewVenue;
 

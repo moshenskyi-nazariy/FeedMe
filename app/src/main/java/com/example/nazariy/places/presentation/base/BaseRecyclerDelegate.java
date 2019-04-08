@@ -1,6 +1,6 @@
 package com.example.nazariy.places.presentation.base;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 
 public abstract class BaseRecyclerDelegate<Result, View> {
 

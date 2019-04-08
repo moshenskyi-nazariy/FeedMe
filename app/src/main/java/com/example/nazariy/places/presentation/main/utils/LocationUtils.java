@@ -2,8 +2,8 @@ package com.example.nazariy.places.presentation.main.utils;
 
 import android.Manifest;
 import android.app.Activity;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.appcompat.app.AlertDialog;
 
 public class LocationUtils {
     public static void requestLocationPermissions(Activity context, int permissionResult) {

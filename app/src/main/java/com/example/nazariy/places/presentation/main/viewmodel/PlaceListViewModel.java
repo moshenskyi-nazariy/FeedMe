@@ -1,7 +1,7 @@
 package com.example.nazariy.places.presentation.main.viewmodel;
 
 
-import android.arch.lifecycle.MutableLiveData;
+import androidx.lifecycle.MutableLiveData;
 import android.util.Log;
 
 import com.example.nazariy.places.domain.interfaces.DataSource;

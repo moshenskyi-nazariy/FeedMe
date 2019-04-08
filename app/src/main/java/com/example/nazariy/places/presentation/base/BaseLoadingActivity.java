@@ -1,6 +1,6 @@
 package com.example.nazariy.places.presentation.base;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ProgressBar;
 

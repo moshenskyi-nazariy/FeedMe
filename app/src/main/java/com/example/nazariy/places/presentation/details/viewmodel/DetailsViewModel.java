@@ -1,6 +1,6 @@
 package com.example.nazariy.places.presentation.details.viewmodel;
 
-import android.arch.lifecycle.MutableLiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.nazariy.places.domain.entities.details.Response;
 import com.example.nazariy.places.domain.entities.details.Venue;

@@ -3,8 +3,8 @@ package com.example.nazariy.places.presentation.main.view.recyclerview;
 
 import android.graphics.Rect;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 public class SpaceItemDecoration extends RecyclerView.ItemDecoration {

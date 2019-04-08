@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginStart="@dimen/card_padding"
     android:layout_marginEnd="@dimen/card_padding"
-    app:cardElevation="@dimen/cardview_default_elevation"
-    app:cardCornerRadius="@dimen/cardview_default_radius">
+    app:cardElevation="@dimen/card_elevation">
 
    <!-- <LinearLayout
         android:layout_width="match_parent"
@@ -23,14 +22,17 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/photo_size"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/large_margin">
 
             <TextView
                 android:id="@+id/main__list_name"
-                style="@style/TitleTextView"
+                style="@style/TextAppearance.AppCompat.Headline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:singleLine="true"
                 tools:text="Title" />
 
             <TextView
@@ -40,11 +42,13 @@
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:focusable="true"
+                android:layout_marginTop="@dimen/large_margin"
+                android:layout_marginBottom="@dimen/large_margin"
                 tools:text="SomeStreet St." />
 
             <TextView
                 android:id="@+id/main__place_distance"
-                style="@style/InfoTextView"
+                style="@style/TextAppearance.AppCompat.Caption"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/body_text_size"

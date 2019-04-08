@@ -1,9 +1,6 @@
 package com.example.nazariy.places.presentation.main.view.delegate;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 
@@ -15,6 +12,10 @@ import com.example.nazariy.places.presentation.main.view.recyclerview.PlacesAdap
 import com.example.nazariy.places.presentation.main.view.recyclerview.SpaceItemDecoration;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class MainRecyclerDelegate extends
         BaseRecyclerDelegate<List<ViewVenue>, MainActivity> {
@@ -36,7 +37,8 @@ public class MainRecyclerDelegate extends
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(getLayoutManager(recyclerView));
-        recyclerView.addItemDecoration(new SpaceItemDecoration(8));
+        float density = recyclerView.getContext().getResources().getDisplayMetrics().density;
+        recyclerView.addItemDecoration(new SpaceItemDecoration((int) (density * 10)));
     }
 
     @NonNull

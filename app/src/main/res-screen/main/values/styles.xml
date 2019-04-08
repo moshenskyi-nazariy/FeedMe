@@ -3,12 +3,6 @@
     <style name="InfoTextView">
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">end</item>
-        <item name="android:paddingStart">@dimen/text_padding</item>
-        <item name="android:paddingEnd">@dimen/text_padding</item>
-    </style>
-
-    <style name="TitleTextView" parent="InfoTextView">
-        <item name="android:textSize">@dimen/title_text_size</item>
     </style>
 
     <style name="BodyTextView" parent="InfoTextView">

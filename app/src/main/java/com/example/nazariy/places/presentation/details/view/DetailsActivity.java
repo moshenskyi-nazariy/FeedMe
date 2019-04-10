@@ -1,6 +1,7 @@
 package com.example.nazariy.places.presentation.details.view;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -30,6 +31,7 @@ public class DetailsActivity extends BaseLoadingActivity {
     private TextView popularHours;
 
     private ImageView placePhoto;
+    private ImageView verificationIndicator;
     private String venueId;
 
     private DetailsViewModel detailsViewModel;
@@ -87,6 +89,7 @@ public class DetailsActivity extends BaseLoadingActivity {
         detailsFromOwner = findViewById(R.id.details__detail_from_owner);
         popularHours = findViewById(R.id.details__popular_hours);
         placePhoto = findViewById(R.id.details__place_photo);
+        verificationIndicator = findViewById(R.id.details__verification_indicator);
     }
 
     public void obtainDetails(Venue placeDetails) {
@@ -107,8 +110,8 @@ public class DetailsActivity extends BaseLoadingActivity {
     }
 
     private void updateUi(Venue placeDetails) {
-
         detailsViewModel.getPhotos(venueId);
+        addVerificationStatus(placeDetails);
 
         addRating(placeDetails);
 
@@ -117,6 +120,12 @@ public class DetailsActivity extends BaseLoadingActivity {
         addDescription(placeDetails);
 
         addPopularHours(placeDetails);
+    }
+
+    private void addVerificationStatus(Venue placeDetails) {
+        if (placeDetails.isVerified()) {
+            verificationIndicator.setVisibility(View.VISIBLE);
+        }
     }
 
     private void addPopularHours(Venue placeDetails) {

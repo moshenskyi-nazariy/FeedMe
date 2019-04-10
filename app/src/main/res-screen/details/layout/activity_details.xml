@@ -78,15 +78,16 @@
         app:layout_constraintTop_toTopOf="@+id/details__image_bottom"
         tools:rating="5" />
 
-    <TextView
+    <ImageView
         android:id="@+id/details__verification_indicator"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:visibility="gone"
+        app:srcCompat="@drawable/checked_drawable"
         app:layout_constraintBottom_toTopOf="@+id/details__verification_indicator_bottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/details__verification_indicator_start"
-        app:layout_constraintTop_toTopOf="@+id/details__verification_indicator_top"
-        tools:text="Verified" />
+        app:layout_constraintTop_toTopOf="@+id/details__verification_indicator_top" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/details__verification_indicator_start"
@@ -100,14 +101,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.28" />
+        app:layout_constraintGuide_percent="0.33" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/details__verification_indicator_bottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.43" />
+        app:layout_constraintGuide_percent="0.45" />
 
     <TextView
         android:id="@+id/details__checkin_count"

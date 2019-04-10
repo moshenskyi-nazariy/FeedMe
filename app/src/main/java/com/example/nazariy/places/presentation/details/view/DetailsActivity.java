@@ -55,9 +55,6 @@ public class DetailsActivity extends BaseLoadingActivity {
     private void setupToolbar(Bundle extras) {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp);
         getSupportActionBar().setTitle(null);
         TextView toolbarTitle = findViewById(R.id.toolbar_title);
         toolbarTitle.setText(extras.getString(VENUE_NAME, getResources().getString(R.string.app_name)));

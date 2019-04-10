@@ -67,7 +67,7 @@ public class PlacesAdapter extends BaseAdapter<PlacesAdapter.PlaceViewHolder, Li
                 distanceInMeters));
 
         holder.itemView.setOnClickListener(v -> itemListener.onEstablishmentClick(venue.getId(), holder.name.getText().toString(),
-                holder.name));
+                holder.itemView));
     }
 
     @Override

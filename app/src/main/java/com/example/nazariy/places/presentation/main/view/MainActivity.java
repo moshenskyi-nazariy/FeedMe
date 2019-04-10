@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Locale;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -131,6 +132,11 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
         Intent detailsIntent = new Intent(this, DetailsActivity.class);
         detailsIntent.putExtra(DetailsActivity.VENUE_ID, venueId);
         detailsIntent.putExtra(DetailsActivity.VENUE_NAME, venueName);
-        startActivity(detailsIntent);
+        /*ActivityOptionsCompat options = ActivityOptionsCompat.
+                makeScaleUpAnimation(sharedElement, (int) sharedElement.getX(), (int) sharedElement.getY(),
+                        sharedElement.getWidth(), sharedElement.getHeight());
+        startActivity(detailsIntent, options.toBundle());*/
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this);
+        startActivity(detailsIntent, options.toBundle());
     }
 }

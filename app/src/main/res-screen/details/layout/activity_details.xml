@@ -64,16 +64,16 @@
         style="?android:attr/ratingBarStyleIndicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
+        android:layout_gravity="start"
         android:layout_marginStart="@dimen/text_padding"
         android:layout_marginTop="@dimen/text_padding"
         android:layout_marginEnd="@dimen/text_padding"
-        android:layout_marginBottom="@dimen/text_padding"
         android:isIndicator="true"
-        android:numStars="10"
+        android:numStars="5"
         android:rating="0"
         android:stepSize="1"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/details__image_bottom"
         tools:rating="5" />
@@ -111,6 +111,7 @@
 
     <TextView
         android:id="@+id/details__checkin_count"
+        style="@style/TextAppearance.MaterialComponents.Caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/text_padding"
@@ -123,6 +124,7 @@
 
     <TextView
         android:id="@+id/details__detail_from_owner"
+        style="@style/TextAppearance.MaterialComponents.Body1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/text_padding"
@@ -135,6 +137,7 @@
 
     <TextView
         android:id="@+id/details__popular_hours"
+        style="@style/TextAppearance.MaterialComponents.Overline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/text_padding"

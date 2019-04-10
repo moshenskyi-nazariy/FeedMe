@@ -9,7 +9,7 @@ public class ViewVenue {
     private String id;
     private String name;
     private ViewLocation location;
-    private List<Category> categories = null;
+    private List<Category> categories;
     private VenuePage venuePage;
 
     public String getId() {

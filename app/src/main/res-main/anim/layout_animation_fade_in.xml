@@ -2,6 +2,6 @@
 
 <layoutAnimation
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:animation="@anim/item_left_slide_animation"
+    android:animation="@anim/fade_in"
     android:delay="15%"
     android:animationOrder="normal" />

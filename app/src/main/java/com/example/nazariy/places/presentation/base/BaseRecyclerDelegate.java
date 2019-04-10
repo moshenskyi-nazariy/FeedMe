@@ -20,7 +20,8 @@ public abstract class BaseRecyclerDelegate<Result, View> {
         view = null;
     }
 
-    public void setupRecycler(RecyclerView recyclerView) {
+    public void setupRecycler(RecyclerView recyclerView,  BaseAdapter<?, Result> adapter) {
         this.recyclerView = recyclerView;
+        this.adapter = adapter;
     }
 }

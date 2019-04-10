@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FeedMe</string>
+    <string name="toolbar_transition_name">change_bounds_transition</string>
 </resources>

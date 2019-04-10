@@ -6,6 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".presentation.details.view.DetailsActivity">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <TextView
+                android:id="@+id/toolbar_title"
+                style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@android:color/white"
+                tools:text="Toolbar"
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:focusable="true"
+                android:gravity="center_vertical"/>
+        </androidx.appcompat.widget.Toolbar>
+
     <ProgressBar
         android:id="@+id/details__loading_indicator"
         style="?android:attr/progressBarStyleHorizontal"
@@ -16,7 +38,7 @@
         app:layout_constraintBottom_toTopOf="@id/details__place_photo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         tools:visibility="visible" />
 
     <ImageView
@@ -43,10 +65,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginBottom="@dimen/text_padding"
-        android:layout_marginEnd="@dimen/text_padding"
         android:layout_marginStart="@dimen/text_padding"
         android:layout_marginTop="@dimen/text_padding"
+        android:layout_marginEnd="@dimen/text_padding"
+        android:layout_marginBottom="@dimen/text_padding"
         android:isIndicator="true"
         android:numStars="10"
         android:rating="0"
@@ -127,10 +149,10 @@
         android:id="@+id/details__categories"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/text_padding"
-        android:layout_marginEnd="@dimen/text_padding"
         android:layout_marginStart="@dimen/text_padding"
         android:layout_marginTop="@dimen/text_padding"
+        android:layout_marginEnd="@dimen/text_padding"
+        android:layout_marginBottom="@dimen/text_padding"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -5,10 +5,10 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 
 import com.example.nazariy.places.R;
+import com.example.nazariy.places.presentation.base.BaseAdapter;
 import com.example.nazariy.places.presentation.base.BaseRecyclerDelegate;
 import com.example.nazariy.places.presentation.main.model.ViewVenue;
 import com.example.nazariy.places.presentation.main.view.MainActivity;
-import com.example.nazariy.places.presentation.main.view.recyclerview.PlacesAdapter;
 import com.example.nazariy.places.presentation.main.view.recyclerview.SpaceItemDecoration;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public class MainRecyclerDelegate extends
     public void obtainResults(List<ViewVenue> results) {
         final Context context = recyclerView.getContext();
         final LayoutAnimationController controller =
-                AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_left_slide);
+                AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fade_in);
 
         recyclerView.setLayoutAnimation(controller);
         adapter.update(results);
@@ -31,12 +31,12 @@ public class MainRecyclerDelegate extends
     }
 
     @Override
-    public void setupRecycler(RecyclerView recyclerView) {
-        super.setupRecycler(recyclerView);
-        adapter = new PlacesAdapter();
+    public void setupRecycler(RecyclerView recyclerView, BaseAdapter<?, List<ViewVenue>> adapter) {
+        super.setupRecycler(recyclerView, adapter);
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(getLayoutManager(recyclerView));
+
         float density = recyclerView.getContext().getResources().getDisplayMetrics().density;
         recyclerView.addItemDecoration(new SpaceItemDecoration((int) (density * 10)));
     }

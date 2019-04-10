@@ -1,10 +1,6 @@
 package com.example.nazariy.places.presentation.details.view;
 
-import androidx.lifecycle.ViewModelProviders;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -21,8 +17,12 @@ import com.example.nazariy.places.presentation.base.BaseLoadingActivity;
 import com.example.nazariy.places.presentation.base.ViewModelFactory;
 import com.example.nazariy.places.presentation.details.viewmodel.DetailsViewModel;
 
+import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProviders;
+
 public class DetailsActivity extends BaseLoadingActivity {
-    private static final String VENUE_ID = "venue id";
+    public static final String VENUE_ID = "venue id";
+    public static final String VENUE_NAME = "venue name";
 
     private RatingBar venueRatingBar;
     private TextView checkinCount;
@@ -34,22 +34,32 @@ public class DetailsActivity extends BaseLoadingActivity {
 
     private DetailsViewModel detailsViewModel;
 
-    public static void start(Context context, String venueId) {
-        Intent starter = new Intent(context, DetailsActivity.class);
-        starter.putExtra(VENUE_ID, venueId);
-        context.startActivity(starter);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
-        venueId = getIntent().getStringExtra(VENUE_ID);
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            setupToolbar(extras);
+            venueId = extras.getString(VENUE_ID);
+        }
 
         initViews();
 
         setupViewModel();
+    }
+
+    private void setupToolbar(Bundle extras) {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp);
+        getSupportActionBar().setTitle(null);
+        TextView toolbarTitle = findViewById(R.id.toolbar_title);
+        toolbarTitle.setText(extras.getString(VENUE_NAME, getResources().getString(R.string.app_name)));
+        toolbarTitle.setSelected(true);
     }
 
     private void setupViewModel() {

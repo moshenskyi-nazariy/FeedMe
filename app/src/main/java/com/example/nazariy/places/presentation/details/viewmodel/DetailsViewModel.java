@@ -1,7 +1,5 @@
 package com.example.nazariy.places.presentation.details.viewmodel;
 
-import androidx.lifecycle.MutableLiveData;
-
 import com.example.nazariy.places.domain.entities.details.Response;
 import com.example.nazariy.places.domain.entities.details.Venue;
 import com.example.nazariy.places.domain.entities.details.photos.PhotoResponse;
@@ -9,6 +7,7 @@ import com.example.nazariy.places.domain.entities.details.photos.Photos;
 import com.example.nazariy.places.domain.interfaces.DataSource;
 import com.example.nazariy.places.presentation.base.BaseRxViewModel;
 
+import androidx.lifecycle.MutableLiveData;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class DetailsViewModel extends BaseRxViewModel {

@@ -1,24 +1,23 @@
 package com.example.nazariy.places.presentation.main.view;
 
 import android.Manifest;
-import androidx.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.app.AlertDialog;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.nazariy.places.R;
 import com.example.nazariy.places.data.datasource.DataSourceImpl;
 import com.example.nazariy.places.presentation.base.BaseLoadingActivity;
 import com.example.nazariy.places.presentation.base.ViewModelFactory;
+import com.example.nazariy.places.presentation.details.view.DetailsActivity;
 import com.example.nazariy.places.presentation.main.model.ViewVenue;
 import com.example.nazariy.places.presentation.main.utils.LocationUtils;
 import com.example.nazariy.places.presentation.main.view.delegate.MainRecyclerDelegate;
+import com.example.nazariy.places.presentation.main.view.recyclerview.PlacesAdapter;
+import com.example.nazariy.places.presentation.main.view.recyclerview.VenueListener;
 import com.example.nazariy.places.presentation.main.viewmodel.PlaceListViewModel;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -29,7 +28,12 @@ import com.google.android.gms.location.LocationServices;
 import java.util.List;
 import java.util.Locale;
 
-public class MainActivity extends BaseLoadingActivity implements LocationListener {
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModelProviders;
+
+public class MainActivity extends BaseLoadingActivity implements LocationListener,
+        VenueListener {
 
     private static final int ALL_PERMISSIONS_RESULT = 777;
 
@@ -43,6 +47,8 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        setSupportActionBar(findViewById(R.id.toolbar));
 
         setupRecyclerDelegate();
 
@@ -62,7 +68,8 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
             LocationUtils.requestLocationPermissions(this, ALL_PERMISSIONS_RESULT);
         } else {
             fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this::onLocationChanged);
-            fusedLocationProviderClient.requestLocationUpdates(new LocationRequest(), new LocationCallback(), getMainLooper());
+            fusedLocationProviderClient.requestLocationUpdates(new LocationRequest(),
+                    new LocationCallback(), getMainLooper());
         }
     }
 
@@ -71,9 +78,11 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
                                            @NonNull int[] grantResults) {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
                 PackageManager.PERMISSION_GRANTED
-                && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                && ContextCompat.checkSelfPermission(this, Manifest.permission
+                .ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
-            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this::onLocationChanged);
+            fusedLocationProviderClient.getLastLocation().addOnSuccessListener
+                    (this::onLocationChanged);
         }
     }
 
@@ -91,7 +100,8 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
     }
 
     private void setupRecycler() {
-        recyclerDelegate.setupRecycler(findViewById(R.id.main__place_list));
+        recyclerDelegate.setupRecycler(findViewById(R.id.main__place_list), new PlacesAdapter
+                (this));
     }
 
     public void obtainResults(List<ViewVenue> placeResult) {
@@ -114,5 +124,13 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
                 location.getLongitude());
 
         placeListViewModel.getPlaces(locationData, 5000);
+    }
+
+    @Override
+    public void onEstablishmentClick(String venueId, String venueName, View sharedElement) {
+        Intent detailsIntent = new Intent(this, DetailsActivity.class);
+        detailsIntent.putExtra(DetailsActivity.VENUE_ID, venueId);
+        detailsIntent.putExtra(DetailsActivity.VENUE_NAME, venueName);
+        startActivity(detailsIntent);
     }
 }

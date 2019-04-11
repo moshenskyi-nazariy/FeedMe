@@ -24,6 +24,7 @@
                 android:singleLine="true"
                 android:ellipsize="marquee"
                 android:marqueeRepeatLimit="marquee_forever"
+                android:transitionName="@string/toolbar_transition_name"
                 android:focusable="true"
                 android:gravity="center_vertical"/>
         </androidx.appcompat.widget.Toolbar>

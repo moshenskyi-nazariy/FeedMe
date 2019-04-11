@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
@@ -7,12 +7,23 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColor">@android:color/black</item>
+    </style>
 
-        <item name="android:windowContentTransitions" tools:targetApi="lollipop">true</item>
-        <item name="android:windowEnterTransition" tools:targetApi="lollipop">@transition/slide</item>
-        <item name="android:windowExitTransition" tools:targetApi="lollipop">@transition/slide</item>
-        <item name="android:windowReenterTransition" tools:targetApi="lollipop">@transition/slide</item>
-        <item name="android:windowReturnTransition" tools:targetApi="lollipop">@transition/slide</item>
+    <style name="ActivityTransitions" parent="AppTheme">
+        <!--Activity transitions-->
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowEnterTransition">@transition/slide</item>
+        <item name="android:windowExitTransition">@transition/slide</item>
+        <item name="android:windowReenterTransition">@transition/slide</item>
+        <item name="android:windowReturnTransition">@transition/slide</item>
+    </style>
+
+    <style name="SharedElement" parent="AppTheme">
+        <!--Shared element transitions-->
+        <item name="android:windowSharedElementEnterTransition">@transition/move</item>
+        <item name="android:windowSharedElementExitTransition">@transition/move</item>
+        <item name="android:windowSharedElementReenterTransition">@transition/move</item>
+        <item name="android:windowSharedElementReturnTransition">@transition/move</item>
     </style>
 
 </resources>

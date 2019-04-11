@@ -132,11 +132,9 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
         Intent detailsIntent = new Intent(this, DetailsActivity.class);
         detailsIntent.putExtra(DetailsActivity.VENUE_ID, venueId);
         detailsIntent.putExtra(DetailsActivity.VENUE_NAME, venueName);
-        /*ActivityOptionsCompat options = ActivityOptionsCompat.
-                makeScaleUpAnimation(sharedElement, (int) sharedElement.getX(), (int) sharedElement.getY(),
+        ActivityOptionsCompat options = ActivityOptionsCompat
+                .makeScaleUpAnimation(sharedElement, (int) sharedElement.getX(), (int) sharedElement.getY(),
                         sharedElement.getWidth(), sharedElement.getHeight());
-        startActivity(detailsIntent, options.toBundle());*/
-        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this);
         startActivity(detailsIntent, options.toBundle());
     }
 }

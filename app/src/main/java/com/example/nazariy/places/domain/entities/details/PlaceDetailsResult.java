@@ -1,15 +1,17 @@
 package com.example.nazariy.places.domain.entities.details;
 
-public class PlaceDetailsResult {
+import com.example.nazariy.places.domain.entities.base.BasePlaceResult;
+import com.example.nazariy.places.domain.entities.base.ResultMeta;
 
-    private Meta meta;
+public class PlaceDetailsResult extends BasePlaceResult {
+
     private Response response;
 
-    public Meta getMeta() {
+    public ResultMeta getMeta() {
         return meta;
     }
 
-    public void setMeta(Meta meta) {
+    public void setMeta(ResultMeta meta) {
         this.meta = meta;
     }
 

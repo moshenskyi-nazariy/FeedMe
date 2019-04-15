@@ -14,6 +14,7 @@ import com.example.nazariy.places.presentation.main.model.ViewVenue;
 import java.util.List;
 
 import androidx.lifecycle.MutableLiveData;
+import io.reactivex.ObservableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class PlaceListViewModel extends BaseRxViewModel {
@@ -26,7 +27,6 @@ public class PlaceListViewModel extends BaseRxViewModel {
     public MutableLiveData<Photos> photos = new MutableLiveData<>();
 
     public PlaceListViewModel(DataSource placesRepository) {
-        // make Singleton to substitute usecases
         this.placesRepository = placesRepository;
     }
 
@@ -34,13 +34,8 @@ public class PlaceListViewModel extends BaseRxViewModel {
         isLoading.setValue(true);
         compositeDisposable.add(placesRepository.getPlaces(location, radius)
                 .map(VenueMapper::venueToViewVenue)
-                .flatMapIterable(list -> list)
-                .filter(viewVenue -> {
-                    ViewLocation viewLocation = viewVenue.getLocation();
-                    boolean hasAddress = viewLocation != null && !TextUtils.isEmpty(viewLocation.getAddress());
-                    return hasAddress && viewVenue.getName() != null;
-                })
-                .toList()
+                .compose(filterVenues())
+                .cache()
                 .observeOn(AndroidSchedulers.mainThread())
                 .doAfterTerminate(() -> isLoading.setValue(false))
                 .subscribe(
@@ -50,5 +45,19 @@ public class PlaceListViewModel extends BaseRxViewModel {
                             errorMessage.setValue(error.getMessage());
                         }
                 ));
+    }
+
+    private boolean validateViewVenue(ViewVenue viewVenue) {
+        ViewLocation viewLocation = viewVenue.getLocation();
+        boolean hasAddress = viewLocation != null && !TextUtils.isEmpty(viewLocation.getAddress());
+        return hasAddress && viewVenue.getName() != null;
+    }
+
+    private ObservableTransformer<List<ViewVenue>, List<ViewVenue>> filterVenues() {
+        return upstream -> upstream
+                .flatMapIterable(list -> list)
+                .filter(this::validateViewVenue)
+                .toList()
+                .toObservable();
     }
 }

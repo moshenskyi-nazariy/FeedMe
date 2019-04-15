@@ -1,19 +1,19 @@
 package com.example.nazariy.places.presentation.main.model;
 
-import com.example.nazariy.places.domain.entities.places.Meta;
+import com.example.nazariy.places.domain.entities.base.ResultMeta;
 import com.example.nazariy.places.domain.entities.places.Response;
 
 import java.util.Objects;
 
 public class ViewPlaceResult {
-    private Meta meta;
+    private ResultMeta meta;
     private Response response;
 
-    public Meta getMeta() {
+    public ResultMeta getMeta() {
         return meta;
     }
 
-    public void setMeta(Meta meta) {
+    public void setMeta(ResultMeta meta) {
         this.meta = meta;
     }
 

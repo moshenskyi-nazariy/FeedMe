@@ -1,26 +1,11 @@
 package com.example.nazariy.places.domain.entities.places;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.example.nazariy.places.domain.entities.base.BasePlaceResult;
 
 import java.util.Objects;
 
-public class PlaceResult {
-
-    @SerializedName("meta")
-    @Expose
-    private Meta meta;
-    @SerializedName("response")
-    @Expose
+public class PlaceResult extends BasePlaceResult {
     private Response response;
-
-    public Meta getMeta() {
-        return meta;
-    }
-
-    public void setMeta(Meta meta) {
-        this.meta = meta;
-    }
 
     public Response getResponse() {
         return response;

@@ -1,11 +1,9 @@
 
 package com.example.nazariy.places.domain.entities.details.photos;
 
-import com.example.nazariy.places.domain.entities.details.Meta;
+import com.example.nazariy.places.domain.entities.base.BasePlaceResult;
 
-public class PhotoResult {
-
-    private Meta meta;
+public class PhotoResult extends BasePlaceResult {
 
     private PhotoResponse response;
 
@@ -17,11 +15,4 @@ public class PhotoResult {
         this.response = response;
     }
 
-    public Meta getMeta() {
-        return meta;
-    }
-
-    public void setMeta(Meta meta) {
-        this.meta = meta;
-    }
 }

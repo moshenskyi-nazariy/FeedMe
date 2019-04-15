@@ -5,14 +5,15 @@ import com.example.nazariy.places.BuildConfig;
 import com.example.nazariy.places.data.api.Api;
 import com.example.nazariy.places.domain.entities.details.PlaceDetailsResult;
 import com.example.nazariy.places.domain.entities.details.photos.PhotoResult;
+import com.example.nazariy.places.domain.entities.places.PlaceResult;
 import com.example.nazariy.places.domain.entities.places.Venue;
 import com.example.nazariy.places.domain.interfaces.Repository;
+import com.example.nazariy.places.domain.utils.RxTransformers;
 
 import java.util.HashMap;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -37,19 +38,21 @@ public class RemoteRepository implements Repository {
         options.put("ll", location);
         options.put("radius", String.valueOf(radius));
         return api.getPlaces(options)
-                .subscribeOn(Schedulers.io())
-                .filter(placeResult -> placeResult.getMeta().getCode() < 400)
+                .compose(RxTransformers.subscribeAndFilter(PlaceResult.class))
                 .map(placeResult -> placeResult.getResponse().getVenues());
     }
 
     @Override
-    public Observable<PlaceDetailsResult> getPlaceDetails(String id) {
-        return api.getPlaceDetails(id, getClientOptions());
+    public Observable<com.example.nazariy.places.domain.entities.details.Venue> getPlaceDetails(String id) {
+        return api.getPlaceDetails(id, getClientOptions())
+                .compose(RxTransformers.subscribeAndFilter(PlaceDetailsResult.class))
+                .map(placeResult -> placeResult.getResponse().getVenue());
     }
 
     @Override
     public Observable<PhotoResult> getPhotos(String id) {
-        return api.getPhotos(id, getClientOptions());
+        return api.getPhotos(id, getClientOptions())
+                .compose(RxTransformers.subscribeAndFilter(PhotoResult.class));
     }
 
     private HashMap<String, String> getClientOptions() {

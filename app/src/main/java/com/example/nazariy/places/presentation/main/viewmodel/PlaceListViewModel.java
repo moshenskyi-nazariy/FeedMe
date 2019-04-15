@@ -33,9 +33,8 @@ public class PlaceListViewModel extends BaseRxViewModel {
     public void getPlaces(String location, int radius) {
         isLoading.setValue(true);
         compositeDisposable.add(placesRepository.getPlaces(location, radius)
-                .observeOn(AndroidSchedulers.mainThread())
-                .filter(placeResult -> placeResult.getMeta().getCode() < 400)
-                .map(placeResult -> VenueMapper.venueToViewVenue(placeResult.getResponse().getVenues()))
+                .observeOn(AndroidSchedulers.mainThread()) // TODO: 15.04.19 replace to the bottom of sequence
+                .map(VenueMapper::venueToViewVenue)
                 .flatMapIterable(list -> list)
                 .filter(viewVenue -> {
                     ViewLocation viewLocation = viewVenue.getLocation();

@@ -1,6 +1,5 @@
 package com.example.nazariy.places.domain.entities.places;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -9,40 +8,28 @@ import java.util.Objects;
 public class Location {
 
     @SerializedName("address")
-    @Expose
     private String address;
     @SerializedName("crossStreet")
-    @Expose
     private String crossStreet;
     @SerializedName("lat")
-    @Expose
     private double lat;
     @SerializedName("lng")
-    @Expose
     private double lng;
     @SerializedName("labeledLatLngs")
-    @Expose
-    private List<LabeledLatLng> labeledLatLngs = null;
+    private List<LabeledLatLng> labeledLatLngs;
     @SerializedName("distance")
-    @Expose
     private int distance;
     @SerializedName("postalCode")
-    @Expose
     private String postalCode;
     @SerializedName("cc")
-    @Expose
     private String cc;
     @SerializedName("city")
-    @Expose
     private String city;
     @SerializedName("state")
-    @Expose
     private String state;
     @SerializedName("country")
-    @Expose
     private String country;
     @SerializedName("formattedAddress")
-    @Expose
     private List<String> formattedAddress = null;
 
     public String getAddress() {

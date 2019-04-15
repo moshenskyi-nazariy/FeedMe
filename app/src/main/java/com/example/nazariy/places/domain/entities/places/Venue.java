@@ -1,6 +1,5 @@
 package com.example.nazariy.places.domain.entities.places;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -9,19 +8,14 @@ import java.util.Objects;
 public class Venue {
 
     @SerializedName("id")
-    @Expose
     private String id;
     @SerializedName("name")
-    @Expose
     private String name;
     @SerializedName("location")
-    @Expose
     private Location location;
     @SerializedName("categories")
-    @Expose
-    private List<Category> categories = null;
+    private List<Category> categories;
     @SerializedName("venuePage")
-    @Expose
     private VenuePage venuePage;
 
     public String getId() {

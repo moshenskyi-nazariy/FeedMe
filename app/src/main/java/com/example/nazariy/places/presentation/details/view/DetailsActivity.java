@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.nazariy.places.R;
 import com.example.nazariy.places.data.datasource.DataSourceImpl;
+import com.example.nazariy.places.data.repository.remote.RemoteRepository;
 import com.example.nazariy.places.domain.entities.details.Stats;
 import com.example.nazariy.places.domain.entities.details.Venue;
 import com.example.nazariy.places.domain.entities.details.photos.Item;
@@ -57,13 +58,14 @@ public class DetailsActivity extends BaseLoadingActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
         TextView toolbarTitle = findViewById(R.id.toolbar_title);
-        toolbarTitle.setText(extras.getString(VENUE_NAME, getResources().getString(R.string.app_name)));
+        toolbarTitle.setText(extras.getString(VENUE_NAME, getResources().getString(R.string
+                .app_name)));
         toolbarTitle.setSelected(true);
     }
 
     private void setupViewModel() {
-        detailsViewModel = ViewModelProviders.of(this, new ViewModelFactory(new DataSourceImpl()))
-                .get(DetailsViewModel.class);
+        detailsViewModel = ViewModelProviders.of(this, new ViewModelFactory(
+                new DataSourceImpl(new RemoteRepository()))).get(DetailsViewModel.class);
         detailsViewModel.getPlaceDetails(venueId);
 
         detailsViewModel.photos.observe(this, this::obtainPhotos);

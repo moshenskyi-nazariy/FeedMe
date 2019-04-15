@@ -11,7 +11,7 @@ public class ViewLocation {
     private double lat;
     private double lng;
     private int distance;
-    private List<String> formattedAddress = null;
+    private List<String> formattedAddress;
 
     public SpannableString getAddress() {
         return address;

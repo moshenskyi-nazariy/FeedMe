@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.example.nazariy.places.R;
 import com.example.nazariy.places.data.datasource.DataSourceImpl;
+import com.example.nazariy.places.data.repository.remote.RemoteRepository;
 import com.example.nazariy.places.presentation.base.BaseLoadingActivity;
 import com.example.nazariy.places.presentation.base.ViewModelFactory;
 import com.example.nazariy.places.presentation.details.view.DetailsActivity;
@@ -88,8 +89,8 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
     }
 
     private void setupViewModel() {
-        placeListViewModel = ViewModelProviders.of(this, new ViewModelFactory(new DataSourceImpl()))
-                .get(PlaceListViewModel.class);
+        placeListViewModel = ViewModelProviders.of(this, new ViewModelFactory(
+                new DataSourceImpl(new RemoteRepository()))).get(PlaceListViewModel.class);
 
         placeListViewModel.errorMessage.observe(this, this::showMessage);
         placeListViewModel.venueList.observe(this, this::obtainResults);
@@ -101,8 +102,7 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
     }
 
     private void setupRecycler() {
-        recyclerDelegate.setupRecycler(findViewById(R.id.main__place_list), new PlacesAdapter
-                (this));
+        recyclerDelegate.setupRecycler(findViewById(R.id.main__place_list), new PlacesAdapter(this));
     }
 
     public void obtainResults(List<ViewVenue> placeResult) {

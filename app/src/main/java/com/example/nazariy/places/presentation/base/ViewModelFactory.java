@@ -1,12 +1,12 @@
 package com.example.nazariy.places.presentation.base;
 
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.annotation.NonNull;
-
 import com.example.nazariy.places.domain.interfaces.DataSource;
 import com.example.nazariy.places.presentation.details.viewmodel.DetailsViewModel;
 import com.example.nazariy.places.presentation.main.viewmodel.PlaceListViewModel;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 
 public class ViewModelFactory implements ViewModelProvider.Factory {

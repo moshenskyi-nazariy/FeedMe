@@ -88,4 +88,11 @@ dependencies {
 
     // Fused location provider
     implementation 'com.google.android.gms:play-services-location:16.0.0'
+
+    // Room
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+
+    // RxJava support for Room
+    implementation "androidx.room:room-rxjava2:$room_version"
 }

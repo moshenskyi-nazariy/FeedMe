@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -136,5 +139,22 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
                 .makeScaleUpAnimation(sharedElement, (int) sharedElement.getX(), (int) sharedElement.getY(),
                         sharedElement.getWidth(), sharedElement.getHeight());
         startActivity(detailsIntent, options.toBundle());
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.menu_filter) {
+            FilterDialog filterDialog = new FilterDialog();
+            filterDialog.show(getSupportFragmentManager(), null);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -51,4 +51,31 @@ public class ViewVenue {
     public void setVenuePage(VenuePage venuePage) {
         this.venuePage = venuePage;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ViewVenue viewVenue = (ViewVenue) o;
+
+        if (!id.equals(viewVenue.id)) return false;
+        if (!name.equals(viewVenue.name)) return false;
+        if (!location.equals(viewVenue.location)) return false;
+        if (categories != null ? !categories.equals(viewVenue.categories) : viewVenue.categories
+                != null)
+            return false;
+        return venuePage != null ? venuePage.equals(viewVenue.venuePage) : viewVenue.venuePage ==
+                null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + name.hashCode();
+        result = 31 * result + location.hashCode();
+        result = 31 * result + (categories != null ? categories.hashCode() : 0);
+        result = 31 * result + (venuePage != null ? venuePage.hashCode() : 0);
+        return result;
+    }
 }

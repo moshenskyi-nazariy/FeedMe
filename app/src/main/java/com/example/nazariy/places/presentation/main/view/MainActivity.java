@@ -22,6 +22,7 @@ import com.example.nazariy.places.presentation.main.model.ViewVenue;
 import com.example.nazariy.places.presentation.main.utils.LocationUtils;
 import com.example.nazariy.places.presentation.main.view.delegate.MainRecyclerDelegate;
 import com.example.nazariy.places.presentation.main.view.recyclerview.venues.PlacesAdapter;
+import com.example.nazariy.places.presentation.main.view.recyclerview.venues.VenueListDiffCallback;
 import com.example.nazariy.places.presentation.main.view.recyclerview.venues.VenueListener;
 import com.example.nazariy.places.presentation.main.viewmodel.PlaceListViewModel;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -105,12 +106,12 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
     }
 
     private void setupRecyclerDelegate() {
-        recyclerDelegate = new MainRecyclerDelegate();
+        recyclerDelegate = new MainRecyclerDelegate(findViewById(R.id.main__place_list));
         recyclerDelegate.bind(this);
     }
 
     private void setupRecycler() {
-        recyclerDelegate.setupRecycler(findViewById(R.id.main__place_list), new PlacesAdapter(this));
+        recyclerDelegate.setupRecycler(new PlacesAdapter(this, new VenueListDiffCallback()));
     }
 
     public void obtainResults(List<ViewVenue> placeResult) {
@@ -167,6 +168,6 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
     @Override
     public void onFilterPicked(String sortingType) {
         venues = venueSorter.sort(sortingType, venues);
-        recyclerDelegate.obtainResults(venues);
+        recyclerDelegate.swapLists(venues);
     }
 }

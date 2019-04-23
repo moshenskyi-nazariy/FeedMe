@@ -4,51 +4,19 @@ import android.os.Bundle;
 
 import com.example.nazariy.places.presentation.main.model.ViewVenue;
 
-import java.util.List;
-
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DiffUtil;
 
-public class VenueListDiffCallback extends DiffUtil.Callback {
+public class VenueListDiffCallback extends DiffUtil.ItemCallback<ViewVenue> {
     static final String KEY_CATEGORIES = "categories";
     static final String KEY_NAME = "name";
     static final String KEY_LOCATION = "location";
     static final String KEY_DISTANCE = "distance";
 
-
-    private final List<ViewVenue> mOldList;
-    private final List<ViewVenue> mNewList;
-
-    VenueListDiffCallback(List<ViewVenue> oldList, List<ViewVenue> newList) {
-        this.mOldList = oldList;
-        this.mNewList = newList;
-    }
-
-    @Override
-    public int getOldListSize() {
-        return mOldList != null ? mOldList.size() : 0;
-    }
-
-    @Override
-    public int getNewListSize() {
-        return mNewList != null ? mNewList.size() : 0;
-    }
-
-    @Override
-    public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-        return mNewList.get(newItemPosition).getId().equals(mOldList.get(oldItemPosition).getId());
-    }
-
-    @Override
-    public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-        return mNewList.get(newItemPosition).equals(mOldList.get(oldItemPosition));
-    }
-
     @Nullable
     @Override
-    public Object getChangePayload(int oldItemPosition, int newItemPosition) {
-        ViewVenue newVenue = mNewList.get(newItemPosition);
-        ViewVenue oldVenue = mOldList.get(oldItemPosition);
+    public Object getChangePayload(@NonNull ViewVenue oldVenue, @NonNull ViewVenue newVenue) {
         Bundle diffBundle = new Bundle();
         if (newVenue.getCategories().size() != oldVenue.getCategories().size()) {
             diffBundle.putInt(KEY_CATEGORIES, newVenue.getCategories().size());
@@ -63,4 +31,13 @@ public class VenueListDiffCallback extends DiffUtil.Callback {
         return diffBundle;
     }
 
+    @Override
+    public boolean areItemsTheSame(@NonNull ViewVenue oldItem, @NonNull ViewVenue newItem) {
+        return oldItem.getId().equals(newItem.getId());
+    }
+
+    @Override
+    public boolean areContentsTheSame(@NonNull ViewVenue oldItem, @NonNull ViewVenue newItem) {
+        return oldItem.equals(newItem);
+    }
 }

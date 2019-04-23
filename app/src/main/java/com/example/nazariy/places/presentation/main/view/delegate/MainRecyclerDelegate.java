@@ -5,7 +5,6 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 
 import com.example.nazariy.places.R;
-import com.example.nazariy.places.presentation.base.BaseAdapter;
 import com.example.nazariy.places.presentation.base.BaseRecyclerDelegate;
 import com.example.nazariy.places.presentation.main.model.ViewVenue;
 import com.example.nazariy.places.presentation.main.view.MainActivity;
@@ -15,33 +14,47 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MainRecyclerDelegate extends
-        BaseRecyclerDelegate<List<ViewVenue>, MainActivity> {
+public class MainRecyclerDelegate extends BaseRecyclerDelegate<ViewVenue, MainActivity> {
+    private final LayoutAnimationController animationController;
+
+    public MainRecyclerDelegate(RecyclerView recyclerView) {
+        super(recyclerView);
+        Context context = recyclerView.getContext();
+        animationController = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fade_in);
+    }
+
     @Override
     public void obtainResults(List<ViewVenue> results) {
         if (results != null) {
-            final Context context = recyclerView.getContext();
-            final LayoutAnimationController controller =
-                    AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fade_in);
-
-            recyclerView.setLayoutAnimation(controller);
-            adapter.update(results);
+            recyclerView.setLayoutAnimation(animationController);
+            adapter.submitList(results);
             recyclerView.scheduleLayoutAnimation();
-            recyclerView.smoothScrollToPosition(0);
         }
     }
 
     @Override
-    public void setupRecycler(RecyclerView recyclerView, BaseAdapter<?, List<ViewVenue>> adapter) {
-        super.setupRecycler(recyclerView, adapter);
+    public void setupRecycler(ListAdapter<ViewVenue, ?> adapter) {
+        super.setupRecycler(adapter);
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(getLayoutManager(recyclerView));
 
         float density = recyclerView.getContext().getResources().getDisplayMetrics().density;
-        recyclerView.addItemDecoration(new SpaceItemDecoration((int) (density * 10)));
+        recyclerView.addItemDecoration(new SpaceItemDecoration((int) (density * ITEM_PADDING)));
+    }
+
+    @Override
+    public void swapLists(List<ViewVenue> newList) {
+        recyclerView.setLayoutAnimation(animationController);
+
+        adapter.submitList(null);
+        adapter.submitList(newList);
+
+        recyclerView.scheduleLayoutAnimation();
+        recyclerView.smoothScrollToPosition(0);
     }
 
     @NonNull

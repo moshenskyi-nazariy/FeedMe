@@ -63,7 +63,7 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
 
         setupRecyclerDelegate();
 
-        venueSorter = new VenueSorter();
+        venueSorter = new VenueSorter(getApplicationContext());
 
         loadingIndicator = findViewById(R.id.details__loading_indicator);
         setupRecycler();

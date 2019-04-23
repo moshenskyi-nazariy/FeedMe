@@ -1,9 +1,12 @@
 <resources>
     <string name="filter_dialog_title">Сортування</string>
-    <string-array name="sorting_types">
+    <string-array name="available_sorting_types">
         <item>За іменем(зрост.)</item>
         <item>За іменем(спад.)</item>
         <item>За відстанню(найближчі)</item>
         <item>За відстанню(найвіддаленіші)</item>
     </string-array>
+    <string name="sort_by_name_asc">За іменем(зрост.)</string>
+    <string name="sort_by_name_desc">За іменем(спад.)</string>
+    <string name="sort_by_distance">За відстанню(найближчі)</string>
 </resources>

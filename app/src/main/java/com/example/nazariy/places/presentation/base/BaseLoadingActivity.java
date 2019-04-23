@@ -1,8 +1,9 @@
 package com.example.nazariy.places.presentation.base;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ProgressBar;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public abstract class BaseLoadingActivity extends AppCompatActivity {
     protected ProgressBar loadingIndicator;

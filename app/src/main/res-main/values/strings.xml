@@ -2,11 +2,16 @@
     <string name="app_name" translatable="false">FeedMe</string>
     <string name="toolbar_transition_name" translatable="false">toolbar_transition</string>
     <string name="menu_filter_title" translatable="false">filter</string>
+    <string name="preference_file_key" translatable="false">com.example.nazariy.places.MAIN_PREFERENCES</string>
     <string name="filter_dialog_title">Sorting</string>
-    <string-array name="sorting_types">
+    <string name="sorting_type" translatable="false">sorting_type</string>
+    <string-array name="available_sorting_types">
         <item>By name(asc)</item>
         <item>By name(desc)</item>
         <item>By distance(nearest first)</item>
         <item>By distance(distant first)</item>
     </string-array>
+    <string name="sort_by_name_asc">By name(asc)</string>
+    <string name="sort_by_name_desc">By name(desc)</string>
+    <string name="sort_by_distance">By distance(nearest first)</string>
 </resources>

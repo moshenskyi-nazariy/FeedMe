@@ -1,5 +1,8 @@
 package com.example.nazariy.places.presentation.main.view;
 
+import android.content.Context;
+
+import com.example.nazariy.places.R;
 import com.example.nazariy.places.presentation.base.ISorter;
 import com.example.nazariy.places.presentation.main.model.ViewVenue;
 
@@ -7,19 +10,25 @@ import java.util.Collections;
 import java.util.List;
 
 public class VenueSorter implements ISorter<ViewVenue> {
-    private static final String SORT_BY_NAME_ASC = "By name(asc)";
-    private static final String SORT_BY_NAME_DESC = "By name(desc)";
-    private static final String SORT_BY_DISTANCE_NEAREST = "By distance(nearest first)";
+    private final String sortByNameAsc;
+    private final String sortByNameDesc;
+    private final String sortByDistanceNearest;
+
+    VenueSorter(Context context) {
+        sortByNameAsc = context.getResources().getString(R.string.sort_by_name_asc);
+        sortByNameDesc = context.getResources().getString(R.string.sort_by_name_desc);
+        sortByDistanceNearest = context.getResources().getString(R.string.sort_by_distance);
+    }
 
     @Override
     public List<ViewVenue> sort(String sortingType, List<ViewVenue> venueList) {
-        if (SORT_BY_NAME_ASC.equals(sortingType)) {
+        if (sortByNameAsc.equals(sortingType)) {
             Collections.sort(venueList, (firstVenue, secondVenue) -> firstVenue.getName()
                     .compareToIgnoreCase(secondVenue.getName()));
-        } else if (SORT_BY_NAME_DESC.equals(sortingType)) {
+        } else if (sortByNameDesc.equals(sortingType)) {
             Collections.sort(venueList, (firstVenue, secondVenue) -> -(firstVenue.getName()
                     .compareToIgnoreCase(secondVenue.getName())));
-        } else if (SORT_BY_DISTANCE_NEAREST.equals(sortingType)) {
+        } else if (sortByDistanceNearest.equals(sortingType)) {
             Collections.sort(venueList, (firstVenue, secondVenue) ->
                     firstVenue.getLocation().getDistance() - secondVenue.getLocation().getDistance());
         } else {

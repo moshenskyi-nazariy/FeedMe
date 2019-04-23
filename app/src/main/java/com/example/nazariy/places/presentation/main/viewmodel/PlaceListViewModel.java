@@ -30,9 +30,9 @@ public class PlaceListViewModel extends BaseRxViewModel {
         this.placesRepository = placesRepository;
     }
 
-    public void getPlaces(String location, int radius) {
+    public void getPlaces(String location, int radius, String query) {
         isLoading.setValue(true);
-        compositeDisposable.add(placesRepository.getPlaces(location, radius)
+        compositeDisposable.add(placesRepository.getPlaces(location, radius, query)
                 .map(VenueMapper::venueToViewVenue)
                 .compose(filterVenues())
                 .cache()

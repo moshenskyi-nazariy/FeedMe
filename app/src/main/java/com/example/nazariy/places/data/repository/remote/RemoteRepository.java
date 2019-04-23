@@ -32,9 +32,9 @@ public class RemoteRepository implements Repository {
     }
 
     @Override
-    public Observable<List<Venue>> getPlaces(String location, int radius) {
+    public Observable<List<Venue>> getPlaces(String location, int radius, String query) {
         HashMap<String, String> options = getClientOptions();
-        options.put("query", "cafe");
+        options.put("query", query);
         options.put("ll", location);
         options.put("radius", String.valueOf(radius));
         return api.getPlaces(options)

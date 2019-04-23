@@ -134,7 +134,7 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
         String locationData = String.format(Locale.US, "%f, %f", location.getLatitude(),
                 location.getLongitude());
 
-        placeListViewModel.getPlaces(locationData, 5000);
+        placeListViewModel.getPlaces(locationData, 5000, "cafe");
     }
 
     @Override

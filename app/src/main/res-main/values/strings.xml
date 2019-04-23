@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">FeedMe</string>
-    <string name="toolbar_transition_name">toolbar_transition</string>
-    <string name="menu_filter_title">filter</string>
+    <string name="app_name" translatable="false">FeedMe</string>
+    <string name="toolbar_transition_name" translatable="false">toolbar_transition</string>
+    <string name="menu_filter_title" translatable="false">filter</string>
     <string name="filter_dialog_title">Sorting</string>
     <string-array name="sorting_types">
         <item>By name(asc)</item>

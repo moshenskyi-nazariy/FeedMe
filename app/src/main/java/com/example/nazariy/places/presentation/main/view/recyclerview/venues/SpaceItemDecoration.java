@@ -1,11 +1,11 @@
-package com.example.nazariy.places.presentation.main.view.recyclerview;
+package com.example.nazariy.places.presentation.main.view.recyclerview.venues;
 
 
 import android.graphics.Rect;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.View;
 
 public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
     private final int verticalSpaceHeight;

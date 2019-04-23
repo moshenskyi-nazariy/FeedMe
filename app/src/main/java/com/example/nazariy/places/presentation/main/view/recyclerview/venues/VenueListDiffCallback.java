@@ -1,12 +1,13 @@
-package com.example.nazariy.places.presentation.main.view.recyclerview;
+package com.example.nazariy.places.presentation.main.view.recyclerview.venues;
 
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.DiffUtil;
 
 import com.example.nazariy.places.presentation.main.model.ViewVenue;
 
 import java.util.List;
+
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DiffUtil;
 
 public class VenueListDiffCallback extends DiffUtil.Callback {
     static final String KEY_CATEGORIES = "categories";

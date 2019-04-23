@@ -2,9 +2,11 @@
     <string name="app_name">FeedMe</string>
     <string name="toolbar_transition_name">toolbar_transition</string>
     <string name="menu_filter_title">filter</string>
-    <string name="sort_by_name_asc">By name(asc)</string>
-    <string name="sort_by_name_desc">By name(desc)</string>
-    <string name="sort_by_distance_nearest">By distance(nearest first)</string>
-    <string name="sort_by_distance_distant">By distance(distant first)</string>
     <string name="filter_dialog_title">Sorting</string>
+    <string-array name="sorting_types">
+        <item>By name(asc)</item>
+        <item>By name(desc)</item>
+        <item>By distance(nearest first)</item>
+        <item>By distance(distant first)</item>
+    </string-array>
 </resources>

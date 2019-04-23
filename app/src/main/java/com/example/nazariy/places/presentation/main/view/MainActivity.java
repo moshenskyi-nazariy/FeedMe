@@ -15,13 +15,14 @@ import com.example.nazariy.places.R;
 import com.example.nazariy.places.data.datasource.DataSourceImpl;
 import com.example.nazariy.places.data.repository.remote.RemoteRepository;
 import com.example.nazariy.places.presentation.base.BaseLoadingActivity;
+import com.example.nazariy.places.presentation.base.ISorter;
 import com.example.nazariy.places.presentation.base.ViewModelFactory;
 import com.example.nazariy.places.presentation.details.view.DetailsActivity;
 import com.example.nazariy.places.presentation.main.model.ViewVenue;
 import com.example.nazariy.places.presentation.main.utils.LocationUtils;
 import com.example.nazariy.places.presentation.main.view.delegate.MainRecyclerDelegate;
-import com.example.nazariy.places.presentation.main.view.recyclerview.PlacesAdapter;
-import com.example.nazariy.places.presentation.main.view.recyclerview.VenueListener;
+import com.example.nazariy.places.presentation.main.view.recyclerview.venues.PlacesAdapter;
+import com.example.nazariy.places.presentation.main.view.recyclerview.venues.VenueListener;
 import com.example.nazariy.places.presentation.main.viewmodel.PlaceListViewModel;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -38,7 +39,7 @@ import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
 
 public class MainActivity extends BaseLoadingActivity implements LocationListener,
-        VenueListener {
+        VenueListener, FilterDialog.OnCompleteListener {
 
     private static final int ALL_PERMISSIONS_RESULT = 777;
 
@@ -48,6 +49,10 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
 
     private FusedLocationProviderClient fusedLocationProviderClient;
 
+    private List<ViewVenue> venues;
+
+    private ISorter<ViewVenue> venueSorter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +61,8 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
         setSupportActionBar(findViewById(R.id.toolbar));
 
         setupRecyclerDelegate();
+
+        venueSorter = new VenueSorter();
 
         loadingIndicator = findViewById(R.id.details__loading_indicator);
         setupRecycler();
@@ -83,11 +90,9 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
                                            @NonNull int[] grantResults) {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
                 PackageManager.PERMISSION_GRANTED
-                && ContextCompat.checkSelfPermission(this, Manifest.permission
-                .ACCESS_COARSE_LOCATION)
+                && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
-            fusedLocationProviderClient.getLastLocation().addOnSuccessListener
-                    (this::onLocationChanged);
+            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this::onLocationChanged);
         }
     }
 
@@ -110,6 +115,7 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
 
     public void obtainResults(List<ViewVenue> placeResult) {
         recyclerDelegate.obtainResults(placeResult);
+        venues = placeResult;
     }
 
     public void showMessage(String message) {
@@ -156,5 +162,11 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onFilterPicked(String sortingType) {
+        venues = venueSorter.sort(sortingType, venues);
+        recyclerDelegate.obtainResults(venues);
     }
 }

@@ -1,4 +1,4 @@
-package com.example.nazariy.places.presentation.main.view.recyclerview;
+package com.example.nazariy.places.presentation.main.view.recyclerview.venues;
 
 import android.view.View;
 

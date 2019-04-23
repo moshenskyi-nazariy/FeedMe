@@ -9,7 +9,7 @@ import com.example.nazariy.places.presentation.base.BaseAdapter;
 import com.example.nazariy.places.presentation.base.BaseRecyclerDelegate;
 import com.example.nazariy.places.presentation.main.model.ViewVenue;
 import com.example.nazariy.places.presentation.main.view.MainActivity;
-import com.example.nazariy.places.presentation.main.view.recyclerview.SpaceItemDecoration;
+import com.example.nazariy.places.presentation.main.view.recyclerview.venues.SpaceItemDecoration;
 
 import java.util.List;
 
@@ -21,13 +21,16 @@ public class MainRecyclerDelegate extends
         BaseRecyclerDelegate<List<ViewVenue>, MainActivity> {
     @Override
     public void obtainResults(List<ViewVenue> results) {
-        final Context context = recyclerView.getContext();
-        final LayoutAnimationController controller =
-                AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fade_in);
+        if (results != null) {
+            final Context context = recyclerView.getContext();
+            final LayoutAnimationController controller =
+                    AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fade_in);
 
-        recyclerView.setLayoutAnimation(controller);
-        adapter.update(results);
-        recyclerView.scheduleLayoutAnimation();
+            recyclerView.setLayoutAnimation(controller);
+            adapter.update(results);
+            recyclerView.scheduleLayoutAnimation();
+            recyclerView.smoothScrollToPosition(0);
+        }
     }
 
     @Override

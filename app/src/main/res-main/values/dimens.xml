@@ -13,4 +13,6 @@
     <dimen name="dialog_title_size">20sp</dimen>
     <dimen name="dialog_list_item_text_size">14sp</dimen>
     <dimen name="dialog_margin">24dp</dimen>
+    <dimen name="dialog_button_area_size">52dp</dimen>
+    <dimen name="filter_dialog_bottom_margin">32dp</dimen>
 </resources>

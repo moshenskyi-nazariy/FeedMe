@@ -14,4 +14,11 @@
     <string name="sort_by_name_asc">By name(asc)</string>
     <string name="sort_by_name_desc">By name(desc)</string>
     <string name="sort_by_distance">By distance(nearest first)</string>
+    <string name="backdrop_search_item">Search</string>
+    <string name="backdrop_log_out_item">Log Out</string>
+    <string name="backdrop_log_in_item">Log In</string>
+    <plurals name="backdrop_subtitle">
+        <item quantity="one">%d result</item>
+        <item quantity="other">%d results</item>
+    </plurals>
 </resources>

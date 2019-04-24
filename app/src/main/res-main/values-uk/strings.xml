@@ -9,4 +9,7 @@
     <string name="sort_by_name_asc">За іменем(зрост.)</string>
     <string name="sort_by_name_desc">За іменем(спад.)</string>
     <string name="sort_by_distance">За відстанню(найближчі)</string>
+    <string name="backdrop_search_item">Пошук</string>
+    <string name="backdrop_log_out_item">Вхід</string>
+    <string name="backdrop_log_in_item">Вихід</string>
 </resources>

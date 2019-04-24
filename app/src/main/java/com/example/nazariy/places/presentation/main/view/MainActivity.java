@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nazariy.places.R;
@@ -55,6 +56,7 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
     private List<ViewVenue> venues;
 
     private ISorter<ViewVenue> venueSorter;
+    private TextView subtitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,7 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
         venueSorter = new VenueSorter(getApplicationContext());
 
         loadingIndicator = findViewById(R.id.details__loading_indicator);
+        subtitle = findViewById(R.id.subtitle);
         setupRecycler();
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
@@ -81,6 +84,7 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
         toolbar.setNavigationOnClickListener(new NavigationIconClickListener(
                 this,
                 findViewById(R.id.backdrop),
+                findViewById(R.id.backdrop_back_layer),
                 new AccelerateDecelerateInterpolator(),
                 getDrawable(R.drawable.ic_open_backdrop_24dp),
                 getDrawable(R.drawable.ic_arrow_back)
@@ -131,6 +135,7 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
     public void obtainResults(List<ViewVenue> placeResult) {
         recyclerDelegate.obtainResults(placeResult);
         venues = placeResult;
+        subtitle.setText(getResources().getQuantityString(R.plurals.backdrop_subtitle, venues.size(), venues.size()));
     }
 
     public void showMessage(String message) {

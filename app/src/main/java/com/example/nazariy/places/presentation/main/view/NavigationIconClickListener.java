@@ -28,15 +28,23 @@ public class NavigationIconClickListener implements View.OnClickListener {
     private final Drawable openIcon;
     private final Drawable closeIcon;
     private final int height;
+    private final View backdropLayout;
     private boolean isBackdropShown = false;
 
     private AnimatorSet animatorSet = new AnimatorSet();
 
     public NavigationIconClickListener(@NonNull Context context, @NonNull View sheet,
+                                       @NonNull View backdropLayout) {
+        this(context, sheet, backdropLayout, null, null, null);
+    }
+
+    public NavigationIconClickListener(@NonNull Context context, @NonNull View sheet,
+                                       @NonNull View backdropLayout,
                                        @Nullable Interpolator interpolator,
                                        @Nullable Drawable openIcon, @Nullable Drawable closeIcon) {
         this.context = context;
         this.sheet = sheet;
+        this.backdropLayout = backdropLayout;
         this.interpolator = interpolator;
         this.openIcon = openIcon;
         this.closeIcon = closeIcon;
@@ -77,16 +85,25 @@ public class NavigationIconClickListener implements View.OnClickListener {
             }
             ImageView iconImageView = (ImageView) view;
             if (isBackdropShown) {
-                animateIconChange(iconImageView, () -> (iconImageView).setImageDrawable(closeIcon));
+                animateIconChange(iconImageView, () -> {
+                    if(closeIcon != null) {
+                        (iconImageView).setImageDrawable(closeIcon);
+                        backdropLayout.setVisibility(View.VISIBLE);
+                    }
+                });
             } else {
-                animateIconChange(iconImageView, () -> (iconImageView).setImageDrawable(openIcon));
+                animateIconChange(iconImageView, () -> {
+                    if(closeIcon != null) {
+                        (iconImageView).setImageDrawable(openIcon);
+                        backdropLayout.setVisibility(View.GONE);
+                    }
+                });
             }
         }
     }
 
     private void animateIconChange(ImageView imageView, Action imageViewFunction) {
         ObjectAnimator showAnim = ObjectAnimator.ofFloat(imageView, "alpha", 0);
-        showAnim.setInterpolator(new DecelerateInterpolator());
         showAnim.setDuration(500);
         showAnim.addListener(new AnimatorListenerAdapter() {
             @Override
@@ -97,9 +114,12 @@ public class NavigationIconClickListener implements View.OnClickListener {
         });
 
         ObjectAnimator fadeIn = ObjectAnimator.ofFloat(imageView, "alpha", 1);
-        fadeIn.setInterpolator(new DecelerateInterpolator());
         fadeIn.setDuration(500);
 
+        if (interpolator != null) {
+            fadeIn.setInterpolator(new DecelerateInterpolator());
+            showAnim.setInterpolator(new DecelerateInterpolator());
+        }
         animatorSet.play(showAnim).before(fadeIn);
         animatorSet.start();
     }

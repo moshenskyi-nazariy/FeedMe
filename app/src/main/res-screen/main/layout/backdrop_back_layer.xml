@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:background="@color/colorPrimary">
+
+    <TextView
+        android:id="@+id/backdrop_search_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/BackdropItem"
+        android:drawableStart="@drawable/ic_search"
+        android:text="@string/backdrop_search_item"/>
+
+    <TextView
+        android:id="@+id/backdrop_log_out"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/BackdropItem"
+        android:drawableStart="@drawable/logout"
+        android:text="@string/backdrop_log_out_item"/>
+
+    <TextView
+        android:id="@+id/backdrop_log_in"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/BackdropItem"
+        android:drawableStart="@drawable/login"
+        android:text="@string/backdrop_log_in_item"/>
+
+</LinearLayout>

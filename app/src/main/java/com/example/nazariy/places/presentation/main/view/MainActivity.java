@@ -91,7 +91,6 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(new NavigationIconClickListener(
-                this,
                 findViewById(R.id.backdrop),
                 findViewById(R.id.backdrop_back_layer),
                 new AccelerateDecelerateInterpolator(),

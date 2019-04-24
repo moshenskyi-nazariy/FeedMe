@@ -4,16 +4,12 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.app.Activity;
-import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.ImageView;
 
-import com.example.nazariy.places.R;
 import com.example.nazariy.places.domain.utils.Action;
 
 import androidx.annotation.NonNull;
@@ -22,36 +18,29 @@ import androidx.annotation.Nullable;
 public class NavigationIconClickListener implements View.OnClickListener {
     private static final String TAG = "NavigationIconClickListener";
 
-    private final Context context;
     private final View sheet;
     private final Interpolator interpolator;
     private final Drawable openIcon;
     private final Drawable closeIcon;
-    private final int height;
     private final View backdropLayout;
     private boolean isBackdropShown = false;
 
     private AnimatorSet animatorSet = new AnimatorSet();
 
-    public NavigationIconClickListener(@NonNull Context context, @NonNull View sheet,
+    public NavigationIconClickListener(@NonNull View sheet,
                                        @NonNull View backdropLayout) {
-        this(context, sheet, backdropLayout, null, null, null);
+        this(sheet, backdropLayout, null, null, null);
     }
 
-    public NavigationIconClickListener(@NonNull Context context, @NonNull View sheet,
+    public NavigationIconClickListener(@NonNull View sheet,
                                        @NonNull View backdropLayout,
                                        @Nullable Interpolator interpolator,
                                        @Nullable Drawable openIcon, @Nullable Drawable closeIcon) {
-        this.context = context;
         this.sheet = sheet;
         this.backdropLayout = backdropLayout;
         this.interpolator = interpolator;
         this.openIcon = openIcon;
         this.closeIcon = closeIcon;
-
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        height = displayMetrics.heightPixels;
     }
 
     @Override
@@ -65,11 +54,10 @@ public class NavigationIconClickListener implements View.OnClickListener {
 
         updateIcons(view);
 
-        final int translateY = height -
-                context.getResources().getDimensionPixelSize(R.dimen.venue_grid_reveal_height);
+        final int backdropMenuHeight = backdropLayout.getMeasuredHeight();
 
         ObjectAnimator animator = ObjectAnimator.ofFloat(sheet, "translationY", isBackdropShown ?
-                translateY : 0);
+                backdropMenuHeight : 0);
         animator.setDuration(500);
         if (interpolator != null) {
             animator.setInterpolator(interpolator);

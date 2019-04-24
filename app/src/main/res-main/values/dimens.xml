@@ -15,4 +15,7 @@
     <dimen name="dialog_margin">24dp</dimen>
     <dimen name="dialog_button_area_size">52dp</dimen>
     <dimen name="filter_dialog_bottom_margin">32dp</dimen>
+    <dimen name="backdrop_subtitle_text_height">24dp</dimen>
+    <dimen name="backdrop_subtitle_height">48dp</dimen>
+    <dimen name="backdrop_subtitle_vertical_margin">12dp</dimen>
 </resources>

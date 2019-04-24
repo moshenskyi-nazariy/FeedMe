@@ -26,25 +26,29 @@
             app:titleTextColor="@android:color/white" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.core.widget.NestedScrollView
+    <LinearLayout
         android:id="@+id/backdrop"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_marginTop="72dp"
         android:elevation="8dp"
-        android:paddingTop="@dimen/small_margin"
-        android:background="@drawable/bottom_sheet_shape"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/backdrop_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/backdrop_subtitle_height" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/main__place_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@android:color/white"
             android:clipToPadding="false"
-            android:paddingTop="@dimen/text_padding"
-            android:paddingBottom="@dimen/text_padding"
-            android:layoutAnimation="@anim/layout_animation_fade_in"/>
-    </androidx.core.widget.NestedScrollView>
+            android:layoutAnimation="@anim/layout_animation_fade_in"
+            android:paddingTop="@dimen/small_margin"
+            android:paddingBottom="@dimen/text_padding" />
 
+    </LinearLayout>
 
 </FrameLayout>

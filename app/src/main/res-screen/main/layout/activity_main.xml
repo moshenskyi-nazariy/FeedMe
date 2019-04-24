@@ -1,35 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.example.nazariy.places.presentation.main.view.MainActivity">
+    android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
-        app:titleTextColor="@android:color/white"/>
-
-    <ProgressBar
-        android:id="@+id/details__loading_indicator"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:indeterminate="true"
-        android:visibility="gone"
-        tools:visibility="visible"
-        style="?android:attr/progressBarStyleHorizontal" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/main__place_list"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:paddingTop="@dimen/text_padding"
-        android:paddingBottom="@dimen/text_padding"
-        android:layoutAnimation="@anim/layout_animation_fade_in"/>
+        android:background="@color/colorPrimary">
 
-</LinearLayout>
+    </LinearLayout>
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_open_backdrop_24dp"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:title="@string/app_name"
+            app:titleTextColor="@android:color/white" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/backdrop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:elevation="8dp"
+        android:paddingTop="@dimen/small_margin"
+        android:background="@drawable/bottom_sheet_shape"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/main__place_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingTop="@dimen/text_padding"
+            android:paddingBottom="@dimen/text_padding"
+            android:layoutAnimation="@anim/layout_animation_fade_in"/>
+    </androidx.core.widget.NestedScrollView>
+
+
+</FrameLayout>

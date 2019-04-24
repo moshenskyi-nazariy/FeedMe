@@ -59,7 +59,7 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setSupportActionBar(findViewById(R.id.toolbar));
+        setupToolbar();
 
         setupRecyclerDelegate();
 
@@ -71,6 +71,13 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         getLocation();
         setupViewModel();
+    }
+
+    private void setupToolbar() {
+        setSupportActionBar(findViewById(R.id.toolbar));
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setElevation(0);
+        }
     }
 
     private void getLocation() {

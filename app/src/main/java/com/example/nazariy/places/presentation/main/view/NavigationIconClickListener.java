@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.example.nazariy.places.domain.utils.Action;
@@ -54,7 +55,8 @@ public class NavigationIconClickListener implements View.OnClickListener {
 
         updateIcons(view);
 
-        final int backdropMenuHeight = backdropLayout.getMeasuredHeight();
+        final int backdropMenuHeight = backdropLayout.getMeasuredHeight() +
+                ((FrameLayout.LayoutParams) backdropLayout.getLayoutParams()).bottomMargin;
 
         ObjectAnimator animator = ObjectAnimator.ofFloat(sheet, "translationY", isBackdropShown ?
                 backdropMenuHeight : 0);
@@ -74,14 +76,14 @@ public class NavigationIconClickListener implements View.OnClickListener {
             ImageView iconImageView = (ImageView) view;
             if (isBackdropShown) {
                 animateIconChange(iconImageView, () -> {
-                    if(closeIcon != null) {
+                    if (closeIcon != null) {
                         (iconImageView).setImageDrawable(closeIcon);
                         backdropLayout.setVisibility(View.VISIBLE);
                     }
                 });
             } else {
                 animateIconChange(iconImageView, () -> {
-                    if(closeIcon != null) {
+                    if (closeIcon != null) {
                         (iconImageView).setImageDrawable(openIcon);
                         backdropLayout.setVisibility(View.GONE);
                     }

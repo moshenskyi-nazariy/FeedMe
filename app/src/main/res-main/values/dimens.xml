@@ -18,4 +18,5 @@
     <dimen name="backdrop_subtitle_text_height">24dp</dimen>
     <dimen name="backdrop_subtitle_height">48dp</dimen>
     <dimen name="backdrop_subtitle_vertical_margin">12dp</dimen>
+    <dimen name="venue_grid_reveal_height">200dp</dimen>
 </resources>

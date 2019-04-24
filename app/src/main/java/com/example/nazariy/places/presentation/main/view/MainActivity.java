@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Toast;
 
 import com.example.nazariy.places.R;
@@ -35,6 +36,7 @@ import java.util.List;
 import java.util.Locale;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
@@ -74,10 +76,15 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
     }
 
     private void setupToolbar() {
-        setSupportActionBar(findViewById(R.id.toolbar));
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setElevation(0);
-        }
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(new NavigationIconClickListener(
+                this,
+                findViewById(R.id.backdrop),
+                new AccelerateDecelerateInterpolator(),
+                getDrawable(R.drawable.ic_open_backdrop_24dp),
+                getDrawable(R.drawable.ic_arrow_back)
+        ));
     }
 
     private void getLocation() {

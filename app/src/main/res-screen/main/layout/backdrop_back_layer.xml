@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         style="@style/BackdropItem"
         android:drawableStart="@drawable/ic_search"
+        android:drawableEnd="@drawable/backdrop_search_item_selector"
         android:text="@string/backdrop_search_item"/>
 
     <TextView

@@ -69,13 +69,22 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
 
         venueSorter = new VenueSorter(getApplicationContext());
 
-        loadingIndicator = findViewById(R.id.details__loading_indicator);
-        subtitle = findViewById(R.id.subtitle);
+        setupUi();
         setupRecycler();
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         getLocation();
         setupViewModel();
+    }
+
+    private void setupUi() {
+        loadingIndicator = findViewById(R.id.details__loading_indicator);
+        subtitle = findViewById(R.id.subtitle);
+        TextView searchItem = findViewById(R.id.backdrop_search_item);
+        searchItem.setOnClickListener(searchItemView -> {
+            if (searchItemView.isSelected()) searchItemView.setSelected(false);
+            else searchItemView.setSelected(true);
+        });
     }
 
     private void setupToolbar() {

@@ -16,7 +16,8 @@ import com.example.nazariy.places.domain.entities.details.Venue;
 import com.example.nazariy.places.domain.entities.details.photos.Item;
 import com.example.nazariy.places.domain.entities.details.photos.Photos;
 import com.example.nazariy.places.presentation.base.BaseLoadingActivity;
-import com.example.nazariy.places.presentation.base.ViewModelFactory;
+import com.example.nazariy.places.presentation.base.view_model.DetailsViewModelFactory;
+import com.example.nazariy.places.presentation.base.view_model.ViewModelFactory;
 import com.example.nazariy.places.presentation.details.viewmodel.DetailsViewModel;
 
 import androidx.appcompat.widget.Toolbar;
@@ -64,8 +65,8 @@ public class DetailsActivity extends BaseLoadingActivity {
     }
 
     private void setupViewModel() {
-        detailsViewModel = ViewModelProviders.of(this, new ViewModelFactory(
-                new DataSourceImpl(new RemoteRepository()))).get(DetailsViewModel.class);
+        detailsViewModel = ViewModelProviders.of(this, new ViewModelFactory(new DetailsViewModelFactory(
+                new DataSourceImpl(new RemoteRepository())))).get(DetailsViewModel.class);
         detailsViewModel.getPlaceDetails(venueId);
 
         detailsViewModel.photos.observe(this, this::obtainPhotos);

@@ -18,7 +18,8 @@ import com.example.nazariy.places.data.datasource.DataSourceImpl;
 import com.example.nazariy.places.data.repository.remote.RemoteRepository;
 import com.example.nazariy.places.presentation.base.BaseLoadingActivity;
 import com.example.nazariy.places.presentation.base.ISorter;
-import com.example.nazariy.places.presentation.base.ViewModelFactory;
+import com.example.nazariy.places.presentation.base.view_model.PlaceListViewModelFactory;
+import com.example.nazariy.places.presentation.base.view_model.ViewModelFactory;
 import com.example.nazariy.places.presentation.details.view.DetailsActivity;
 import com.example.nazariy.places.presentation.main.model.ViewVenue;
 import com.example.nazariy.places.presentation.main.utils.LocationUtils;
@@ -124,8 +125,8 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
     }
 
     private void setupViewModel() {
-        placeListViewModel = ViewModelProviders.of(this, new ViewModelFactory(
-                new DataSourceImpl(new RemoteRepository()))).get(PlaceListViewModel.class);
+        placeListViewModel = ViewModelProviders.of(this, new ViewModelFactory(new PlaceListViewModelFactory(
+                new DataSourceImpl(new RemoteRepository())))).get(PlaceListViewModel.class);
 
         placeListViewModel.errorMessage.observe(this, this::showMessage);
         placeListViewModel.venueList.observe(this, this::obtainResults);

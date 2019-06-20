@@ -6,7 +6,7 @@ import android.util.Log;
 
 import com.example.nazariy.places.domain.entities.details.photos.Photos;
 import com.example.nazariy.places.domain.interfaces.DataSource;
-import com.example.nazariy.places.presentation.base.BaseRxViewModel;
+import com.example.nazariy.places.presentation.base.view_model.BaseRxViewModel;
 import com.example.nazariy.places.presentation.main.model.VenueMapper;
 import com.example.nazariy.places.presentation.main.model.ViewLocation;
 import com.example.nazariy.places.presentation.main.model.ViewVenue;

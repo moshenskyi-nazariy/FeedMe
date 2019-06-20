@@ -1,4 +1,4 @@
-package com.example.nazariy.places.presentation.base;
+package com.example.nazariy.places.presentation.base.view_model;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;

@@ -107,7 +107,8 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
                 .ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             LocationUtils.requestLocationPermissions(this, ALL_PERMISSIONS_RESULT);
         } else {
-            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this::onLocationChanged);
+            fusedLocationProviderClient.getLastLocation().addOnSuccessListener
+                    (this::onLocationChanged);
             fusedLocationProviderClient.requestLocationUpdates(new LocationRequest(),
                     new LocationCallback(), getMainLooper());
         }
@@ -118,14 +119,17 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
                                            @NonNull int[] grantResults) {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
                 PackageManager.PERMISSION_GRANTED
-                && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                && ContextCompat.checkSelfPermission(this, Manifest.permission
+                .ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
-            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this::onLocationChanged);
+            fusedLocationProviderClient.getLastLocation().addOnSuccessListener
+                    (this::onLocationChanged);
         }
     }
 
     private void setupViewModel() {
-        placeListViewModel = ViewModelProviders.of(this, new ViewModelFactory(new PlaceListViewModelFactory(
+        placeListViewModel = ViewModelProviders.of(this, new ViewModelFactory(new
+                PlaceListViewModelFactory(
                 new DataSourceImpl(new RemoteRepository())))).get(PlaceListViewModel.class);
 
         placeListViewModel.errorMessage.observe(this, this::showMessage);
@@ -144,7 +148,8 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
     public void obtainResults(List<ViewVenue> placeResult) {
         recyclerDelegate.obtainResults(placeResult);
         venues = placeResult;
-        subtitle.setText(getResources().getQuantityString(R.plurals.backdrop_subtitle, venues.size(), venues.size()));
+        subtitle.setText(getResources().getQuantityString(R.plurals.backdrop_subtitle, venues
+                .size(), venues.size()));
     }
 
     public void showMessage(String message) {
@@ -171,7 +176,8 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
         detailsIntent.putExtra(DetailsActivity.VENUE_ID, venueId);
         detailsIntent.putExtra(DetailsActivity.VENUE_NAME, venueName);
         ActivityOptionsCompat options = ActivityOptionsCompat
-                .makeScaleUpAnimation(sharedElement, (int) sharedElement.getX(), (int) sharedElement.getY(),
+                .makeScaleUpAnimation(sharedElement, (int) sharedElement.getX(), (int)
+                                sharedElement.getY(),
                         sharedElement.getWidth(), sharedElement.getHeight());
         startActivity(detailsIntent, options.toBundle());
     }
@@ -195,7 +201,9 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
 
     @Override
     public void onFilterPicked(String sortingType) {
-        venues = venueSorter.sort(sortingType, venues);
-        recyclerDelegate.swapLists(venues);
+        if (venues.size() > 0) {
+            venues = venueSorter.sort(sortingType, venues);
+            recyclerDelegate.swapLists(venues);
+        }
     }
 }

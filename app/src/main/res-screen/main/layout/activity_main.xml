@@ -49,6 +49,8 @@
             android:background="@android:color/white"
             android:clipToPadding="false"
             android:layoutAnimation="@anim/layout_animation_fade_in"
+            android:paddingEnd="@dimen/card_end_margin"
+            android:paddingStart="@dimen/large_margin"
             android:paddingTop="@dimen/small_margin"
             android:paddingBottom="@dimen/text_padding" />
 

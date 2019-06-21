@@ -8,11 +8,13 @@ import com.example.nazariy.places.R;
 import com.example.nazariy.places.presentation.base.BaseRecyclerDelegate;
 import com.example.nazariy.places.presentation.main.model.ViewVenue;
 import com.example.nazariy.places.presentation.main.view.MainActivity;
-import com.example.nazariy.places.presentation.main.view.recyclerview.venues.SpaceItemDecoration;
+import com.example.nazariy.places.presentation.utils.CustomDividerItemDecoration;
+import com.example.nazariy.places.presentation.utils.SpaceItemDecoration;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -44,6 +46,8 @@ public class MainRecyclerDelegate extends BaseRecyclerDelegate<ViewVenue, MainAc
 
         float density = recyclerView.getContext().getResources().getDisplayMetrics().density;
         recyclerView.addItemDecoration(new SpaceItemDecoration((int) (density * ITEM_PADDING)));
+        recyclerView.addItemDecoration(new CustomDividerItemDecoration(recyclerView.getContext(),
+                DividerItemDecoration.VERTICAL, recyclerView.getResources().getDrawable(R.drawable.item_divider), density));
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.example.nazariy.places.presentation.main.view.recyclerview.venues;
+package com.example.nazariy.places.presentation.utils;
 
 
 import android.graphics.Rect;

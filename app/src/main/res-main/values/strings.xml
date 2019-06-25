@@ -21,4 +21,6 @@
         <item quantity="one">%d result</item>
         <item quantity="other">%d results</item>
     </plurals>
+    <string name="facebook_app_id" translatable="false">1320297768126074</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb1320297768126074</string>
 </resources>

@@ -28,7 +28,7 @@ public class SignInActivity extends AppCompatActivity {
 
         SignInButton btnGoogleSignIn = findViewById(R.id.btn_google_sign_in);
         btnGoogleSignIn.setOnClickListener(view -> signWithGoogle());
-        
+
         setupFacebookLoginButton();
     }
 

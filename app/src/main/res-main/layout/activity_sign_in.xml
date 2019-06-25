@@ -11,11 +11,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="36dp"
-        android:layout_marginBottom="36dp"
+        android:layout_marginTop="@dimen/banner_margin"
+        android:layout_marginBottom="@dimen/banner_margin"
         android:fontFamily="@font/dancing_script_bold"
         android:text="@string/app_name"
-        android:textSize="34sp" />
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="@dimen/banner_text_size" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -27,18 +28,17 @@
             android:id="@+id/btn_google_sign_in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"/>
+            app:buttonSize="wide"
+            android:layout_marginBottom="@dimen/large_margin"
+            android:layout_gravity="center"/>
 
         <com.facebook.login.widget.LoginButton
             android:id="@+id/facebook_login_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp" />
+            android:layout_gravity="center"
+            android:paddingTop="@dimen/facebook_btn_padding"
+            android:paddingBottom="@dimen/facebook_btn_padding" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -19,4 +19,7 @@
     <dimen name="backdrop_subtitle_height">48dp</dimen>
     <dimen name="backdrop_subtitle_vertical_margin">12dp</dimen>
     <dimen name="venue_grid_reveal_height">200dp</dimen>
+    <dimen name="banner_text_size">74sp</dimen>
+    <dimen name="banner_margin">36dp</dimen>
+    <dimen name="facebook_btn_padding">12dp</dimen>
 </resources>

@@ -1,6 +1,7 @@
 package com.example.nazariy.places.presentation.main.view;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -205,5 +206,11 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
             venues = venueSorter.sort(sortingType, venues);
             recyclerDelegate.swapLists(venues);
         }
+    }
+
+    public static void start(Context context, String userName) {
+        Intent starter = new Intent(context, MainActivity.class);
+        starter.putExtra("Name", userName);
+        context.startActivity(starter);
     }
 }

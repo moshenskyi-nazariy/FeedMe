@@ -29,6 +29,7 @@ import com.example.nazariy.places.presentation.main.view.recyclerview.venues.Pla
 import com.example.nazariy.places.presentation.main.view.recyclerview.venues.VenueListDiffCallback;
 import com.example.nazariy.places.presentation.main.view.recyclerview.venues.VenueListener;
 import com.example.nazariy.places.presentation.main.viewmodel.PlaceListViewModel;
+import com.example.nazariy.places.presentation.sign_in.google.GoogleSignInMethod;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationListener;
@@ -39,15 +40,19 @@ import java.util.List;
 import java.util.Locale;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
 
+import static com.example.nazariy.places.presentation.sign_in.SignInActivity.GOOGLE_REQUEST_CODE;
+
 public class MainActivity extends BaseLoadingActivity implements LocationListener,
         VenueListener, FilterDialog.OnCompleteListener {
 
     private static final int ALL_PERMISSIONS_RESULT = 777;
+    public static final String PROFILE_NAME = "Name";
 
     private MainRecyclerDelegate recyclerDelegate;
 
@@ -59,11 +64,28 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
 
     private ISorter<ViewVenue> venueSorter;
     private TextView subtitle;
+    private String userName;
+    private TextView loginButton;
+    private TextView logoutButton;
+
+    private GoogleSignInMethod googleSignInMethod;
+
+    public static void start(Context context, String userName) {
+        Intent starter = new Intent(context, MainActivity.class);
+        starter.putExtra(PROFILE_NAME, userName);
+        context.startActivity(starter);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        googleSignInMethod = new GoogleSignInMethod(this);
+        googleSignInMethod.init();
+
+        userName = getIntent().getStringExtra(PROFILE_NAME);
+        updateBackdropBackLayer();
 
         setupToolbar();
 
@@ -79,6 +101,16 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
         setupViewModel();
     }
 
+    private void updateBackdropBackLayer() {
+        logoutButton = findViewById(R.id.backdrop_log_out);
+        loginButton = findViewById(R.id.backdrop_log_in);
+        if (googleSignInMethod.isSignedIn()) {
+            loginButton.setVisibility(View.GONE);
+        } else {
+            logoutButton.setVisibility(View.GONE);
+        }
+    }
+
     private void setupUi() {
         loadingIndicator = findViewById(R.id.details__loading_indicator);
         subtitle = findViewById(R.id.subtitle);
@@ -87,6 +119,15 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
             if (searchItemView.isSelected()) searchItemView.setSelected(false);
             else searchItemView.setSelected(true);
         });
+
+        loginButton.setOnClickListener(view -> startActivityForResult(googleSignInMethod.getSignIntent(),
+                GOOGLE_REQUEST_CODE));
+
+        logoutButton.setOnClickListener(view -> googleSignInMethod.signOut().addOnSuccessListener(this,
+                taskResult -> {
+                    loginButton.setVisibility(View.VISIBLE);
+                    logoutButton.setVisibility(View.GONE);
+                }));
     }
 
     private void setupToolbar() {
@@ -99,6 +140,15 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
                 getDrawable(R.drawable.ic_open_backdrop_24dp),
                 getDrawable(R.drawable.ic_arrow_back)
         ));
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == GOOGLE_REQUEST_CODE && resultCode == RESULT_OK) {
+            MainActivity.start(this, googleSignInMethod.getName());
+        }
     }
 
     private void getLocation() {
@@ -206,11 +256,5 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
             venues = venueSorter.sort(sortingType, venues);
             recyclerDelegate.swapLists(venues);
         }
-    }
-
-    public static void start(Context context, String userName) {
-        Intent starter = new Intent(context, MainActivity.class);
-        starter.putExtra("Name", userName);
-        context.startActivity(starter);
     }
 }

@@ -8,6 +8,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.Task;
 
 public class GoogleSignInMethod implements SignInMethod {
 
@@ -29,6 +30,10 @@ public class GoogleSignInMethod implements SignInMethod {
     public boolean isSignedIn() {
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(context);
         return account != null;
+    }
+
+    public Task<Void> signOut() {
+        return client.signOut();
     }
 
     @Override

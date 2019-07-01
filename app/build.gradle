@@ -107,7 +107,6 @@ dependencies {
 
     // Facebook Auth
     implementation 'com.facebook.android:facebook-login:5.1.0'
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 repositories {
     mavenCentral()

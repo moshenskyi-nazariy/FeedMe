@@ -1,34 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    tools:background="@color/colorPrimary">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/backdrop_search_item"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/BackdropItem"
-        android:drawableStart="@drawable/ic_search"
-        android:drawableEnd="@drawable/backdrop_search_item_selector"
-        android:text="@string/backdrop_search_item"/>
+        android:orientation="vertical"
+        tools:background="@color/colorPrimary">
 
-    <TextView
-        android:id="@+id/backdrop_log_out"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/BackdropItem"
-        android:drawableStart="@drawable/logout"
-        android:text="@string/backdrop_log_out_item"/>
+        <TextView
+            android:id="@+id/backdrop_search_item"
+            style="@style/BackdropItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_search"
+            android:drawableEnd="@drawable/backdrop_search_item_selector"
+            android:text="@string/backdrop_search_item" />
 
-    <TextView
-        android:id="@+id/backdrop_log_in"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/BackdropItem"
-        android:drawableStart="@drawable/login"
-        android:text="@string/backdrop_log_in_item"/>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
 
-</LinearLayout>
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="36dp"
+                    android:text="@string/radius"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/body_text_size" />
+
+                <SeekBar
+                    android:id="@+id/radius_seekbar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/small_margin"
+                    android:layout_marginEnd="@dimen/small_margin"
+                    android:layout_weight="9"
+                    android:thumb="@drawable/seekbar_white_thumb" />
+
+                <TextView
+                    android:id="@+id/radius_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="36dp"
+                    android:layout_weight="1"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/body_text_size"
+                    tools:text="32" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="@dimen/large_margin"
+                android:layout_marginEnd="36dp"
+                android:layout_marginBottom="@dimen/large_margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/categories"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/body_text_size" />
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/categories_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="@dimen/large_margin"
+                android:layout_marginEnd="36dp"
+                android:layout_marginBottom="@dimen/large_margin"
+                tools:listitem="@layout/item_category" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        <TextView
+            android:id="@+id/backdrop_log_out"
+            style="@style/BackdropItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/logout"
+            android:text="@string/backdrop_log_out_item" />
+
+        <TextView
+            android:id="@+id/backdrop_log_in"
+            style="@style/BackdropItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/login"
+            android:text="@string/backdrop_log_in_item" />
+
+    </LinearLayout>
+</ScrollView>

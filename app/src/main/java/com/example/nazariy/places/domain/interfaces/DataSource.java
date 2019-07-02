@@ -2,6 +2,7 @@ package com.example.nazariy.places.domain.interfaces;
 
 
 import com.example.nazariy.places.domain.entities.details.photos.PhotoResult;
+import com.example.nazariy.places.domain.entities.places.Category;
 import com.example.nazariy.places.domain.entities.places.Venue;
 
 import java.util.List;
@@ -15,5 +16,7 @@ public interface DataSource {
     Observable<com.example.nazariy.places.domain.entities.details.Venue> getPlaceDetails(String id);
 
     Observable<PhotoResult> getPhotos(String id);
+
+    Observable<List<Category>> getAllCategories();
 
 }

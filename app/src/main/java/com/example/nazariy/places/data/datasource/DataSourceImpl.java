@@ -1,6 +1,7 @@
 package com.example.nazariy.places.data.datasource;
 
 import com.example.nazariy.places.domain.entities.details.photos.PhotoResult;
+import com.example.nazariy.places.domain.entities.places.Category;
 import com.example.nazariy.places.domain.entities.places.Venue;
 import com.example.nazariy.places.domain.interfaces.DataSource;
 import com.example.nazariy.places.domain.interfaces.Repository;
@@ -31,6 +32,11 @@ public class DataSourceImpl implements DataSource {
     @Override
     public Observable<PhotoResult> getPhotos(String id) {
         return remoteDataSource.getPhotos(id);
+    }
+
+    @Override
+    public Observable<List<Category>> getAllCategories() {
+        return remoteDataSource.getAllCategories();
     }
 
 }

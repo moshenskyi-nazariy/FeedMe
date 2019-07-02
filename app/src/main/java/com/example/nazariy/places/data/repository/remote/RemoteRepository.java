@@ -5,6 +5,7 @@ import com.example.nazariy.places.BuildConfig;
 import com.example.nazariy.places.data.api.Api;
 import com.example.nazariy.places.domain.entities.details.PlaceDetailsResult;
 import com.example.nazariy.places.domain.entities.details.photos.PhotoResult;
+import com.example.nazariy.places.domain.entities.places.Category;
 import com.example.nazariy.places.domain.entities.places.PlaceResult;
 import com.example.nazariy.places.domain.entities.places.Venue;
 import com.example.nazariy.places.domain.interfaces.Repository;
@@ -55,6 +56,11 @@ public class RemoteRepository implements Repository {
                 .compose(RxTransformers.subscribeAndFilter(PhotoResult.class));
     }
 
+    @Override
+    public Observable<List<Category>> getAllCategories() {
+        return api.getAllCategories();
+    }
+
     private HashMap<String, String> getClientOptions() {
         HashMap<String, String> options = new HashMap<>();
         options.put("client_id", BuildConfig.CLIENT_ID);
@@ -62,5 +68,7 @@ public class RemoteRepository implements Repository {
         options.put("v", "20182509");
         return options;
     }
+
+
 
 }

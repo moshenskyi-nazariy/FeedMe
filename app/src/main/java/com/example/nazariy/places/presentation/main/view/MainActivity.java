@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.nazariy.places.R;
 import com.example.nazariy.places.data.datasource.DataSourceImpl;
 import com.example.nazariy.places.data.repository.remote.RemoteRepository;
+import com.example.nazariy.places.domain.entities.places.Category;
 import com.example.nazariy.places.presentation.base.BaseLoadingActivity;
 import com.example.nazariy.places.presentation.base.ISorter;
 import com.example.nazariy.places.presentation.base.view_model.PlaceListViewModelFactory;
@@ -41,6 +42,7 @@ import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.content.ContextCompat;
@@ -68,7 +70,10 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
     private TextView loginButton;
     private TextView logoutButton;
 
+    private TextView searchButton;
+
     private GoogleSignInMethod googleSignInMethod;
+    private LinearLayoutCompat searchContent;
 
     public static void start(Context context, String userName) {
         Intent starter = new Intent(context, MainActivity.class);
@@ -114,10 +119,19 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
     private void setupUi() {
         loadingIndicator = findViewById(R.id.details__loading_indicator);
         subtitle = findViewById(R.id.subtitle);
+        searchContent = findViewById(R.id.search_content);
+
         TextView searchItem = findViewById(R.id.backdrop_search_item);
         searchItem.setOnClickListener(searchItemView -> {
-            if (searchItemView.isSelected()) searchItemView.setSelected(false);
-            else searchItemView.setSelected(true);
+            if (searchItemView.isSelected()) {
+                searchItemView.setSelected(false);
+                searchContent.setVisibility(View.VISIBLE);
+                placeListViewModel.getAllCategories();
+            }
+            else {
+                searchItemView.setSelected(true);
+                searchContent.setVisibility(View.GONE);
+            }
         });
 
         loginButton.setOnClickListener(view -> startActivityForResult(googleSignInMethod.getSignIntent(),
@@ -185,6 +199,11 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
 
         placeListViewModel.errorMessage.observe(this, this::showMessage);
         placeListViewModel.venueList.observe(this, this::obtainResults);
+        placeListViewModel.categories.observe(this, this::obtainCategories);
+    }
+
+    private void obtainCategories(List<Category> categories) {
+
     }
 
     private void setupRecyclerDelegate() {

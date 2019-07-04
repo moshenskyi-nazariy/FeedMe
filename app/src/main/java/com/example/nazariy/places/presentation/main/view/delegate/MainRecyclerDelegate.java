@@ -42,7 +42,7 @@ public class MainRecyclerDelegate extends BaseRecyclerDelegate<ViewVenue, MainAc
         super.setupRecycler(adapter);
 
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(getLayoutManager(recyclerView));
+        recyclerView.setLayoutManager(getLayoutManager(recyclerView, RecyclerView.VERTICAL));
 
         float density = recyclerView.getContext().getResources().getDisplayMetrics().density;
         recyclerView.addItemDecoration(new SpaceItemDecoration((int) (density * ITEM_PADDING)));
@@ -61,11 +61,4 @@ public class MainRecyclerDelegate extends BaseRecyclerDelegate<ViewVenue, MainAc
         recyclerView.smoothScrollToPosition(0);
     }
 
-    @NonNull
-    private LinearLayoutManager getLayoutManager(RecyclerView recyclerView) {
-        return new LinearLayoutManager(
-                recyclerView.getContext(),
-                RecyclerView.VERTICAL,
-                false);
-    }
 }

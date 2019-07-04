@@ -27,7 +27,6 @@ public class PlaceListViewModel extends BaseRxViewModel {
     public MutableLiveData<String> errorMessage = new MutableLiveData<>();
     public MutableLiveData<List<ViewVenue>> venueList = new MutableLiveData<>();
     public MutableLiveData<Photos> photos = new MutableLiveData<>();
-    public MutableLiveData<List<Category>> categories = new MutableLiveData<>();
 
     public PlaceListViewModel(DataSource placesRepository) {
         this.placesRepository = placesRepository;
@@ -48,20 +47,6 @@ public class PlaceListViewModel extends BaseRxViewModel {
                             errorMessage.setValue(error.getMessage());
                         }
                 ));
-    }
-
-    public void getAllCategories() {
-        isLoading.setValue(true);
-        compositeDisposable.add(placesRepository.getAllCategories()
-                .flatMapIterable(list -> list)
-                .filter(category -> !TextUtils.isEmpty(category.getName()))
-                .toList()
-                .cache()
-                .observeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .doAfterTerminate(() -> isLoading.setValue(false))
-                .subscribe(categoryList -> categories.setValue(categoryList),
-                        error -> errorMessage.setValue(error.getMessage())));
     }
 
     private boolean validateViewVenue(ViewVenue viewVenue) {

@@ -34,9 +34,4 @@ public class DataSourceImpl implements DataSource {
         return remoteDataSource.getPhotos(id);
     }
 
-    @Override
-    public Observable<List<Category>> getAllCategories() {
-        return remoteDataSource.getAllCategories();
-    }
-
 }

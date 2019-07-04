@@ -1,114 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:background="@color/colorPrimary">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/backdrop_search_item"
+        style="@style/BackdropItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_search"
+        android:drawableEnd="@drawable/backdrop_search_item_selector"
+        android:text="@string/backdrop_search_item" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/search_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:background="@color/colorPrimary">
-
-        <TextView
-            android:id="@+id/backdrop_search_item"
-            style="@style/BackdropItem"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_search"
-            android:drawableEnd="@drawable/backdrop_search_item_selector"
-            android:text="@string/backdrop_search_item" />
+        android:visibility="gone">
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/search_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="visible">
+            android:orientation="horizontal">
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="36dp"
-                    android:text="@string/radius"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/body_text_size" />
-
-                <SeekBar
-                    android:id="@+id/radius_seekbar"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/small_margin"
-                    android:layout_marginEnd="@dimen/small_margin"
-                    android:layout_weight="9"
-                    android:thumb="@drawable/seekbar_white_thumb" />
-
-                <TextView
-                    android:id="@+id/radius_value"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="36dp"
-                    android:layout_weight="1"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/body_text_size"
-                    tools:text="32" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="36dp"
-                android:layout_marginTop="@dimen/large_margin"
+                android:text="@string/radius"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/body_text_size" />
+
+            <SeekBar
+                android:id="@+id/radius_seekbar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/small_margin"
+                android:layout_weight="9"
+                android:thumb="@drawable/seekbar_white_thumb" />
+
+            <TextView
+                android:id="@+id/radius_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="36dp"
-                android:layout_marginBottom="@dimen/large_margin">
+                android:layout_weight="1"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/body_text_size"
+                tools:text="32" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/categories"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/body_text_size" />
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/categories_group"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="36dp"
                 android:layout_marginTop="@dimen/large_margin"
                 android:layout_marginEnd="36dp"
                 android:layout_marginBottom="@dimen/large_margin"
-                tools:listitem="@layout/item_category" />
+                android:text="@string/categories"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/body_text_size" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/categories_group"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="@dimen/small_margin"
+                android:paddingBottom="@dimen/small_margin"
+                app:singleLine="false">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/category_cafe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/small_margin"
+                    android:text="@string/cafe_category"
+                    app:closeIcon="@drawable/ic_clear_black_24dp"
+                    app:closeIconEnabled="true" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/category_restaurant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/small_margin"
+                    android:text="@string/restaurant_category"
+                    app:closeIcon="@drawable/ic_clear_black_24dp"
+                    app:closeIconEnabled="true" />
+
+            </com.google.android.material.chip.ChipGroup>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-
-        <TextView
-            android:id="@+id/backdrop_log_out"
-            style="@style/BackdropItem"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/category_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/logout"
-            android:text="@string/backdrop_log_out_item" />
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="@dimen/large_margin"
+            android:layout_marginEnd="36dp"
+            android:layout_marginBottom="@dimen/large_margin"
+            tools:listitem="@layout/item_category" />
 
-        <TextView
-            android:id="@+id/backdrop_log_in"
-            style="@style/BackdropItem"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableStart="@drawable/login"
-            android:text="@string/backdrop_log_in_item" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
-    </LinearLayout>
-</ScrollView>
+
+    <TextView
+        android:id="@+id/backdrop_log_out"
+        style="@style/BackdropItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/logout"
+        android:text="@string/backdrop_log_out_item" />
+
+    <TextView
+        android:id="@+id/backdrop_log_in"
+        style="@style/BackdropItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/login"
+        android:text="@string/backdrop_log_in_item" />
+
+</LinearLayout>

@@ -26,7 +26,4 @@ public interface Api {
     @GET("venues/{venueId}/photos")
     Observable<PhotoResult> getPhotos(@Path("venueId") String venueId,
                                       @QueryMap Map<String, String> options);
-
-    @GET("venues/categories")
-    Observable<List<Category>> getAllCategories();
 }

@@ -23,6 +23,9 @@
     </plurals>
     <string name="facebook_app_id" translatable="false">1320297768126074</string>
     <string name="fb_login_protocol_scheme" translatable="false">fb1320297768126074</string>
-    <string name="radius" translatable="false">Radius:</string>
-    <string name="categories" translatable="false">Categories:</string>
+    <string name="radius">Radius:</string>
+    <string name="categories">Categories:</string>
+    <string name="cafe_category">Cafe</string>
+    <string name="restaurant_category">Restaurant</string>
+    <string name="bar_category">Bar</string>
 </resources>

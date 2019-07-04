@@ -17,7 +17,6 @@ import android.widget.Toast;
 import com.example.nazariy.places.R;
 import com.example.nazariy.places.data.datasource.DataSourceImpl;
 import com.example.nazariy.places.data.repository.remote.RemoteRepository;
-import com.example.nazariy.places.domain.entities.places.Category;
 import com.example.nazariy.places.presentation.base.BaseLoadingActivity;
 import com.example.nazariy.places.presentation.base.ISorter;
 import com.example.nazariy.places.presentation.base.view_model.PlaceListViewModelFactory;
@@ -25,7 +24,12 @@ import com.example.nazariy.places.presentation.base.view_model.ViewModelFactory;
 import com.example.nazariy.places.presentation.details.view.DetailsActivity;
 import com.example.nazariy.places.presentation.main.model.ViewVenue;
 import com.example.nazariy.places.presentation.main.utils.LocationUtils;
+import com.example.nazariy.places.presentation.main.view.delegate.BackdropRecyclerDelegate;
 import com.example.nazariy.places.presentation.main.view.delegate.MainRecyclerDelegate;
+import com.example.nazariy.places.presentation.main.view.recyclerview.categories
+        .CategoriesListAdapter;
+import com.example.nazariy.places.presentation.main.view.recyclerview.categories
+        .CategoryDiffCallback;
 import com.example.nazariy.places.presentation.main.view.recyclerview.venues.PlacesAdapter;
 import com.example.nazariy.places.presentation.main.view.recyclerview.venues.VenueListDiffCallback;
 import com.example.nazariy.places.presentation.main.view.recyclerview.venues.VenueListener;
@@ -36,7 +40,10 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -51,12 +58,13 @@ import androidx.lifecycle.ViewModelProviders;
 import static com.example.nazariy.places.presentation.sign_in.SignInActivity.GOOGLE_REQUEST_CODE;
 
 public class MainActivity extends BaseLoadingActivity implements LocationListener,
-        VenueListener, FilterDialog.OnCompleteListener {
+        VenueListener, FilterDialog.OnCompleteListener, CategoriesListAdapter.ItemClickListener {
 
     private static final int ALL_PERMISSIONS_RESULT = 777;
     public static final String PROFILE_NAME = "Name";
 
     private MainRecyclerDelegate recyclerDelegate;
+    private BackdropRecyclerDelegate backdropRecyclerDelegate;
 
     private PlaceListViewModel placeListViewModel;
 
@@ -74,6 +82,9 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
 
     private GoogleSignInMethod googleSignInMethod;
     private LinearLayoutCompat searchContent;
+
+    private ChipGroup categoryChipGroup;
+    private NavigationIconClickListener navigationListener;
 
     public static void start(Context context, String userName) {
         Intent starter = new Intent(context, MainActivity.class);
@@ -121,16 +132,22 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
         subtitle = findViewById(R.id.subtitle);
         searchContent = findViewById(R.id.search_content);
 
+        categoryChipGroup = findViewById(R.id.categories_group);
+        categoryChipGroup.setSingleSelection(true);
+        categoryChipGroup.setClickable(true);
+
         TextView searchItem = findViewById(R.id.backdrop_search_item);
         searchItem.setOnClickListener(searchItemView -> {
             if (searchItemView.isSelected()) {
                 searchItemView.setSelected(false);
                 searchContent.setVisibility(View.VISIBLE);
-                placeListViewModel.getAllCategories();
+                backdropRecyclerDelegate.obtainResults(Arrays.asList("cafe", "restaurant", "bar"));
+                searchItem.postDelayed(() -> navigationListener.updateSize(), 500);
             }
             else {
                 searchItemView.setSelected(true);
                 searchContent.setVisibility(View.GONE);
+                searchItem.postDelayed(() -> navigationListener.updateSize(), 500);
             }
         });
 
@@ -147,13 +164,14 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
     private void setupToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setNavigationOnClickListener(new NavigationIconClickListener(
+        navigationListener = new NavigationIconClickListener(
                 findViewById(R.id.backdrop),
                 findViewById(R.id.backdrop_back_layer),
                 new AccelerateDecelerateInterpolator(),
                 getDrawable(R.drawable.ic_open_backdrop_24dp),
                 getDrawable(R.drawable.ic_arrow_back)
-        ));
+        );
+        toolbar.setNavigationOnClickListener(navigationListener);
     }
 
     @Override
@@ -199,20 +217,19 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
 
         placeListViewModel.errorMessage.observe(this, this::showMessage);
         placeListViewModel.venueList.observe(this, this::obtainResults);
-        placeListViewModel.categories.observe(this, this::obtainCategories);
-    }
-
-    private void obtainCategories(List<Category> categories) {
-
     }
 
     private void setupRecyclerDelegate() {
         recyclerDelegate = new MainRecyclerDelegate(findViewById(R.id.main__place_list));
         recyclerDelegate.bind(this);
+
+        backdropRecyclerDelegate = new BackdropRecyclerDelegate(findViewById(R.id.category_list));
+        backdropRecyclerDelegate.bind(this);
     }
 
     private void setupRecycler() {
         recyclerDelegate.setupRecycler(new PlacesAdapter(this, new VenueListDiffCallback()));
+        backdropRecyclerDelegate.setupRecycler(new CategoriesListAdapter(this, new CategoryDiffCallback()));
     }
 
     public void obtainResults(List<ViewVenue> placeResult) {
@@ -275,5 +292,14 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
             venues = venueSorter.sort(sortingType, venues);
             recyclerDelegate.swapLists(venues);
         }
+    }
+
+    @Override
+    public void categorySelected(String categoryName) {
+        Chip newChip = new Chip(this);
+        newChip.setText(categoryName);
+        newChip.setCloseIcon(getDrawable(R.drawable.ic_clear_black_24dp));
+        newChip.setOnCloseIconClickListener(view -> categoryChipGroup.removeView(newChip));
+        categoryChipGroup.addView(newChip);
     }
 }

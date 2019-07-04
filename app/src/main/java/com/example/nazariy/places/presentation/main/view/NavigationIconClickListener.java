@@ -17,7 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public class NavigationIconClickListener implements View.OnClickListener {
-    private static final String TAG = "NavigationIconClickListener";
+    private static final int ANIMATION_DURATION = 500;
 
     private final View sheet;
     private final Interpolator interpolator;
@@ -60,7 +60,7 @@ public class NavigationIconClickListener implements View.OnClickListener {
 
         ObjectAnimator animator = ObjectAnimator.ofFloat(sheet, "translationY", isBackdropShown ?
                 backdropMenuHeight : 0);
-        animator.setDuration(500);
+        animator.setDuration(ANIMATION_DURATION);
         if (interpolator != null) {
             animator.setInterpolator(interpolator);
         }
@@ -75,20 +75,17 @@ public class NavigationIconClickListener implements View.OnClickListener {
             }
             ImageView iconImageView = (ImageView) view;
             if (isBackdropShown) {
-                animateIconChange(iconImageView, () -> {
-                    if (closeIcon != null) {
-                        (iconImageView).setImageDrawable(closeIcon);
-                        backdropLayout.setVisibility(View.VISIBLE);
-                    }
-                });
+                animateIconChange(iconImageView, () -> changeIconState(iconImageView, closeIcon, View.VISIBLE));
             } else {
-                animateIconChange(iconImageView, () -> {
-                    if (closeIcon != null) {
-                        (iconImageView).setImageDrawable(openIcon);
-                        backdropLayout.setVisibility(View.GONE);
-                    }
-                });
+                animateIconChange(iconImageView, () -> changeIconState(iconImageView, openIcon, View.GONE));
             }
+        }
+    }
+
+    private void changeIconState(ImageView iconImageView, Drawable closeIcon, int visible) {
+        if (closeIcon != null) {
+            (iconImageView).setImageDrawable(closeIcon);
+            backdropLayout.setVisibility(visible);
         }
     }
 
@@ -112,5 +109,24 @@ public class NavigationIconClickListener implements View.OnClickListener {
         }
         animatorSet.play(showAnim).before(fadeIn);
         animatorSet.start();
+    }
+
+    public void updateSize() {
+        // Cancel the existing animations
+        animatorSet.removeAllListeners();
+        animatorSet.end();
+        animatorSet.cancel();
+
+        final int backdropMenuHeight = backdropLayout.getMeasuredHeight() +
+                ((FrameLayout.LayoutParams) backdropLayout.getLayoutParams()).bottomMargin;
+
+        ObjectAnimator animator = ObjectAnimator.ofFloat(sheet, "translationY",
+                backdropMenuHeight);
+        animator.setDuration(ANIMATION_DURATION);
+        if (interpolator != null) {
+            animator.setInterpolator(interpolator);
+        }
+        animatorSet.play(animator);
+        animator.start();
     }
 }

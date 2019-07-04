@@ -17,6 +17,4 @@ public interface DataSource {
 
     Observable<PhotoResult> getPhotos(String id);
 
-    Observable<List<Category>> getAllCategories();
-
 }

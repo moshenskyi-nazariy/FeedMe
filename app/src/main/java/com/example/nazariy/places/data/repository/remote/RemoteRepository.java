@@ -15,16 +15,27 @@ import java.util.HashMap;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RemoteRepository implements Repository {
     private Api api;
+    private static final OkHttpClient okhttpClient;
+
+    static {
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.level(HttpLoggingInterceptor.Level.BASIC);
+        okhttpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
+    }
 
     public RemoteRepository() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BuildConfig.BASE_URL)
+                .client(okhttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
@@ -54,11 +65,6 @@ public class RemoteRepository implements Repository {
     public Observable<PhotoResult> getPhotos(String id) {
         return api.getPhotos(id, getClientOptions())
                 .compose(RxTransformers.subscribeAndFilter(PhotoResult.class));
-    }
-
-    @Override
-    public Observable<List<Category>> getAllCategories() {
-        return api.getAllCategories();
     }
 
     private HashMap<String, String> getClientOptions() {

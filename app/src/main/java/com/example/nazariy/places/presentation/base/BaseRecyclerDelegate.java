@@ -2,6 +2,8 @@ package com.example.nazariy.places.presentation.base;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,6 +34,18 @@ public abstract class BaseRecyclerDelegate<Result, View> {
         this.adapter = adapter;
     }
 
-    public abstract void swapLists(List<Result> newList);
+    public void swapLists(List<Result> newList) {
+        adapter.submitList(null);
+        adapter.submitList(newList);
+    }
+
+    @NonNull
+    protected LinearLayoutManager getLayoutManager(RecyclerView recyclerView, @RecyclerView
+            .Orientation int orientation) {
+        return new LinearLayoutManager(
+                recyclerView.getContext(),
+                orientation,
+                false);
+    }
 
 }

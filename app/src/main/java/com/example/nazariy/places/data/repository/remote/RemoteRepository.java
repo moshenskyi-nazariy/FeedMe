@@ -28,7 +28,7 @@ public class RemoteRepository implements Repository {
 
     static {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-        loggingInterceptor.level(HttpLoggingInterceptor.Level.BASIC);
+        loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
         okhttpClient = new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
     }
 
@@ -44,14 +44,22 @@ public class RemoteRepository implements Repository {
     }
 
     @Override
-    public Observable<List<Venue>> getPlaces(String location, int radius, String query) {
+    public Observable<List<Venue>> getPlaces(String location, int radius, String... query) {
         HashMap<String, String> options = getClientOptions();
-        options.put("query", query);
+        options.put("query", prepareQuery(query));
         options.put("ll", location);
         options.put("radius", String.valueOf(radius));
         return api.getPlaces(options)
                 .compose(RxTransformers.subscribeAndFilter(PlaceResult.class))
                 .map(placeResult -> placeResult.getResponse().getVenues());
+    }
+
+    private String prepareQuery(String[] queryParams) {
+        StringBuilder query = new StringBuilder();
+        for (String item : queryParams) {
+            query.append(item).append(",");
+        }
+        return query.delete(query.length() - 1, query.length()).toString();
     }
 
     @Override

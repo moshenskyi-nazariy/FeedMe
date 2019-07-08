@@ -19,7 +19,7 @@ public class DataSourceImpl implements DataSource {
     }
 
     @Override
-    public Observable<List<Venue>> getPlaces(String location, int radius, String query) {
+    public Observable<List<Venue>> getPlaces(String location, int radius, String... query) {
         return remoteDataSource.getPlaces(location, radius, query);
     }
 

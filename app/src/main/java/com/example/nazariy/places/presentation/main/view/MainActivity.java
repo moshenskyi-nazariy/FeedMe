@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -33,6 +34,7 @@ import com.example.nazariy.places.presentation.main.view.recyclerview.categories
 import com.example.nazariy.places.presentation.main.view.recyclerview.venues.PlacesAdapter;
 import com.example.nazariy.places.presentation.main.view.recyclerview.venues.VenueListDiffCallback;
 import com.example.nazariy.places.presentation.main.view.recyclerview.venues.VenueListener;
+import com.example.nazariy.places.presentation.main.view.utils.ChipUtils;
 import com.example.nazariy.places.presentation.main.viewmodel.PlaceListViewModel;
 import com.example.nazariy.places.presentation.sign_in.google.GoogleSignInMethod;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -41,6 +43,7 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipDrawable;
 import com.google.android.material.chip.ChipGroup;
 
 import java.util.Arrays;
@@ -78,7 +81,7 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
     private TextView loginButton;
     private TextView logoutButton;
 
-    private TextView searchButton;
+    private String locationData;
 
     private GoogleSignInMethod googleSignInMethod;
     private LinearLayoutCompat searchContent;
@@ -139,14 +142,17 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
         TextView searchItem = findViewById(R.id.backdrop_search_item);
         searchItem.setOnClickListener(searchItemView -> {
             if (searchItemView.isSelected()) {
+                searchItem.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.drawable.ic_search),
+                        null, getDrawable(R.drawable.ic_expand_more), null);
                 searchItemView.setSelected(false);
+                searchContent.setVisibility(View.GONE);
+                searchItem.postDelayed(() -> navigationListener.updateSize(), 500);
+            } else {
+                searchItem.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.drawable.ic_search),
+                        null, getDrawable(R.drawable.ic_expand_less), null);
+                searchItemView.setSelected(true);
                 searchContent.setVisibility(View.VISIBLE);
                 backdropRecyclerDelegate.obtainResults(Arrays.asList("cafe", "restaurant", "bar"));
-                searchItem.postDelayed(() -> navigationListener.updateSize(), 500);
-            }
-            else {
-                searchItemView.setSelected(true);
-                searchContent.setVisibility(View.GONE);
                 searchItem.postDelayed(() -> navigationListener.updateSize(), 500);
             }
         });
@@ -251,7 +257,7 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
 
     @Override
     public void onLocationChanged(Location location) {
-        String locationData = String.format(Locale.US, "%f, %f", location.getLatitude(),
+        locationData = String.format(Locale.US, "%f, %f", location.getLatitude(),
                 location.getLongitude());
 
         placeListViewModel.getPlaces(locationData, 5000, "cafe");
@@ -296,10 +302,17 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
 
     @Override
     public void categorySelected(String categoryName) {
-        Chip newChip = new Chip(this);
-        newChip.setText(categoryName);
-        newChip.setCloseIcon(getDrawable(R.drawable.ic_clear_black_24dp));
-        newChip.setOnCloseIconClickListener(view -> categoryChipGroup.removeView(newChip));
-        categoryChipGroup.addView(newChip);
+        categoryChipGroup.addView(getChip(categoryChipGroup, categoryName));
+        placeListViewModel.getPlaces(locationData, 5000, ChipUtils.getChildren(categoryChipGroup));
+    }
+
+    private Chip getChip(final ChipGroup chipGroup, String text){
+        final Chip chip = new Chip(this);
+        chip.setChipDrawable(ChipDrawable.createFromResource(this, R.xml.chip));
+        int paddingDp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics());
+        chip.setPadding(paddingDp, paddingDp, paddingDp, paddingDp);
+        chip.setText(text);
+        chip.setOnCloseIconClickListener(v -> chipGroup.removeView(chip));
+        return chip;
     }
 }

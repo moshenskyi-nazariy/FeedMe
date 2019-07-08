@@ -16,6 +16,8 @@ public abstract class BaseRecyclerDelegate<Result, View> {
 
     protected RecyclerView recyclerView;
 
+    protected LinearLayoutManager layoutManager;
+
     protected BaseRecyclerDelegate(RecyclerView recyclerView) {
         this.recyclerView = recyclerView;
     }
@@ -42,10 +44,13 @@ public abstract class BaseRecyclerDelegate<Result, View> {
     @NonNull
     protected LinearLayoutManager getLayoutManager(RecyclerView recyclerView, @RecyclerView
             .Orientation int orientation) {
-        return new LinearLayoutManager(
-                recyclerView.getContext(),
-                orientation,
-                false);
+        if (layoutManager == null) {
+            layoutManager = new LinearLayoutManager(
+                    recyclerView.getContext(),
+                    orientation,
+                    false);
+        }
+        return layoutManager;
     }
 
 }

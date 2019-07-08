@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableStart="@drawable/ic_search"
-        android:drawableEnd="@drawable/backdrop_search_item_selector"
+        android:drawableEnd="@drawable/ic_expand_more"
         android:text="@string/backdrop_search_item" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -73,33 +73,20 @@
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/body_text_size" />
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/categories_group"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingTop="@dimen/small_margin"
-                android:paddingBottom="@dimen/small_margin"
-                app:singleLine="false">
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/category_cafe"
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/categories_group"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/small_margin"
-                    android:text="@string/cafe_category"
-                    app:closeIcon="@drawable/ic_clear_black_24dp"
-                    app:closeIconEnabled="true" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/category_restaurant"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/small_margin"
-                    android:text="@string/restaurant_category"
-                    app:closeIcon="@drawable/ic_clear_black_24dp"
-                    app:closeIconEnabled="true" />
-
-            </com.google.android.material.chip.ChipGroup>
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:clipToPadding="false"
+                    android:paddingTop="@dimen/small_margin"
+                    android:paddingBottom="@dimen/small_margin"
+                    app:singleLine="true" />
+            </HorizontalScrollView>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

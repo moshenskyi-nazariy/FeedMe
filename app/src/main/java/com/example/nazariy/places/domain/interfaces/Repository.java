@@ -11,7 +11,7 @@ import io.reactivex.Observable;
 
 public interface Repository {
 
-    Observable<List<Venue>> getPlaces(String location, int radius, String query);
+    Observable<List<Venue>> getPlaces(String location, int radius, String... query);
 
     Observable<com.example.nazariy.places.domain.entities.details.Venue> getPlaceDetails(String id);
 

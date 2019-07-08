@@ -31,6 +31,7 @@ public class MainRecyclerDelegate extends BaseRecyclerDelegate<ViewVenue, MainAc
     @Override
     public void obtainResults(List<ViewVenue> results) {
         if (results != null) {
+            layoutManager.scrollToPosition(0);
             recyclerView.setLayoutAnimation(animationController);
             adapter.submitList(results);
             recyclerView.scheduleLayoutAnimation();

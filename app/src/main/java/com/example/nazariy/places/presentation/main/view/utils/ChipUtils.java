@@ -8,8 +8,21 @@ public class ChipUtils {
         int childCount = chipGroup.getChildCount();
         String[] childNames = new String[childCount];
         for (int i = 0; i < childCount; i++) {
-            childNames[i] = (String) ((Chip) chipGroup.getChildAt(i)).getText();
+            childNames[i] = ((Chip) chipGroup.getChildAt(i)).getText().toString();
         }
         return childNames;
+    }
+
+    public static boolean contains(ChipGroup chipGroup, String chipName) {
+        boolean contains = false;
+
+        int childCount = chipGroup.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            if (chipName.equalsIgnoreCase(((Chip) chipGroup.getChildAt(i)).getText().toString())) {
+                contains = true;
+                break;
+            }
+        }
+        return contains;
     }
 }

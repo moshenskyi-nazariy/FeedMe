@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -86,6 +87,9 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
     private GoogleSignInMethod googleSignInMethod;
     private LinearLayoutCompat searchContent;
 
+    private SeekBar radiusSeekBar;
+    private TextView radiusTextView;
+
     private ChipGroup categoryChipGroup;
     private NavigationIconClickListener navigationListener;
 
@@ -99,6 +103,8 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        getLocation();
 
         googleSignInMethod = new GoogleSignInMethod(this);
         googleSignInMethod.init();
@@ -115,8 +121,6 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
         setupUi();
         setupRecycler();
 
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        getLocation();
         setupViewModel();
     }
 
@@ -138,6 +142,10 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
         categoryChipGroup = findViewById(R.id.categories_group);
         categoryChipGroup.setSingleSelection(true);
         categoryChipGroup.setClickable(true);
+        categoryChipGroup.addView(getChip(categoryChipGroup, "cafe"));
+
+        radiusSeekBar = findViewById(R.id.radius_seekbar);
+        radiusTextView = findViewById(R.id.radius_value);
 
         TextView searchItem = findViewById(R.id.backdrop_search_item);
         searchItem.setOnClickListener(searchItemView -> {
@@ -260,7 +268,10 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
         locationData = String.format(Locale.US, "%f, %f", location.getLatitude(),
                 location.getLongitude());
 
-        placeListViewModel.getPlaces(locationData, 5000, "cafe");
+        radiusSeekBar.setOnSeekBarChangeListener(new RadiusChangeListener(radiusTextView,
+                locationData, categoryChipGroup, placeListViewModel));
+
+        placeListViewModel.getPlaces(locationData, Integer.valueOf(radiusTextView.getText().toString()), "cafe");
     }
 
     @Override
@@ -302,8 +313,12 @@ public class MainActivity extends BaseLoadingActivity implements LocationListene
 
     @Override
     public void categorySelected(String categoryName) {
-        categoryChipGroup.addView(getChip(categoryChipGroup, categoryName));
-        placeListViewModel.getPlaces(locationData, 5000, ChipUtils.getChildren(categoryChipGroup));
+        if (!ChipUtils.contains(categoryChipGroup, categoryName)) {
+            categoryChipGroup.addView(getChip(categoryChipGroup, categoryName));
+            placeListViewModel.getPlaces(locationData, Integer.valueOf(radiusTextView.getText().toString()),
+
+                    ChipUtils.getChildren(categoryChipGroup));
+        }
     }
 
     private Chip getChip(final ChipGroup chipGroup, String text){

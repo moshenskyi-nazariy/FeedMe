@@ -43,7 +43,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/small_margin"
                 android:layout_marginEnd="@dimen/small_margin"
-                android:layout_weight="9"
+                android:layout_weight="8"
+                android:max="5000"
+                android:progress="5000"
                 android:thumb="@drawable/seekbar_white_thumb" />
 
             <TextView
@@ -51,10 +53,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="36dp"
-                android:layout_weight="1"
+                android:layout_weight="2"
+                android:text="@string/max_radius"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/body_text_size"
-                tools:text="32" />
+                android:textSize="@dimen/body_text_size" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat

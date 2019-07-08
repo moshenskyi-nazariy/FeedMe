@@ -12,9 +12,6 @@
     <string name="backdrop_search_item">Пошук</string>
     <string name="backdrop_log_out_item">Вихід</string>
     <string name="backdrop_log_in_item">Вхід</string>
-    <string name="cafe_category">Кафе</string>
     <string name="radius">Радіус:</string>
     <string name="categories">Категорії:</string>
-    <string name="restaurant_category">Ресторан</string>
-    <string name="bar_category">Бар</string>
 </resources>
